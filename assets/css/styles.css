@@ -265,8 +265,7 @@ main { overflow-x: clip; }
 
 /* ---------- Auto-scrolling gallery ---------- */
 .reel { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-.reel__track { display: flex; gap: 16px; width: max-content; animation: reel 48s linear infinite; }
-.reel:hover .reel__track, .reel:focus-within .reel__track { animation-play-state: paused; }
+.reel__track { display: flex; gap: 16px; width: max-content; }
 @keyframes reel { to { transform: translateX(calc(-50% - 8px)); } }
 .reel figure { margin: 0; flex: none; width: clamp(240px, 26vw, 360px); }
 .reel figure.tall { width: clamp(180px, 18vw, 250px); }
@@ -705,8 +704,7 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 .reviews { grid-template-columns: 320px 1fr; }
 .rsum { position: relative; z-index: 1; }
 .reviews__list { min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); padding-block: 6px; }
-.reviews__track { display: flex; gap: 16px; width: max-content; animation: reel 46s linear infinite; }
-.reviews__list:hover .reviews__track, .reviews__list:focus-within .reviews__track { animation-play-state: paused; }
+.reviews__track { display: flex; gap: 16px; width: max-content; }
 .reviews__track .review { flex: none; width: 300px; }
 @media (max-width: 1100px) { .reviews { grid-template-columns: 1fr; } }
 @media (max-width: 900px) {
@@ -719,3 +717,28 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 .num__ring { right: -28px; top: -28px; width: 116px; height: 116px; opacity: .9; pointer-events: none; }
 @media (max-width: 600px) { .num:first-child { padding-right: 96px; } .num__ring { width: 100px; height: 100px; } }
 .rating .stars .ic { color: #f4b400; font-size: inherit; }
+
+/* ---------- Auto + manual scrolling strips (gallery, reviews) ---------- */
+[data-marquee] { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; cursor: grab; }
+[data-marquee]::-webkit-scrollbar { display: none; }
+[data-marquee].is-drag { cursor: grabbing; user-select: none; }
+@media (max-width: 900px) { .reviews__list[data-marquee] { overflow-x: auto; } }
+
+/* ---------- Mobile hero: small chips that sit on the edges of the photo ---------- */
+@media (max-width: 900px) {
+  .hero__art { width: min(78%, 360px); margin-top: 8px; }
+  .hero .chip { padding: 8px 12px; gap: 8px; border-radius: 14px; }
+  .hero .chip b { font-size: 1rem; }
+  .hero .chip span { font-size: .72rem; }
+  .hero .chip .ic { font-size: 1.1rem; }
+  .hero .chip--a { left: -22px; top: 12%; }
+  .hero .rating.chip { left: auto; right: -22px; bottom: 10%; padding: 8px 12px; }
+  .hero .rating.chip > b { font-size: 1.15rem; }
+  .hero .rating.chip .stars { display: none; }
+  .hero .rating.chip > span:last-child { max-width: none; white-space: nowrap; }
+  .hero .rating.chip strong { font-size: .76rem; }
+}
+@media (max-width: 900px) {
+  .hero__copy { padding-bottom: 20px; }
+  .hero .chip--a { top: 3%; }
+}

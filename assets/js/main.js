@@ -249,6 +249,43 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     if (!reduce) { addEventListener('scroll', upd, { passive: true }); upd(); }
   });
 
+  /* ---------- Strips that scroll on their own but can also be swiped / dragged ---------- */
+  $$('[data-marquee]').forEach((box) => {
+    const track = box.firstElementChild;
+    const dup = $('[aria-hidden="true"] > *', track);
+    const speed = +box.dataset.marquee || 40; // px per second
+    let pos = 0, holdUntil = 0, hover = false, visible = true, prev = performance.now();
+    const loopAt = () => (dup ? dup.offsetLeft - track.firstElementChild.offsetLeft : track.scrollWidth / 2);
+    const hold = (ms = 2500) => { holdUntil = performance.now() + ms; };
+    // keep manual scrolling endless too
+    box.addEventListener('scroll', () => {
+      const L = loopAt();
+      if (Math.abs(box.scrollLeft - pos) > 2) { hold(); pos = box.scrollLeft; }
+      if (L > 0 && box.scrollLeft >= L) { pos = box.scrollLeft - L; box.scrollLeft = pos; }
+    }, { passive: true });
+    ['touchstart', 'wheel', 'focusin'].forEach((ev) => box.addEventListener(ev, () => hold(), { passive: true }));
+    box.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
+    box.addEventListener('pointerleave', () => { hover = false; });
+    // mouse drag on desktop
+    let dragX = null, startLeft = 0, moved = 0;
+    box.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; dragX = e.clientX; startLeft = box.scrollLeft; moved = 0; });
+    addEventListener('pointermove', (e) => { if (dragX === null) return; moved = Math.abs(e.clientX - dragX); if (moved > 4) box.classList.add('is-drag'); box.scrollLeft = startLeft - (e.clientX - dragX); hold(); });
+    addEventListener('pointerup', () => { dragX = null; setTimeout(() => box.classList.remove('is-drag'), 0); });
+    box.addEventListener('click', (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
+    box.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); hold(4000); box.scrollBy({ left: e.key === 'ArrowRight' ? 280 : -280, behavior: 'smooth' }); } });
+    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(box);
+    if (reduce) return;
+    (function tick(now) {
+      const dt = Math.min(0.05, (now - prev) / 1000); prev = now;
+      if (visible && !hover && dragX === null && now > holdUntil && !document.hidden) {
+        const L = loopAt();
+        pos += speed * dt; if (L > 0 && pos >= L) pos -= L;
+        box.scrollLeft = pos;
+      }
+      requestAnimationFrame(tick);
+    })(prev);
+  });
+
   /* ---------- Lightbox (iris open) ---------- */
   const lb = $('#lb');
   const items = $$('.reel__track > figure button, .collage button');

@@ -273,7 +273,7 @@ def reviews_section():
               <a class="btn btn--line btn--sm" href="{r["url"]}" target="_blank" rel="noopener">View source{ic('i-go', 'ic ic--go')}</a>
             </div>
           </div>
-          <div class="reviews__list" data-fx="fade"><div class="reviews__track">{cards}<div class="reviews__dup" aria-hidden="true" style="display:contents">{cards.replace(' data-fx="fade"', '')}</div></div></div>
+          <div class="reviews__list" data-marquee="42" tabindex="0" aria-label="Patient reviews — scrolls automatically, swipe or drag to browse"><div class="reviews__track">{cards}<div class="reviews__dup" aria-hidden="true" style="display:contents">{cards.replace(' data-fx="fade"', '')}</div></div></div>
         </div>
       </div>
     </section>"""
@@ -502,7 +502,7 @@ def home():
       <div class="wrap">
         {sec_head('Gallery', 'With patients, teams <span class="grad-text">&amp; peers</span>', 'Moments from the ward, the clinic and conferences. Tap a photo to view it larger.', hid='gal-title')}
       </div>
-      <div class="reel" data-reel><div class="reel__track">{reel}<div class="reel__dup" aria-hidden="true" style="display:contents">{reel_dup}</div></div></div>
+      <div class="reel" data-marquee="36" tabindex="0" aria-label="Photo gallery — scrolls automatically, swipe to browse"><div class="reel__track">{reel}<div class="reel__dup" aria-hidden="true" style="display:contents">{reel_dup}</div></div></div>
     </section>
 {reviews_section()}
 {where_section()}
