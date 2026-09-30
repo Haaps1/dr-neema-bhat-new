@@ -26,7 +26,7 @@ SERVICES = [
 BMT_PAGE = "bone-marrow-transplant.html"
 
 # Mobile treatments layout: "icons" (app icon grid) or "tiles" (bento tiles).
-# The visitor can switch with the Icons / Tiles control; set SHOW_SVC_SWITCH = False
+# The visitor can switch with the Option 1 / Option 2 control; set SHOW_SVC_SWITCH = False
 # once a final layout is chosen to hide the control.
 SVC_MOBILE_DEFAULT = "icons"
 SHOW_SVC_SWITCH = True
@@ -308,8 +308,8 @@ def svc_mobile():
         f'<span class="tile__txt"><small>{c.replace("&", "&amp;")}</small><b>{n}</b></span><span class="tile__go">{ic("i-go")}</span></a>' for n, s, c, _ in order)
     switch = "" if not SHOW_SVC_SWITCH else f"""
           <div class="vswitch" role="group" aria-label="Choose layout">
-            <button type="button" data-view="icons" aria-pressed="false">{ic('i-cells')}Icons</button>
-            <button type="button" data-view="tiles" aria-pressed="false">{ic('i-doc')}Tiles</button>
+            <button type="button" data-view="icons" aria-pressed="false">Option 1</button>
+            <button type="button" data-view="tiles" aria-pressed="false">Option 2</button>
           </div>"""
     return f"""
         <div class="svc-m" data-svc-m data-view="{SVC_MOBILE_DEFAULT}">{switch}

@@ -784,3 +784,12 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 .tile--feat b { font-size: 1.02rem; }
 .tile--feat .tile__go { position: static; background: rgba(255, 255, 255, .2); color: #fff; }
 [data-m-svc].is-flash { animation: flash 1.4s var(--ease) 2; border-radius: 20px; }
+
+/* gradient fills reach the rounded edges (no mismatched border ring) */
+.choice input:checked + span, .svc--feat, .stp.is-on .stp__n { background: var(--grad) border-box; }
+.choice input:checked + span { border-color: transparent; box-shadow: 0 8px 20px -12px rgba(15, 38, 93, .5); }
+
+/* mobile hero: experience card sits beside her, not over her head */
+@media (max-width: 900px) {
+  .hero .chip--a { top: 42%; left: -26px; }
+}
