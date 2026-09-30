@@ -1,0 +1,9 @@
+{
+  "name": "Dr. Neema Bhat — Hematologist & Pediatric Oncologist",
+  "short_name": "Dr. Neema Bhat",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#081536",
+  "icons": [{ "src": "assets/images/logo-mark.png", "sizes": "229x275", "type": "image/png" }]
+}
