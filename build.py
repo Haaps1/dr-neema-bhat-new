@@ -359,26 +359,16 @@ def home():
             <a class="btn btn--grad" href="contact.html">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
             <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
           </div>
-          <ul class="trust" data-fx="fade" style="--d:.5s">
-            <li>{ic('i-check')}10+ years experience</li>
-            <li>{ic('i-check')}Children &amp; adults</li>
-            <li>{ic('i-check')}HOD, BMT Unit</li>
-          </ul>
+          <div class="facts facts--hero" data-fx="fade" style="--d:.5s">
+            <div class="fact">{ic('i-marrow')}<b>100+ transplants</b><span>Performed and supervised</span></div>
+            <div class="fact">{ic('i-users')}<b>Children &amp; adults</b><span>Pediatric and adult BMT</span></div>
+            <div class="fact">{ic('i-hosp')}<b>Dedicated unit</b><span>Bhagawan Mahaveer Jain Hospital</span></div>
+          </div>
         </div>
         <div class="hero__art" data-fx="iris" style="--d:.1s">
           <div class="frame"><img src="assets/images/portrait-scrubs.webp" srcset="assets/images/portrait-scrubs-720.webp 720w, assets/images/portrait-scrubs.webp 1200w" sizes="(max-width: 900px) 80vw, 460px" alt="Dr. Neema Bhat in a white coat over blue scrubs, arms folded" width="1200" height="1873" fetchpriority="high"></div>
           <div class="chip chip--a">{ic('i-award')}<div><b>10+ Years</b><span>Specialist experience</span></div></div>
           <div class="chip chip--b">{ic('i-marrow')}<div><b>100+</b><span>Bone marrow transplants</span></div></div>
-        </div>
-      </div>
-      <div class="places">
-        <div class="wrap places__in">
-          <span>Consults at</span>
-          <ul>
-            <li>{ic('i-hosp')}Apollo Hospitals, Bannerghatta Road</li>
-            <li>{ic('i-hosp')}Apollo Cradle, Electronic City</li>
-            <li>{ic('i-hosp')}Bhagawan Mahaveer Jain Hospital</li>
-          </ul>
         </div>
       </div>
     </section>
