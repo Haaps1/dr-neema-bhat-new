@@ -73,23 +73,19 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     });
     addEventListener('scroll', check, { passive: true });
     addEventListener('resize', check);
-    // horizontal rails: reveal items as they're dragged/swiped into view
+    // service rail: reveal cards as they're swiped into view
     document.addEventListener('pointerup', () => setTimeout(check, 400));
-    $$('.stack, [data-rail]').forEach((r) => r.addEventListener('scroll', check, { passive: true }));
+    $$('[data-svc]').forEach((r) => r.addEventListener('scroll', check, { passive: true }));
     check();
   }
 
-  /* ---------- App bar ---------- */
-  const bar = $('.appbar');
-  const hero = $('.hero, .phero');
-  let lastY = scrollY;
+  /* ---------- Header: always visible, shadow + scroll progress ---------- */
+  const bar = $('.bar');
   const onScroll = raf(() => {
     const y = scrollY;
-    const past = hero ? y > hero.offsetHeight - 80 : y > 10;
-    bar.classList.toggle('is-solid', past || y > 30 && !hero);
-    bar.classList.toggle('is-hidden', y > 400 && y > lastY + 4 && !sheet?.classList.contains('is-open'));
-    if (y < lastY - 4) bar.classList.remove('is-hidden');
-    lastY = y;
+    bar.classList.toggle('is-scrolled', y > 8);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.setProperty('--prog', max > 0 ? (y / max).toFixed(4) : 0);
     const wzBox = $('#wizard')?.getBoundingClientRect();
     const formOnScreen = wzBox && wzBox.top < innerHeight && wzBox.bottom > 0;
     $('.fab')?.classList.toggle('is-shown', y > 380 && !formOnScreen);
@@ -136,20 +132,10 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     });
   }
 
-  /* ---------- Buttons: liquid fill from pointer, magnet, tap ripple ---------- */
-  $$('.btn').forEach((b) => {
-    b.addEventListener('pointerenter', (e) => { const r = b.getBoundingClientRect(); b.style.setProperty('--mx', `${e.clientX - r.left}px`); b.style.setProperty('--my', `${e.clientY - r.top}px`); });
-    b.addEventListener('pointerleave', (e) => { const r = b.getBoundingClientRect(); b.style.setProperty('--mx', `${e.clientX - r.left}px`); b.style.setProperty('--my', `${e.clientY - r.top}px`); });
-  });
-  if (fine && !reduce) {
-    $$('.magnet').forEach((m) => {
-      m.addEventListener('pointermove', (e) => { const r = m.getBoundingClientRect(); m.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.2}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`; });
-      m.addEventListener('pointerleave', () => { m.style.transform = ''; });
-    });
-  }
+  /* ---------- Tap ripple (touch devices) ---------- */
   if (!fine) {
     document.addEventListener('pointerdown', (e) => {
-      const t = e.target.closest('.btn, .scard, .ccard, .choice span, .seg button, .appbar__icon, .fab, .sheet__nav a, .sheet__nav button');
+      const t = e.target.closest('.btn, .svc, .ccard, .choice span, .seg button, .bar__icon, .fab, .sheet__nav a, .sheet__nav button');
       if (!t || reduce) return;
       const r = t.getBoundingClientRect(); const s = Math.max(r.width, r.height) * 2.2;
       const dot = document.createElement('span'); dot.className = 'ripple';
@@ -159,107 +145,37 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     });
   }
 
-  /* ---------- Custom cursor ---------- */
-  if (fine && !reduce) {
-    document.documentElement.classList.add('has-cursor');
-    const ring = $('.cursor'), dot = $('.cursor-dot');
-    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
-    addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px, ${y}px)`; });
-    (function loop() { rx += (x - rx) * 0.18; ry += (y - ry) * 0.18; ring.style.transform = `translate(${rx}px, ${ry}px)`; requestAnimationFrame(loop); })();
-    document.addEventListener('pointerover', (e) => {
-      ring.classList.toggle('is-view', !!e.target.closest('.shot__img, .mosaic figure'));
-      ring.classList.toggle('is-link', !!e.target.closest('a, button, label, summary') && !e.target.closest('.shot__img'));
-    });
+  /* ---------- Hero title: smooth crossfade (fixed box, nothing shifts) ---------- */
+  const fader = $('[data-fader]');
+  if (fader && !reduce) {
+    const words = $$('span', fader); let wi = 0;
+    // size the box to the widest word so the layout never moves
+    const fit = () => { fader.style.minWidth = `${Math.max(...words.map((w) => w.scrollWidth))}px`; };
+    fit(); addEventListener('resize', fit);
+    setInterval(() => {
+      if (document.hidden) return;
+      words[wi].classList.remove('is-on'); wi = (wi + 1) % words.length; words[wi].classList.add('is-on');
+    }, 2800);
   }
 
-  /* ---------- Hero: pointer glow + decoding headline ---------- */
-  const glowHost = $('[data-glow]');
-  if (glowHost && fine && !reduce) {
-    glowHost.addEventListener('pointermove', (e) => {
-      const r = glowHost.getBoundingClientRect();
-      glowHost.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
-      glowHost.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
-    });
-  }
-  const scr = $('[data-scramble]');
-  if (scr && !reduce) {
-    const words = scr.dataset.scramble.split('|');
-    const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+×#';
-    let wi = 0;
-    const decode = (to) => new Promise((done) => {
-      const from = scr.textContent; const len = Math.max(from.length, to.length); let f = 0;
-      const q = [...Array(len)].map((_, i) => ({ from: from[i] || '', to: to[i] || '', start: Math.floor(Math.random() * 14), end: 14 + Math.floor(Math.random() * 18) }));
-      (function tick() {
-        let out = '', finished = 0;
-        q.forEach((c) => {
-          if (f >= c.end) { finished++; out += c.to; }
-          else if (f >= c.start) out += c.to === ' ' ? ' ' : glyphs[Math.floor(Math.random() * glyphs.length)];
-          else out += c.from;
-        });
-        scr.textContent = out; f++;
-        if (finished === q.length) done(); else requestAnimationFrame(tick);
-      })();
-    });
-    setInterval(async () => { if (document.hidden) return; wi = (wi + 1) % words.length; await decode(words[wi]); }, 3200);
-  }
-
-  /* ---------- Hero art: 3D tilt with pointer ---------- */
-  const scene = $('[data-tilt-scene]');
-  if (scene && fine && !reduce) {
-    const arch = $('.arch', scene);
-    glowHost?.addEventListener('pointermove', (e) => {
-      const nx = e.clientX / innerWidth - 0.5, ny = e.clientY / innerHeight - 0.5;
-      arch.style.transform = `perspective(1000px) rotateY(${nx * 8}deg) rotateX(${-ny * 6}deg)`;
-    });
-    glowHost?.addEventListener('pointerleave', () => { arch.style.transform = ''; });
-    arch.style.transition = 'transform .8s cubic-bezier(.16,1,.3,1)';
-  }
-
-  /* ---------- Scroll-lit statement (words light up as you read) ---------- */
-  const lit = $('[data-lit]');
-  if (lit) {
-    const words = $$('.w', lit);
-    const update = raf(() => {
-      const r = lit.getBoundingClientRect();
-      const p = clamp((innerHeight * 0.82 - r.top) / (r.height + innerHeight * 0.35), 0, 1);
-      const n = Math.round(p * words.length);
-      words.forEach((w, i) => w.classList.toggle('is-lit', i < n));
-    });
-    if (reduce) words.forEach((w) => w.classList.add('is-lit'));
-    else { addEventListener('scroll', update, { passive: true }); update(); }
-  }
-
-  /* ---------- Stacking service cards ---------- */
-  const stack = $('[data-stack]');
-  if (stack) {
-    const cards = $$('.scard', stack);
-    const desk = matchMedia('(min-width: 901px)');
-    const update = raf(() => {
-      if (!desk.matches || reduce) return;
-      cards.forEach((c, i) => {
-        const next = cards[i + 1]; if (!next) return;
-        const a = c.getBoundingClientRect(), b = next.getBoundingClientRect();
-        const overlap = clamp((a.bottom - b.top) / a.height, 0, 1);
-        c.style.setProperty('--s', (1 - overlap * 0.05).toFixed(4));
-      });
-    });
-    addEventListener('scroll', update, { passive: true }); update();
-    // mobile rail dots
-    const dots = $('[data-dots-for="stack"]');
+  /* ---------- Services: rail dots on mobile + flash from menu ---------- */
+  const grid = $('[data-svc]');
+  if (grid) {
+    const cards = $$('.svc', grid);
+    const dots = $('[data-dots-for="svc"]');
     if (dots) {
       dots.innerHTML = cards.map(() => '<i></i>').join('');
       const ds = $$('i', dots);
       const mark = raf(() => {
-        const i = Math.round(stack.scrollLeft / (cards[0].offsetWidth + 14));
+        const i = Math.round(grid.scrollLeft / (cards[0].offsetWidth + 12));
         ds.forEach((d, k) => d.classList.toggle('is-on', k === i));
       });
-      stack.addEventListener('scroll', mark, { passive: true }); mark();
+      grid.addEventListener('scroll', mark, { passive: true }); mark();
     }
-    // flash a card when arriving via #svc-… (from the Services menu)
     const flash = () => {
       const t = location.hash.startsWith('#svc-') && $(location.hash);
       if (!t) return;
-      if (!desk.matches) stack.scrollTo({ left: t.offsetLeft - 20, behavior: reduce ? 'auto' : 'smooth' });
+      if (grid.scrollWidth > grid.clientWidth) grid.scrollTo({ left: t.offsetLeft - 18, behavior: reduce ? 'auto' : 'smooth' });
       t.classList.remove('is-flash'); void t.offsetWidth; t.classList.add('is-flash');
     };
     addEventListener('hashchange', flash); setTimeout(flash, 700);
@@ -278,36 +194,21 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     nums.forEach((n) => { n.textContent = '0'; io.observe(n); });
   } else $$('[data-num]').forEach((n) => n.classList.add('is-in'));
 
-  /* ---------- Draggable rail with momentum ---------- */
-  const rail = $('[data-rail]');
-  if (rail) {
-    const track = $('.rail__track', rail);
-    const bar = $('.rail__bar i');
-    let x = 0, v = 0, dragging = false, sx = 0, lx = 0, moved = 0;
-    const max = () => Math.min(0, rail.clientWidth - track.scrollWidth - parseFloat(getComputedStyle(rail).paddingLeft));
-    const render = () => {
-      track.style.transform = `translate3d(${x}px,0,0)`;
-      const m = max(); const p = m ? x / m : 0;
-      if (bar) bar.style.setProperty('--rp', `${p * 233}%`);
-    };
-    rail.addEventListener('pointerdown', (e) => { dragging = true; moved = 0; sx = e.clientX - x; lx = e.clientX; v = 0; rail.classList.add('is-drag'); rail.setPointerCapture(e.pointerId); });
-    rail.addEventListener('pointermove', (e) => { if (!dragging) return; v = e.clientX - lx; lx = e.clientX; moved += Math.abs(v); x = clamp(e.clientX - sx, max() - 60, 60); render(); });
-    const end = () => {
-      if (!dragging) return; dragging = false; rail.classList.remove('is-drag');
-      (function glide() { if (dragging) return; v *= 0.93; x += v; const m = max(); if (x > 0) x += (0 - x) * 0.2; if (x < m) x += (m - x) * 0.2; render(); if (Math.abs(v) > 0.3 || x > 0.5 || x < m - 0.5) requestAnimationFrame(glide); })();
-    };
-    rail.addEventListener('pointerup', end); rail.addEventListener('pointercancel', end);
-    rail.addEventListener('click', (e) => { if (moved > 6) { e.stopPropagation(); e.preventDefault(); } }, true);
-    rail.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); x = clamp(x - e.deltaX, max(), 0); render(); } }, { passive: false });
-    rail.setAttribute('tabindex', '0'); rail.setAttribute('aria-label', 'Photo gallery — use arrow keys to scroll');
-    rail.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { x = clamp(x + (e.key === 'ArrowRight' ? -300 : 300), max(), 0); track.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)'; render(); setTimeout(() => { track.style.transition = ''; }, 600); } });
-    addEventListener('resize', () => { x = clamp(x, max(), 0); render(); });
-    render();
+  /* ---------- First-visit steps: line fills as you scroll ---------- */
+  const stp = $('[data-steps]');
+  if (stp) {
+    const lis = $$('li', stp);
+    const upd = raf(() => {
+      const r = stp.getBoundingClientRect(); const p = clamp((innerHeight * 0.8 - r.top) / (r.height + innerHeight * 0.25), 0, 1);
+      stp.style.setProperty('--p', p.toFixed(4));
+      lis.forEach((l, k) => l.classList.toggle('is-on', l.getBoundingClientRect().top < innerHeight * 0.8 && p >= k / lis.length));
+    });
+    if (reduce) lis.forEach((l) => l.classList.add('is-on')); else { addEventListener('scroll', upd, { passive: true }); upd(); }
   }
 
   /* ---------- Lightbox (iris open) ---------- */
   const lb = $('#lb');
-  const items = $$('.shot__img, [data-gallery] figure');
+  const items = $$('.reel__track > figure button, .collage button');
   if (lb && items.length && lb.showModal) {
     const img = $('img', lb), cap = $('figcaption', lb); let i = 0, from = null;
     const show = (k) => {
@@ -316,10 +217,9 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
       cap.textContent = it.dataset.cap || $('figcaption', it)?.textContent || '';
       img.onload = () => requestAnimationFrame(() => img.classList.add('is-ready'));
     };
-    items.forEach((it, k) => {
-      it.addEventListener('click', () => { from = it; show(k); lb.showModal(); });
-      it.addEventListener('keydown', (e) => { if (e.key === 'Enter' && it.tagName === 'FIGURE') { from = it; show(k); lb.showModal(); } });
-    });
+    items.forEach((it, k) => it.addEventListener('click', () => { from = it; show(k); lb.showModal(); }));
+    // duplicated reel copies open the matching original
+    $$('.reel__dup button').forEach((it, k) => it.addEventListener('click', () => { from = items[k]; show(k); lb.showModal(); }));
     $('.lb__x', lb).addEventListener('click', () => lb.close());
     $('.lb__nav--p', lb).addEventListener('click', () => show(i - 1));
     $('.lb__nav--n', lb).addEventListener('click', () => show(i + 1));
@@ -363,11 +263,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     pick(istDay);
   });
 
-  /* ---------- About: tilt cards + scroll-drawn path ---------- */
-  if (fine && !reduce) $$('[data-tilt]').forEach((c) => {
-    c.addEventListener('pointermove', (e) => { const r = c.getBoundingClientRect(); c.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - 0.5) * 10}deg`); c.style.setProperty('--rx', `${(0.5 - (e.clientY - r.top) / r.height) * 10}deg`); });
-    c.addEventListener('pointerleave', () => { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); });
-  });
+  /* ---------- About: scroll-drawn career path ---------- */
   const path = $('[data-path]');
   if (path) {
     const line = $('.path__line i', path), steps = $$('.step', path);
@@ -392,10 +288,10 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
   }
   const jr = $('[data-journey]');
   if (jr) {
-    const steps = $$('.jstep', jr), line = $('.journey__line i', jr);
+    const steps = $$('.jstep', jr);
     const upd = raf(() => {
       const r = jr.getBoundingClientRect(); const p = clamp((innerHeight * 0.75 - r.top) / (r.height + innerHeight * 0.2), 0, 1);
-      if (line) line.style.setProperty('--p', p.toFixed(4));
+      jr.style.setProperty('--p', p.toFixed(4));
       steps.forEach((s, i) => s.classList.toggle('is-on', matchMedia('(max-width: 1100px)').matches ? s.getBoundingClientRect().top < innerHeight * 0.75 : p >= i / (steps.length - 1) - 0.02));
     });
     if (reduce) steps.forEach((s) => s.classList.add('is-on')); else { addEventListener('scroll', upd, { passive: true }); upd(); }
@@ -407,7 +303,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
   /* ---------- Contact: 3-step request → WhatsApp ---------- */
   const wz = $('#wizard');
   if (wz) {
-    const steps = $$('.wz-step', wz), dots = $$('.dots i', wz);
+    const steps = $$('.wz-step', wz), dots = $$('.progress i', wz);
     const back = $('[data-wz-back]', wz), next = $('[data-wz-next]', wz), send = $('[data-wz-send]', wz), status = $('[data-wz-status]', wz);
     let s = 0;
     const go = (n) => {

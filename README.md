@@ -28,8 +28,10 @@ python3 build.py
 
 ## Motion & mobile
 - Reveals use mask wipes, iris (circle) openings and diagonal reveals — no slide or blur effects.
-- Decoding headline, scroll-lit statement, stacking service cards, draggable photo rail,
-  scroll-drawn timelines, count-up rings, magnetic buttons, custom cursor and a circular page transition.
+- Light theme: white + teal with a teal→navy gradient (`--grad`) for accents; minimal line icons.
+- Sticky header (menu centred, Book button on the right, scroll-progress line), smooth crossfading
+  hero title, auto-scrolling photo gallery (pauses on hover), scroll-drawn timelines, count-up numbers,
+  clip-path reveals and a circular page transition.
 - On phones: app bar, bottom-sheet menu (swipe down to close), swipeable service cards with dots,
   day-picker tabs, floating Book button, tap ripples; installable via `manifest.webmanifest`.
 - All motion is disabled for visitors who prefer reduced motion.
