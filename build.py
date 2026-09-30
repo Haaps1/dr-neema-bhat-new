@@ -25,6 +25,18 @@ SERVICES = [
 ]
 BMT_PAGE = "bone-marrow-transplant.html"
 
+# Mobile treatments layout: "icons" (app icon grid) or "tiles" (bento tiles).
+# The visitor can switch with the Icons / Tiles control; set SHOW_SVC_SWITCH = False
+# once a final layout is chosen to hide the control.
+SVC_MOBILE_DEFAULT = "icons"
+SHOW_SVC_SWITCH = True
+SHORT_NAMES = {
+    "anaemia": "Anaemia", "thalassemia": "Thalassemia", "hemophilia": "Hemophilia",
+    "leukaemia": "Leukaemia", "lymphoma-myeloma": "Lymphoma &amp; Myeloma",
+    "childhood-leukaemia": "Child Leukaemia", "pediatric-tumours": "Solid Tumours",
+    "pediatric-blood": "Child Blood Disorders", "bone-marrow-transplant": "Bone Marrow Transplant",
+}
+
 # Patient rating shown in the home hero and reviews section.
 # Currently: Apollo Hospitals' published patient rating for Dr. Neema Bhat.
 # To show her Google rating instead, set source="Google", fill in score/count
@@ -279,6 +291,40 @@ def reviews_section():
     </section>"""
 
 
+def svc_mobile():
+    """Phone-only treatments block: app icon grid and bento tiles, switchable."""
+    def href(s):
+        return BMT_PAGE if s == "bone-marrow-transplant" else "contact.html?topic=" + s
+    def cat_key(c):
+        return "hema" if c == "Hematology" else "ped"
+    def icon(s, c):
+        return SVC_ICON_BY_SLUG.get(s, SVC_ICON[c])
+    apps = "".join(
+        f'<li data-cat="{"hema ped" if s == "bone-marrow-transplant" else cat_key(c)}"><a class="app{" app--feat" if s == "bone-marrow-transplant" else ""}" href="{href(s)}" data-m-svc="{s}">'
+        f'<span class="app__ic">{ic(icon(s, c))}</span><b>{SHORT_NAMES[s]}</b></a></li>' for n, s, c, _ in SERVICES)
+    order = [x for x in SERVICES if x[1] == "bone-marrow-transplant"] + [x for x in SERVICES if x[1] != "bone-marrow-transplant"]
+    tiles = "".join(
+        f'<a class="tile{" tile--feat" if s == "bone-marrow-transplant" else ""}" href="{href(s)}" data-m-svc="{s}">{ic(icon(s, c))}'
+        f'<span class="tile__txt"><small>{c.replace("&", "&amp;")}</small><b>{n}</b></span><span class="tile__go">{ic("i-go")}</span></a>' for n, s, c, _ in order)
+    switch = "" if not SHOW_SVC_SWITCH else f"""
+          <div class="vswitch" role="group" aria-label="Choose layout">
+            <button type="button" data-view="icons" aria-pressed="false">{ic('i-cells')}Icons</button>
+            <button type="button" data-view="tiles" aria-pressed="false">{ic('i-doc')}Tiles</button>
+          </div>"""
+    return f"""
+        <div class="svc-m" data-svc-m data-view="{SVC_MOBILE_DEFAULT}">{switch}
+          <div class="svc-m__icons">
+            <div class="tabs" role="tablist" aria-label="Filter treatments">
+              <button type="button" role="tab" aria-selected="true" data-f="all">All</button>
+              <button type="button" role="tab" aria-selected="false" data-f="hema">Hematology</button>
+              <button type="button" role="tab" aria-selected="false" data-f="ped">Pediatric</button>
+            </div>
+            <ul class="apps">{apps}</ul>
+          </div>
+          <div class="svc-m__tiles"><div class="bento">{tiles}</div></div>
+        </div>"""
+
+
 def sec_head(tag, title, lead="", center=False, hid=""):
     idattr = f' id="{hid}"' if hid else ""
     lead_html = f'<p class="lead" data-fx="fade">{lead}</p>' if lead else ""
@@ -462,7 +508,7 @@ def home():
         {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Nine specialist services across adult hematology and pediatric hemato-oncology — tap a service to book or learn more.', hid='svc-title')}
         <div class="svc-grid" data-svc>{cards}
         </div>
-        <div class="dots" data-dots-for="svc" aria-hidden="true"></div>
+        <div class="dots" data-dots-for="svc" aria-hidden="true"></div>{svc_mobile()}
       </div>
     </section>
 

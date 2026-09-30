@@ -132,7 +132,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
   /* ---------- Tap ripple (touch devices) ---------- */
   if (!fine) {
     document.addEventListener('pointerdown', (e) => {
-      const t = e.target.closest('.btn, .stp, .svc, .ccard, .choice span, .seg button, .bar__icon, .dock a, .sheet__nav a, .sheet__nav button');
+      const t = e.target.closest('.btn, .stp, .svc, .tile, .tabs button, .vswitch button, .ccard, .choice span, .seg button, .bar__icon, .dock a, .sheet__nav a, .sheet__nav button');
       if (!t || reduce) return;
       const r = t.getBoundingClientRect(); const s = Math.max(r.width, r.height) * 2.2;
       const dot = document.createElement('span'); dot.className = 'ripple';
@@ -170,7 +170,10 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
       grid.addEventListener('scroll', mark, { passive: true }); mark();
     }
     const flash = () => {
-      const t = location.hash.startsWith('#svc-') && $(location.hash);
+      if (!location.hash.startsWith('#svc-')) return;
+      const m = [...$$(`[data-m-svc="${CSS.escape(location.hash.slice(5))}"]`)].find((el) => el.offsetParent);
+      if (m) { m.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); m.classList.remove('is-flash'); void m.offsetWidth; m.classList.add('is-flash'); return; }
+      const t = $(location.hash);
       if (!t) return;
       if (grid.scrollWidth > grid.clientWidth) grid.scrollTo({ left: t.offsetLeft - 18, behavior: reduce ? 'auto' : 'smooth' });
       t.classList.remove('is-flash'); void t.offsetWidth; t.classList.add('is-flash');
@@ -190,6 +193,30 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
         grid.scrollTo({ left: atEnd ? 0 : grid.scrollLeft + step, behavior: 'smooth' });
       }, 3000);
     }
+  }
+
+  /* ---------- Treatments on phones: Icons / Tiles switch + category filter ---------- */
+  const svm = $('[data-svc-m]');
+  if (svm) {
+    const KEY = 'nb-svc-view';
+    const setView = (v) => {
+      svm.dataset.view = v;
+      $$('[data-view]', svm).forEach((b) => { if (b !== svm) b.setAttribute('aria-pressed', String(b.dataset.view === v)); });
+      try { localStorage.setItem(KEY, v); } catch (e) { /* storage unavailable */ }
+    };
+    let saved = null; try { saved = localStorage.getItem(KEY); } catch (e) { /* storage unavailable */ }
+    if ($('.vswitch', svm)) setView(saved === 'tiles' || saved === 'icons' ? saved : svm.dataset.view);
+    $$('.vswitch button', svm).forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+    const tabs = $$('.tabs button', svm), apps = $$('.apps li', svm);
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+      let k = 0;
+      apps.forEach((li) => {
+        const show = t.dataset.f === 'all' || li.dataset.cat.split(' ').includes(t.dataset.f);
+        li.classList.toggle('is-hidden', !show); li.classList.remove('is-pop');
+        if (show && !reduce) { void li.offsetWidth; li.style.setProperty('--k', k++); li.classList.add('is-pop'); }
+      });
+    }));
   }
 
   /* ---------- Count-up numbers ---------- */
