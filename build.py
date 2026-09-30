@@ -25,6 +25,26 @@ SERVICES = [
 ]
 BMT_PAGE = "bone-marrow-transplant.html"
 
+# Patient rating shown in the home hero and reviews section.
+# Currently: Apollo Hospitals' published patient rating for Dr. Neema Bhat.
+# To show her Google rating instead, set source="Google", fill in score/count
+# from her Google Business Profile and point url at that profile.
+RATING = {
+    "source": "Apollo Hospitals",
+    "score": "4.56",
+    "count": "97% of 32 patients recommend",
+    "url": "https://www.apollohospitals.com/doctors/medical-oncology-and-clinical-haematology/bangalore/dr-neema-bhat",
+}
+GOOGLE_REVIEWS_URL = "https://www.google.com/search?q=Dr.+Neema+Bhat+Hematologist+Bangalore+reviews"
+
+# Review cards on the home page. These are SAMPLES (layout only) — replace each
+# with a real patient review and set sample=False before going live.
+REVIEWS = [
+    ("Parent of a patient", "Thalassemia care", "Sample review — replace with a real patient review. Share what the family valued: clear explanations, careful review of reports, time taken to answer questions.", True),
+    ("Patient", "Hematology consultation", "Sample review — replace with a real patient review from Google or the hospital’s feedback page.", True),
+    ("Family member", "Bone marrow transplant", "Sample review — replace with a real patient review describing their experience of the transplant journey.", True),
+]
+
 
 def svc_href(slug):
     return BMT_PAGE if slug == "bone-marrow-transplant" else f"index.html#svc-{slug}"
@@ -190,7 +210,11 @@ def footer(fab=True):
     </div>
   </footer>
 
-  <a class="fab" href="{'contact.html' if fab else '#wizard'}">{ic('i-cal')}Book</a>
+  <nav class="dock" aria-label="Quick actions">
+    <a href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}<span>WhatsApp</span></a>
+    <a href="tel:{PHONE_TEL}">{ic('i-phone')}<span>Call</span></a>
+    <a class="dock__book" href="{'contact.html' if fab else '#wizard'}">{ic('i-cal')}<span>Book</span></a>
+  </nav>
   <dialog class="lb" id="lb" aria-label="Photo viewer"><button class="lb__x" type="button" aria-label="Close">×</button><button class="lb__nav lb__nav--p" type="button" aria-label="Previous">‹</button><figure><img src="" alt=""><figcaption></figcaption></figure><button class="lb__nav lb__nav--n" type="button" aria-label="Next">›</button></dialog>
   <script src="assets/js/main.js" defer></script>
 </body>
@@ -212,6 +236,44 @@ def stepper(kind, items, label):
           <div><h3></h3><p></p></div>
           <div class="stp-panel__nav"><button type="button" data-prev aria-label="Previous step">{ic('i-go')}</button><button type="button" data-next aria-label="Next step">{ic('i-go')}</button></div>
         </div>"""
+
+
+def stars():
+    return '<span class="stars" aria-hidden="true">' + ic('i-star') * 5 + '</span>'
+
+
+def rating_badge():
+    r = RATING
+    return (f'<a class="rating" href="{r["url"]}" target="_blank" rel="noopener" data-fx="fade" style="--d:.45s">'
+            f'<b>{r["score"]}</b>{stars()}<span><strong>{r["source"]} patient rating</strong>{r["count"]}</span></a>')
+
+
+def reviews_section():
+    r = RATING
+    SAMPLE_TAG = '<span class="review__sample">Sample</span>'
+    cards = "".join(
+        f'<figure class="review" data-fx="fade" style="--d:{k * 0.08:.2f}s">{stars()}'
+        f'{SAMPLE_TAG if sample else ""}'
+        f'<blockquote>{text}</blockquote><figcaption><b>{who}</b><span>{topic}</span></figcaption></figure>'
+        for k, (who, topic, text, sample) in enumerate(REVIEWS))
+    return f"""
+    <section class="sec" aria-labelledby="rv-title">
+      <div class="wrap">
+        {sec_head('Patient reviews', 'What patients <span class="grad-text">say</span>', 'Families trust Dr. Neema Bhat with some of the hardest diagnoses. Read reviews, or share your own experience.', hid='rv-title')}
+        <div class="reviews">
+          <div class="rsum" data-fx="iris">
+            <b class="rsum__score">{r["score"]}<small>/5</small></b>
+            {stars()}
+            <p><strong>{r["source"]} patient rating</strong><br>{r["count"]}</p>
+            <div class="rsum__acts">
+              <a class="btn btn--white btn--sm" href="{GOOGLE_REVIEWS_URL}" target="_blank" rel="noopener">Reviews on Google{ic('i-go', 'ic ic--go')}</a>
+              <a class="btn btn--line btn--sm" href="{r["url"]}" target="_blank" rel="noopener">View source{ic('i-go', 'ic ic--go')}</a>
+            </div>
+          </div>
+          <div class="reviews__list">{cards}</div>
+        </div>
+      </div>
+    </section>"""
 
 
 def sec_head(tag, title, lead="", center=False, hid=""):
@@ -378,6 +440,7 @@ def home():
             <a class="btn btn--grad" href="contact.html">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
             <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
           </div>
+          {rating_badge()}
           <div class="facts facts--hero" data-fx="fade" style="--d:.5s">
             <div class="fact">{ic('i-marrow')}<b>100+ transplants</b><span>Performed and supervised</span></div>
             <div class="fact">{ic('i-users')}<b>Children &amp; adults</b><span>Pediatric and adult BMT</span></div>
@@ -388,28 +451,6 @@ def home():
           <div class="frame"><img src="assets/images/portrait-scrubs.webp" srcset="assets/images/portrait-scrubs-720.webp 720w, assets/images/portrait-scrubs.webp 1200w" sizes="(max-width: 900px) 80vw, 460px" alt="Dr. Neema Bhat in a white coat over blue scrubs, arms folded" width="1200" height="1873" fetchpriority="high"></div>
           <div class="chip chip--a">{ic('i-award')}<div><b>10+ Years</b><span>Specialist experience</span></div></div>
           <div class="chip chip--b">{ic('i-marrow')}<div><b>100+</b><span>Bone marrow transplants</span></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec" aria-labelledby="ab-title">
-      <div class="wrap intro">
-        <div class="pic" data-fx="iris">
-          <img src="assets/images/portrait-coat.webp" srcset="assets/images/portrait-coat-720.webp 720w, assets/images/portrait-coat.webp 1200w" sizes="(max-width: 900px) 90vw, 440px" alt="Dr. Neema Bhat in a white coat, arms folded, smiling" width="1200" height="1911" loading="lazy">
-          <div class="pic__badge">{ic('i-award', 'ic')}<div><b>Dr. Neema Bhat</b><span>MD (USA) · FAAP · Haemato-Oncologist</span></div></div>
-        </div>
-        <div>
-          <p class="tag" data-fx="wipe-x">About the doctor</p>
-          <h2 class="title" id="ab-title" data-fx="wipe">Meet <span class="grad-text">Dr. Neema Bhat</span></h2>
-          <p class="lead" data-fx="fade">Dr. Neema Bhat is a Haemato-Oncologist in Bangalore with more than ten years of experience treating blood disorders and blood cancers in children and adults. She completed her MD in the United States, followed by a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation at Penn State Health.</p>
-          <p class="lead" data-fx="fade">Today she is Program Director and HOD of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, run with Sankalp India Foundation, and has previously worked at BGS Gleneagles Global Hospitals and Fortis Hospitals.</p>
-          <ul class="ticks" data-fx="fade">
-            <li>{ic('i-check')}Adult &amp; pediatric hematology</li>
-            <li>{ic('i-check')}Childhood cancers</li>
-            <li>{ic('i-check')}Autologous &amp; allogeneic BMT</li>
-            <li>{ic('i-check')}Thalassemia &amp; hemophilia care</li>
-          </ul>
-          <div class="hero__acts" data-fx="fade"><a class="btn btn--line" href="about.html">Read her story{ic('i-go', 'ic ic--go')}</a></div>
         </div>
       </div>
     </section>
@@ -461,6 +502,7 @@ def home():
       </div>
       <div class="reel" data-reel><div class="reel__track">{reel}<div class="reel__dup" aria-hidden="true" style="display:contents">{reel_dup}</div></div></div>
     </section>
+{reviews_section()}
 {where_section()}
 
     <section class="sec sec--tint" aria-labelledby="faq-title">

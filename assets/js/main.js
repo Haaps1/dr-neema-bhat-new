@@ -86,9 +86,6 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     bar.classList.toggle('is-scrolled', y > 8);
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.setProperty('--prog', max > 0 ? (y / max).toFixed(4) : 0);
-    const wzBox = $('#wizard')?.getBoundingClientRect();
-    const formOnScreen = wzBox && wzBox.top < innerHeight && wzBox.bottom > 0;
-    $('.fab')?.classList.toggle('is-shown', y > 380 && !formOnScreen);
   });
   addEventListener('scroll', onScroll, { passive: true });
 
@@ -135,7 +132,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
   /* ---------- Tap ripple (touch devices) ---------- */
   if (!fine) {
     document.addEventListener('pointerdown', (e) => {
-      const t = e.target.closest('.btn, .stp, .svc, .ccard, .choice span, .seg button, .bar__icon, .fab, .sheet__nav a, .sheet__nav button');
+      const t = e.target.closest('.btn, .stp, .svc, .ccard, .choice span, .seg button, .bar__icon, .dock a, .sheet__nav a, .sheet__nav button');
       if (!t || reduce) return;
       const r = t.getBoundingClientRect(); const s = Math.max(r.width, r.height) * 2.2;
       const dot = document.createElement('span'); dot.className = 'ripple';
