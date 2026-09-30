@@ -793,3 +793,10 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 @media (max-width: 900px) {
   .hero .chip--a { top: 42%; left: -26px; }
 }
+/* mobile hero: small experience card up beside her head */
+@media (max-width: 900px) {
+  .hero .chip--a { top: 11%; left: calc((min(.78 * (100vw - 36px), 360px) - (100vw - 36px)) / 2); padding: 6px 10px; gap: 6px; border-radius: 12px; }
+  .hero .chip--a .ic { font-size: .95rem; }
+  .hero .chip--a b { font-size: .86rem; line-height: 1.2; }
+  .hero .chip--a span { font-size: .62rem; }
+}
