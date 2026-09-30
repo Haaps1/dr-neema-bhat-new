@@ -43,6 +43,9 @@ REVIEWS = [
     ("Parent of a patient", "Thalassemia care", "Sample review — replace with a real patient review. Share what the family valued: clear explanations, careful review of reports, time taken to answer questions.", True),
     ("Patient", "Hematology consultation", "Sample review — replace with a real patient review from Google or the hospital’s feedback page.", True),
     ("Family member", "Bone marrow transplant", "Sample review — replace with a real patient review describing their experience of the transplant journey.", True),
+    ("Parent of a patient", "Childhood leukaemia", "Sample review — replace with a real review from a family whose child was treated for leukaemia.", True),
+    ("Patient", "Anaemia treatment", "Sample review — replace with a real review about diagnosis and follow-up for anaemia.", True),
+    ("Patient", "Second opinion", "Sample review — replace with a real review from a patient who came for a second opinion.", True),
 ]
 
 
@@ -244,7 +247,7 @@ def stars():
 
 def rating_badge():
     r = RATING
-    return (f'<a class="rating" href="{r["url"]}" target="_blank" rel="noopener" data-fx="fade" style="--d:.45s">'
+    return (f'<a class="rating chip chip--b" href="{r["url"]}" target="_blank" rel="noopener">'
             f'<b>{r["score"]}</b>{stars()}<span><strong>{r["source"]} patient rating</strong>{r["count"]}</span></a>')
 
 
@@ -252,7 +255,7 @@ def reviews_section():
     r = RATING
     SAMPLE_TAG = '<span class="review__sample">Sample</span>'
     cards = "".join(
-        f'<figure class="review" data-fx="fade" style="--d:{k * 0.08:.2f}s">{stars()}'
+        f'<figure class="review">{stars()}'
         f'{SAMPLE_TAG if sample else ""}'
         f'<blockquote>{text}</blockquote><figcaption><b>{who}</b><span>{topic}</span></figcaption></figure>'
         for k, (who, topic, text, sample) in enumerate(REVIEWS))
@@ -270,7 +273,7 @@ def reviews_section():
               <a class="btn btn--line btn--sm" href="{r["url"]}" target="_blank" rel="noopener">View source{ic('i-go', 'ic ic--go')}</a>
             </div>
           </div>
-          <div class="reviews__list">{cards}</div>
+          <div class="reviews__list" data-fx="fade"><div class="reviews__track">{cards}<div class="reviews__dup" aria-hidden="true" style="display:contents">{cards.replace(' data-fx="fade"', '')}</div></div></div>
         </div>
       </div>
     </section>"""
@@ -435,12 +438,11 @@ def home():
               <span class="l" data-fx="wipe" style="--d:.15s">in Bangalore</span>
             </span>
           </h1>
-          <p class="hero__sub" data-fx="fade" style="--d:.3s">Dr. Neema Bhat is a US-trained Haemato-Oncologist caring for children and adults with blood disorders and blood cancers, and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital.</p>
+          <p class="hero__sub" data-fx="fade" style="--d:.3s">Dr. Neema Bhat is a US-trained Haemato-Oncologist for children and adults, and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital.</p>
           <div class="hero__acts" data-fx="fade" style="--d:.4s">
             <a class="btn btn--grad" href="contact.html">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
             <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
           </div>
-          {rating_badge()}
           <div class="facts facts--hero" data-fx="fade" style="--d:.5s">
             <div class="fact">{ic('i-marrow')}<b>100+ transplants</b><span>Performed and supervised</span></div>
             <div class="fact">{ic('i-users')}<b>Children &amp; adults</b><span>Pediatric and adult BMT</span></div>
@@ -450,7 +452,7 @@ def home():
         <div class="hero__art" data-fx="iris" style="--d:.1s">
           <div class="frame"><img src="assets/images/portrait-scrubs.webp" srcset="assets/images/portrait-scrubs-720.webp 720w, assets/images/portrait-scrubs.webp 1200w" sizes="(max-width: 900px) 80vw, 460px" alt="Dr. Neema Bhat in a white coat over blue scrubs, arms folded" width="1200" height="1873" fetchpriority="high"></div>
           <div class="chip chip--a">{ic('i-award')}<div><b>10+ Years</b><span>Specialist experience</span></div></div>
-          <div class="chip chip--b">{ic('i-marrow')}<div><b>100+</b><span>Bone marrow transplants</span></div></div>
+          {rating_badge()}
         </div>
       </div>
     </section>

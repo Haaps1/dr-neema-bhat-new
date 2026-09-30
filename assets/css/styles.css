@@ -671,3 +671,51 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
   .dock a .ic { font-size: 1.25rem; }
   .rating { gap: 10px; }
 }
+
+/* ---------- Title swap: old word fades out fully, then the new one fades in ---------- */
+.fader span { transition: opacity .45s ease; }
+.fader span.is-on { transition: opacity .6s ease .45s; }
+
+/* ---------- Rating chip on the portrait ---------- */
+.rating.chip { margin: 0; padding: 12px 16px 12px 14px; gap: 10px; }
+.rating.chip > b { font-size: 1.5rem; }
+.rating.chip .stars .ic { width: .85rem; height: .85rem; }
+.rating.chip > span:last-child { max-width: 170px; }
+
+/* ---------- Home hero fits the first screen (desktop / landscape tablet) ---------- */
+@media (min-width: 901px) {
+  .hero { padding-top: 0; }
+  .hero__in { min-height: calc(100svh - var(--bar)); align-items: center; }
+  .hero__copy { padding-block: clamp(16px, 4vh, 48px); }
+  .hero .tag { padding: 5px 12px; }
+  .hero__title { margin-top: clamp(8px, 2vh, 18px); font-size: clamp(2.2rem, min(4.6vw, 8.4vh), 3.9rem); }
+  .hero__sub { margin-top: clamp(10px, 2.2vh, 20px); font-size: clamp(.92rem, 2.1vh, 1.06rem); line-height: 1.6; }
+  .hero__acts { margin-top: clamp(14px, 3vh, 28px); }
+  .hero__acts .btn { padding-block: clamp(10px, 1.7vh, 13px); }
+  .hero .facts--hero { margin-top: clamp(14px, 3vh, 28px); }
+  .hero .facts--hero .fact { display: grid; grid-template-columns: 30px 1fr; column-gap: 10px; align-items: center; padding: clamp(10px, 1.6vh, 16px) 14px; }
+  .hero .facts--hero .fact .ic { grid-row: span 2; font-size: 1.35rem; }
+  .hero .facts--hero .fact b { margin-top: 0; font-size: .9rem; }
+  .hero .facts--hero .fact span { font-size: .78rem; }
+  .hero__art { align-self: end; width: auto; height: min(calc(100svh - var(--bar) - clamp(16px, 4vh, 48px)), 720px); }
+  .hero .frame { height: 100%; width: auto; aspect-ratio: 4 / 4.8; }
+}
+
+/* ---------- Reviews: summary stays put, cards glide past ---------- */
+.reviews { grid-template-columns: 320px 1fr; }
+.rsum { position: relative; z-index: 1; }
+.reviews__list { min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); padding-block: 6px; }
+.reviews__track { display: flex; gap: 16px; width: max-content; animation: reel 46s linear infinite; }
+.reviews__list:hover .reviews__track, .reviews__list:focus-within .reviews__track { animation-play-state: paused; }
+.reviews__track .review { flex: none; width: 300px; }
+@media (max-width: 1100px) { .reviews { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .reviews__list { display: block; overflow: hidden; margin-inline: -18px; padding: 6px 0 14px; scroll-snap-type: none; }
+  .reviews__track .review { width: 270px; }
+}
+@media (prefers-reduced-motion: reduce) { .reviews__list { overflow-x: auto; } }
+/* keep the decorative ring clear of the text on the first number card */
+.num:first-child { padding-right: 110px; }
+.num__ring { right: -28px; top: -28px; width: 116px; height: 116px; opacity: .9; pointer-events: none; }
+@media (max-width: 600px) { .num:first-child { padding-right: 96px; } .num__ring { width: 100px; height: 100px; } }
+.rating .stars .ic { color: #f4b400; font-size: inherit; }
