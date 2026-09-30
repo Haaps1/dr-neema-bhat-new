@@ -198,6 +198,22 @@ def footer(fab=True):
 """
 
 
+def stepper(kind, items, label):
+    """Clickable step row. kind: 'steps' (home) or 'journey' (service page). items: (title, short, more)."""
+    n = len(items)
+    lis = "".join(
+        f'<li><button type="button" class="stp" data-step="{k}" aria-pressed="false">'
+        f'<span class="stp__n">{k + 1:02d}</span><span class="stp__t"><b>{t}</b><span>{d}</span></span>'
+        f'<span class="stp__more">{more}</span></button></li>'
+        for k, (t, d, more) in enumerate(items))
+    return f"""<ol class="{kind}" data-stepper aria-label="{label}" style="--n:{n}">{lis}</ol>
+        <div class="stp-panel" aria-live="polite">
+          <span class="stp-panel__n"></span>
+          <div><h3></h3><p></p></div>
+          <div class="stp-panel__nav"><button type="button" data-prev aria-label="Previous step">{ic('i-go')}</button><button type="button" data-next aria-label="Next step">{ic('i-go')}</button></div>
+        </div>"""
+
+
 def sec_head(tag, title, lead="", center=False, hid=""):
     idattr = f' id="{hid}"' if hid else ""
     lead_html = f'<p class="lead" data-fx="fade">{lead}</p>' if lead else ""
@@ -314,12 +330,15 @@ def home():
     why_html = "".join(f'<li data-fx="fade" style="--d:{k * 0.08:.2f}s">{ic(i)}<div><b>{t}</b><span>{d}</span></div></li>' for k, (i, t, d) in enumerate(why))
 
     visit = [
-        ("Book", "Call, WhatsApp or send a request online — we confirm a slot."),
-        ("Bring reports", "Carry previous blood tests, scans and prescriptions."),
-        ("Consultation", "A detailed history, examination and discussion of options."),
-        ("Your plan", "Tests, treatment and follow-up — explained step by step."),
+        ("Book", "Call, WhatsApp or send a request online — we confirm a slot.",
+         f"Call or WhatsApp {PHONE_DISPLAY}, or use the form on the Contact page. Share the patient’s age and main concern so the right slot can be arranged."),
+        ("Bring reports", "Carry previous blood tests, scans and prescriptions.",
+         "Bring recent blood counts, smear, bone marrow or biopsy reports, scans, discharge summaries and a list of current medicines — they save time and repeat tests."),
+        ("Consultation", "A detailed history, examination and discussion of options.",
+         "Dr. Neema Bhat takes a detailed history, examines the patient and reviews every report, then explains what the findings mean in plain language."),
+        ("Your plan", "Tests, treatment and follow-up — explained step by step.",
+         "You leave with a clear plan — further tests if needed, treatment options and when to follow up — with the whole family’s questions answered."),
     ]
-    visit_html = "".join(f'<li><span class="steps__n">{k + 1:02d}</span><h3>{t}</h3><p>{d}</p></li>' for k, (t, d) in enumerate(visit))
 
     def fig(f, cap, alt, tall, hidden=False):
         extra = ' tabindex="-1"' if hidden else ""
@@ -432,7 +451,7 @@ def home():
     <section class="sec" aria-labelledby="v-title">
       <div class="wrap">
         {sec_head('Your first visit', 'What to expect, <span class="grad-text">step by step</span>', center=True, hid='v-title')}
-        <ol class="steps" data-steps>{visit_html}</ol>
+        {stepper('steps', visit, 'First visit steps')}
       </div>
     </section>
 
@@ -649,14 +668,19 @@ def bmt():
     donors_html = "".join(f'<div class="card" data-fx="fade" style="--d:{k * 0.08:.2f}s">{ic(i)}<h3>{t}</h3><p>{d}</p></div>' for k, (i, t, d) in enumerate(donors))
 
     steps = [
-        ("Evaluation", "Tests, donor matching and counselling so the family understands each step."),
-        ("Collection", "Stem cells are collected from the patient (autologous) or a donor (allogeneic)."),
-        ("Conditioning", "Chemotherapy, sometimes with radiation, prepares the marrow for new cells."),
-        ("Infusion", "Healthy stem cells are given through a drip, much like a transfusion."),
-        ("Engraftment", "New cells settle in and start making blood, with close monitoring."),
-        ("Recovery", "A gradual return to daily life with long-term follow-up."),
+        ("Evaluation", "Tests, donor matching and counselling so the family understands each step.",
+         "The team reviews the diagnosis and overall health — blood tests, heart, lung and kidney checks and infection screening — and HLA-tests family members for a match. The family meets the team to understand the plan, the risks and the timeline."),
+        ("Collection", "Stem cells are collected from the patient (autologous) or a donor (allogeneic).",
+         "For an autologous transplant, the patient’s own stem cells are collected from the blood after growth-factor injections and frozen. For an allogeneic transplant, cells are collected from the donor’s blood or bone marrow."),
+        ("Conditioning", "Chemotherapy, sometimes with radiation, prepares the marrow for new cells.",
+         "Over several days, chemotherapy — sometimes with radiation — clears the diseased marrow and makes room for the new cells. In allogeneic transplants it also lowers immunity so donor cells are not rejected."),
+        ("Infusion", "Healthy stem cells are given through a drip, much like a transfusion.",
+         "On “Day 0” the stem cells are given through the central line, much like a blood transfusion. It is usually not painful, and the family can stay close by."),
+        ("Engraftment", "New cells settle in and start making blood, with close monitoring.",
+         "Over the following weeks the new cells settle in the marrow and begin making blood. Until counts recover, the patient stays in a protected room with transfusions, antibiotics and daily monitoring."),
+        ("Recovery", "A gradual return to daily life with long-term follow-up.",
+         "After discharge, regular visits continue for months — checking counts, adjusting medicines, watching for graft-versus-host disease and planning re-vaccination and the return to school or work."),
     ]
-    step_html = "".join(f'<div class="jstep"><span class="jstep__n">{i + 1:02d}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(steps))
 
     before = ["Detailed review of diagnosis and disease status", "Blood tests, imaging and heart, lung and kidney checks", "HLA typing of the patient and family members",
               "Dental and infection screening", "Central line placement for medicines and blood draws", "Counselling for the patient and caregivers"]
@@ -763,7 +787,7 @@ def bmt():
     <section class="sec" aria-labelledby="j-title">
       <div class="wrap">
         {sec_head('The journey', 'Six stages, <span class="grad-text">one team</span>', center=True, hid='j-title')}
-        <div class="journey" data-journey>{step_html}</div>
+        {stepper('journey', steps, 'Transplant journey')}
       </div>
     </section>
 

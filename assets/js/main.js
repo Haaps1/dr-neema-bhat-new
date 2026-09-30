@@ -135,7 +135,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
   /* ---------- Tap ripple (touch devices) ---------- */
   if (!fine) {
     document.addEventListener('pointerdown', (e) => {
-      const t = e.target.closest('.btn, .svc, .ccard, .choice span, .seg button, .bar__icon, .fab, .sheet__nav a, .sheet__nav button');
+      const t = e.target.closest('.btn, .stp, .svc, .ccard, .choice span, .seg button, .bar__icon, .fab, .sheet__nav a, .sheet__nav button');
       if (!t || reduce) return;
       const r = t.getBoundingClientRect(); const s = Math.max(r.width, r.height) * 2.2;
       const dot = document.createElement('span'); dot.className = 'ripple';
@@ -179,6 +179,20 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
       t.classList.remove('is-flash'); void t.offsetWidth; t.classList.add('is-flash');
     };
     addEventListener('hashchange', flash); setTimeout(flash, 700);
+
+    // mobile: the card rail advances on its own; any touch pauses it for a while
+    if (!reduce) {
+      let idle = 0, visible = false;
+      const pause = () => { idle = Date.now() + 6000; };
+      ['pointerdown', 'touchstart', 'wheel', 'focusin'].forEach((ev) => grid.addEventListener(ev, pause, { passive: true }));
+      if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.5 }).observe(grid);
+      setInterval(() => {
+        if (!visible || document.hidden || Date.now() < idle || grid.scrollWidth <= grid.clientWidth + 4) return;
+        const step = cards[0].offsetWidth + 12;
+        const atEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 8;
+        grid.scrollTo({ left: atEnd ? 0 : grid.scrollLeft + step, behavior: 'smooth' });
+      }, 3000);
+    }
   }
 
   /* ---------- Count-up numbers ---------- */
@@ -194,17 +208,49 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     nums.forEach((n) => { n.textContent = '0'; io.observe(n); });
   } else $$('[data-num]').forEach((n) => n.classList.add('is-in'));
 
-  /* ---------- First-visit steps: line fills as you scroll ---------- */
-  const stp = $('[data-steps]');
-  if (stp) {
-    const lis = $$('li', stp);
-    const upd = raf(() => {
-      const r = stp.getBoundingClientRect(); const p = clamp((innerHeight * 0.8 - r.top) / (r.height + innerHeight * 0.25), 0, 1);
-      stp.style.setProperty('--p', p.toFixed(4));
-      lis.forEach((l, k) => l.classList.toggle('is-on', l.getBoundingClientRect().top < innerHeight * 0.8 && p >= k / lis.length));
+  /* ---------- Clickable steps: line fills on scroll; tap a step to open its details ---------- */
+  $$('[data-stepper]').forEach((list) => {
+    const btns = $$('.stp', list);
+    const panel = list.nextElementSibling?.classList.contains('stp-panel') ? list.nextElementSibling : null;
+    const n = btns.length; let manual = false; let cur = -1;
+    const select = (k, fromUser) => {
+      if (fromUser) manual = true;
+      if (k === cur && !fromUser) return;
+      cur = k;
+      list.style.setProperty('--p', n > 1 ? (k / (n - 1)).toFixed(4) : 1);
+      btns.forEach((b, i) => {
+        b.classList.toggle('is-on', i <= k); b.classList.toggle('is-active', i === k);
+        b.setAttribute('aria-pressed', String(i === k));
+      });
+      if (panel) {
+        const b = btns[k];
+        $('.stp-panel__n', panel).textContent = String(k + 1).padStart(2, '0');
+        $('h3', panel).textContent = $('.stp__t b', b).textContent;
+        $('p', panel).textContent = $('.stp__more', b).textContent;
+        $('[data-prev]', panel).disabled = k === 0; $('[data-next]', panel).disabled = k === n - 1;
+        panel.classList.remove('is-new'); void panel.offsetWidth; panel.classList.add('is-new');
+      }
+    };
+    btns.forEach((b, k) => b.addEventListener('click', () => select(k, true)));
+    if (panel) {
+      $('[data-prev]', panel).addEventListener('click', () => select(Math.max(0, cur - 1), true));
+      $('[data-next]', panel).addEventListener('click', () => select(Math.min(n - 1, cur + 1), true));
+    }
+    list.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+      if (!d || !e.target.closest('.stp')) return;
+      e.preventDefault(); const k = clamp(cur + d, 0, n - 1); select(k, true); btns[k].focus();
     });
-    if (reduce) lis.forEach((l) => l.classList.add('is-on')); else { addEventListener('scroll', upd, { passive: true }); upd(); }
-  }
+    select(0);
+    // until the visitor taps a step, progress follows the scroll position
+    const upd = raf(() => {
+      if (manual) return;
+      const r = list.getBoundingClientRect();
+      const p = clamp((innerHeight * 0.7 - r.top) / Math.max(r.height, 1), 0, 1);
+      select(Math.min(n - 1, Math.floor(p * n)));
+    });
+    if (!reduce) { addEventListener('scroll', upd, { passive: true }); upd(); }
+  });
 
   /* ---------- Lightbox (iris open) ---------- */
   const lb = $('#lb');
@@ -276,7 +322,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     else { addEventListener('scroll', upd, { passive: true }); upd(); }
   }
 
-  /* ---------- Service page: type switch, journey, cell diagram ---------- */
+  /* ---------- Service page: type switch, cell diagram ---------- */
   const sw = $('[data-switch]');
   if (sw) {
     const tabs = $$('[role="tab"]', sw);
@@ -285,16 +331,6 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
       sw.dataset.v = t.id === 'tab-allo' ? 'allo' : 'auto'; if (focus) t.focus();
     };
     tabs.forEach((t, k) => { t.addEventListener('click', () => set(t)); t.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); set(tabs[1 - k], true); } }); });
-  }
-  const jr = $('[data-journey]');
-  if (jr) {
-    const steps = $$('.jstep', jr);
-    const upd = raf(() => {
-      const r = jr.getBoundingClientRect(); const p = clamp((innerHeight * 0.75 - r.top) / (r.height + innerHeight * 0.2), 0, 1);
-      jr.style.setProperty('--p', p.toFixed(4));
-      steps.forEach((s, i) => s.classList.toggle('is-on', matchMedia('(max-width: 1100px)').matches ? s.getBoundingClientRect().top < innerHeight * 0.75 : p >= i / (steps.length - 1) - 0.02));
-    });
-    if (reduce) steps.forEach((s) => s.classList.add('is-on')); else { addEventListener('scroll', upd, { passive: true }); upd(); }
   }
   const cv = $('[data-cellviz]');
   if (cv && 'IntersectionObserver' in window) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { cv.classList.add('is-in'); o.disconnect(); } }, { threshold: 0.3 }).observe(cv);
