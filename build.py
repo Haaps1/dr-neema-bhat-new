@@ -958,13 +958,13 @@ def anemia():
         ("Can children and pregnant women get anemia treatment?", "Yes. Dr. Neema Bhat is a US board-certified pediatrician and hematologist, and she treats anemia in babies, children, teenagers and pregnant women with safe, age-appropriate care."),
     ]
     faq_html, ld_faq = faq_block(faqs)
+    faq_cards = "".join(
+        f'<details class="qa"{" open" if k == 0 else ""}><summary><span class="qa__n">{k + 1:02d}</span><span class="qa__q">{q}</span><span class="qa__pm" aria-hidden="true"></span></summary><p class="qa__a">{ans}</p></details>'
+        for k, (q, ans) in enumerate(faqs))
     ld_cond = ('  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Anemia Treatment in Bangalore",'
                '"about":{"@type":"MedicalCondition","name":"Anemia","alternateName":["Anaemia","Low hemoglobin"]},'
                '"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n')
 
-    facts = [("i-users", "48 in 100 women", "in Karnataka have anemia (NFHS-5)"), ("i-child", "2 in 3 young children", "in Karnataka have anemia (NFHS-5)"),
-             ("i-award", "10+ years", "US-trained hematologist"), ("i-shield", "Adults &amp; children", "Pediatric &amp; adult hematology")]
-    facts_html = "".join(f'<div class="fact" data-fx="fade" style="--d:{k * 0.06:.2f}s">{ic(i)}<b>{t}</b><span>{d}</span></div>' for k, (i, t, d) in enumerate(facts))
 
     who_rows = [("Adult men", "13 g/dL"), ("Adult women (not pregnant)", "12 g/dL"), ("Pregnant women", "11 g/dL"), ("Children (6 months to 5 years)", "11 g/dL")]
     who_html = "".join(f"<tr><td>{a}</td><td><b>{b}</b></td></tr>" for a, b in who_rows)
@@ -1055,7 +1055,7 @@ def anemia():
                 ANEMIA_PAGE, LD_PHYSICIAN + ld_cond + ld_faq) + f"""
 <body data-page="service">{ICONS}{header('service')}
   <main id="main">
-    <section class="phero" aria-labelledby="an-title" style="padding-bottom:clamp(56px,6vw,84px)">
+    <section class="phero" aria-labelledby="an-title">
       <div class="wrap phero__in">
         <div>
           <ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li>Anemia Treatment</li></ol>
@@ -1066,17 +1066,11 @@ def anemia():
             <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
           </div>
         </div>
-        <div class="phero__card" data-fx="fade" style="--d:.2s">
-          <dl>
-            <div><dt>Doctor</dt><dd>Dr. Neema Bhat</dd></div>
-            <div><dt>Speciality</dt><dd>Hematologist, Pediatric Oncologist &amp; Bone Marrow Transplant Specialist</dd></div>
-            <div><dt>Education</dt><dd>MD (USA) · Fellowship (FAAP), Penn State Health</dd></div>
-          </dl>
+        <div class="phero__pic" data-fx="iris" style="--d:.15s">
+          <div class="frame"><img src="assets/images/portrait-classic.webp" srcset="assets/images/portrait-classic-720.webp 720w, assets/images/portrait-classic.webp 1200w" sizes="(max-width: 900px) 60vw, 300px" alt="Dr. Neema Bhat, hematologist in Bangalore" width="1200" height="1893" fetchpriority="high"></div>
         </div>
       </div>
     </section>
-
-    <div class="wrap"><div class="facts">{facts_html}</div></div>
 
     <section class="sec" aria-labelledby="what-title">
       <div class="wrap split split--top">
@@ -1186,9 +1180,20 @@ def anemia():
     </section>
 
     <section class="sec sec--tint" aria-labelledby="fq-title">
-      <div class="wrap">
-        <div class="head head--center"><h2 class="title" id="fq-title" data-fx="wipe">FAQs</h2></div>
-        <div class="faq">{faq_html}</div>
+      <div class="wrap faq2">
+        <div class="faq2__intro" data-fx="fade">
+          <h2 class="title" id="fq-title">FAQs</h2>
+          <p class="lead">Quick answers to the questions patients ask most about anemia and its treatment.</p>
+          <div class="faq2__help">
+            <b>Still have a question?</b>
+            <span>Talk to the clinic directly.</span>
+            <div class="faq2__acts">
+              <a class="btn btn--grad btn--sm" href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}WhatsApp</a>
+              <a class="btn btn--line btn--sm" href="tel:{PHONE_TEL}">{ic('i-phone')}Call</a>
+            </div>
+          </div>
+        </div>
+        <div class="faq2__list">{faq_cards}</div>
       </div>
     </section>
 
