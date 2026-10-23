@@ -67,8 +67,18 @@ REVIEWS = [
 ]
 
 
+ANEMIA_PAGE = "anemia-treatment.html"
+# treatments that have their own page
+SERVICE_PAGES = {"bone-marrow-transplant": BMT_PAGE, "anaemia": ANEMIA_PAGE}
+
+
 def svc_href(slug):
-    return BMT_PAGE if slug == "bone-marrow-transplant" else f"index.html#svc-{slug}"
+    return SERVICE_PAGES.get(slug, f"index.html#svc-{slug}")
+
+
+def svc_link(slug):
+    """Where a treatment card/icon goes: its own page, else the booking form."""
+    return SERVICE_PAGES.get(slug, "contact.html?topic=" + slug)
 
 
 ICONS = """
@@ -223,7 +233,7 @@ def footer(fab=True):
             <li>Apollo Hospitals, Bannerghatta Road, Bengaluru</li>
           </ul>
         </div>
-        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="{ANEMIA_PAGE}">Anemia Treatment</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div><h2>Hematology</h2><ul>{links}</ul></div>
         <div><h2>Pediatric</h2><ul>{links2}</ul></div>
       </div>
@@ -299,8 +309,7 @@ def reviews_section():
 
 def svc_mobile():
     """Phone-only treatments block: app icon grid and bento tiles, switchable."""
-    def href(s):
-        return BMT_PAGE if s == "bone-marrow-transplant" else "contact.html?topic=" + s
+    href = svc_link
     def cat_key(c):
         return "hema" if c == "Hematology" else "ped"
     def icon(s, c):
@@ -419,11 +428,11 @@ def img_small(f):
 # ------------------------------------------------------------------ HOME
 def home():
     cards = "".join(f"""
-          <a class="svc{' svc--feat' if s == 'bone-marrow-transplant' else ''}" id="svc-{s}" href="{BMT_PAGE if s == 'bone-marrow-transplant' else 'contact.html?topic=' + s}" data-fx="fade" style="--d:{(i % 3) * 0.08:.2f}s">
+          <a class="svc{' svc--feat' if s == 'bone-marrow-transplant' else ''}" id="svc-{s}" href="{svc_link(s)}" data-fx="fade" style="--d:{(i % 3) * 0.08:.2f}s">
             <div class="svc__top">{ic(SVC_ICON_BY_SLUG.get(s, SVC_ICON[c]), 'ic svc__ic')}<span class="svc__cat">{c}</span></div>
             <h3>{n}</h3>
             <p>{d}</p>
-            <span class="svc__go">{'Explore the transplant page' if s == 'bone-marrow-transplant' else 'Book a consultation'}{ic('i-go')}</span>
+            <span class="svc__go">{'Explore the transplant page' if s == 'bone-marrow-transplant' else 'Learn about anemia treatment' if s == 'anaemia' else 'Book a consultation'}{ic('i-go')}</span>
           </a>""" for i, (n, s, c, d) in enumerate(SERVICES))
 
     symptoms = [
@@ -933,7 +942,283 @@ def bmt():
 """ + footer()
 
 
+# ------------------------------------------------------------------ ANEMIA SERVICE
+def anemia():
+    T = "anemia treatment in Bangalore"
+    faqs = [
+        ("Which doctor should I see for anemia in Bangalore?", "A hematologist (blood specialist) is the right doctor for anemia that is moderate, severe, keeps coming back, or does not improve with iron tablets. Dr. Neema Bhat is a US-trained hematologist in Bangalore who treats all types of anemia in adults and children."),
+        ("What hemoglobin level is considered anemia?", "The WHO defines anemia as hemoglobin below 13 g/dL in men, below 12 g/dL in non-pregnant women, and below 11 g/dL in pregnant women and young children."),
+        ("Can anemia be cured permanently?", "Yes, most anemias caused by low iron, B12 or folate can be cured once the cause is corrected. Inherited types like thalassemia need long-term care, and some can be cured with a bone marrow transplant."),
+        ("How long does anemia treatment take?", "Most people with iron deficiency feel better in 2 to 3 weeks, and hemoglobin returns to normal in about 2 months. Treatment usually continues for a few more months to rebuild iron stores."),
+        ("What is the fastest way to treat anemia?", "The fastest safe treatment depends on the cause. For iron deficiency, an IV iron infusion can raise iron levels much faster than tablets. Blood transfusion is used only for severe anemia or emergencies."),
+        ("Can anemia be treated without a blood transfusion?", "Yes. Most patients are treated with iron tablets, IV iron, vitamin B12 or folic acid, and by fixing the root cause. Transfusions are needed only in severe or special cases."),
+        ("Does seeing a hemato-oncologist for anemia mean I have cancer?", "No. A hemato-oncologist treats all blood problems: common ones like anemia as well as blood cancers. Most anemia is caused by low iron or vitamins. Seeing a blood specialist simply means the cause is found faster and treated correctly."),
+        ("Can anemia come back after treatment?", "It can, if the underlying cause, such as heavy periods, a poor diet or slow bleeding in the gut, is not fixed. Regular follow-up blood tests help prevent this."),
+        ("How much does anemia treatment in Bangalore cost?", "Most anemia treatment, such as blood tests and iron or vitamin supplements, is affordable. Costs rise only for IV infusions, transfusions or specialised treatments. The clinic can share an estimate after your first consultation."),
+        ("Can children and pregnant women get anemia treatment?", "Yes. Dr. Neema Bhat is a US board-certified pediatrician and hematologist, and she treats anemia in babies, children, teenagers and pregnant women with safe, age-appropriate care."),
+    ]
+    faq_html, ld_faq = faq_block(faqs)
+    ld_cond = ('  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Anemia Treatment in Bangalore",'
+               '"about":{"@type":"MedicalCondition","name":"Anemia","alternateName":["Anaemia","Low hemoglobin"]},'
+               '"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n')
+
+    facts = [("i-users", "48 in 100 women", "in Karnataka have anemia (NFHS-5)"), ("i-child", "2 in 3 young children", "in Karnataka have anemia (NFHS-5)"),
+             ("i-award", "10+ years", "US-trained hematologist"), ("i-shield", "Adults &amp; children", "Pediatric &amp; adult hematology")]
+    facts_html = "".join(f'<div class="fact" data-fx="fade" style="--d:{k * 0.06:.2f}s">{ic(i)}<b>{t}</b><span>{d}</span></div>' for k, (i, t, d) in enumerate(facts))
+
+    who_rows = [("Adult men", "13 g/dL"), ("Adult women (not pregnant)", "12 g/dL"), ("Pregnant women", "11 g/dL"), ("Children (6 months to 5 years)", "11 g/dL")]
+    who_html = "".join(f"<tr><td>{a}</td><td><b>{b}</b></td></tr>" for a, b in who_rows)
+
+    symptoms = [
+        ("i-sun", "Constant tiredness", "Feeling tired or weak all the time"),
+        ("i-drop", "Paleness", "Pale skin, lips or inner eyelids"),
+        ("i-lungs", "Breathlessness", "On stairs or while walking"),
+        ("i-heart", "Fast heartbeat", "A fast or uneven heartbeat"),
+        ("i-cells", "Dizziness", "Headaches or feeling light-headed"),
+        ("i-thermo", "Cold hands &amp; feet", "Even in normal weather"),
+        ("i-scale", "Brittle nails, hair fall", "Weak nails and thinning hair"),
+        ("i-doc", "Poor focus", "Trouble concentrating at work or school"),
+        ("i-flask", "Unusual cravings", "Ice, mud or chalk — a sign of low iron"),
+    ]
+    sym_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic(i)}<b>{t}</b><span>{d}</span></li>' for k, (i, t, d) in enumerate(symptoms))
+
+    causes = [
+        ("i-flask", "Low iron, vitamin B12 or folate", "From diet, poor absorption, or vegetarian diets low in B12."),
+        ("i-drop", "Blood loss", "Heavy periods, piles, stomach ulcers, or slow bleeding in the gut."),
+        ("i-heart", "Pregnancy", "The growing baby needs extra iron."),
+        ("i-shield", "Long-term illnesses", "Kidney disease, thyroid problems, diabetes, arthritis or infections."),
+        ("i-users", "Inherited blood conditions", "Thalassemia and sickle cell disease."),
+        ("i-cells", "Red cells breaking down early", "Called hemolytic anemia."),
+        ("i-marrow", "Bone marrow problems", "Aplastic anemia, or blood cancers like leukemia and myeloma."),
+        ("i-doc", "Certain medicines", "Some long-term medicines or chemotherapy."),
+    ]
+    causes_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><b>{ic(i)}{t}</b><p>{d}</p></li>' for k, (i, t, d) in enumerate(causes))
+
+    risk = ["Women with heavy periods, and pregnant or breastfeeding women", "Babies, young children and teenagers, who grow fast and need more iron",
+            "Vegetarians and vegans, who may get too little vitamin B12", "Adults over 65", "People with kidney disease, diabetes, thyroid problems, IBD or celiac disease",
+            "People who have had stomach or weight-loss surgery", "People who take painkillers (NSAIDs), acid-reducing tablets or metformin for a long time",
+            "People with worm infections, which can cause slow blood loss", "Anyone with a family history of thalassemia or sickle cell disease"]
+    untreated = [("Heart strain", "the heart pumps harder to deliver oxygen, which can lead to an enlarged heart or heart failure."),
+                 ("Pregnancy problems", "higher risk of preterm birth, low birth weight and heavy bleeding during delivery."),
+                 ("Slower growth in children", "delayed growth, poor school performance and frequent infections."),
+                 ("Weak immunity and low energy", "that affect work and daily life."),
+                 ("A missed diagnosis", "anemia can be the first sign of hidden bleeding, kidney disease or a blood cancer.")]
+    li = lambda t: f'<li>{ic("i-check")}<span>{t}</span></li>'
+    risk_html = "".join(li(t) for t in risk)
+    untreated_html = "".join(li(f"<b>{a}:</b> {b}") for a, b in untreated)
+
+    types = [
+        ("Iron deficiency anemia", "The most common type. The body lacks iron to make hemoglobin."),
+        ("Vitamin B12 &amp; folate deficiency", "Megaloblastic and pernicious anemia. Low B12 or folate makes red cells large and weak. Common in vegetarians."),
+        ("Anemia of chronic disease", "Caused by long-term kidney, liver or inflammatory illness."),
+        ("Hemolytic anemia", "Including autoimmune. Red cells are destroyed faster than the body can replace them."),
+        ("Thalassemia", "An inherited condition where the body makes faulty hemoglobin."),
+        ("Sickle cell anemia", "Inherited; red cells become sickle-shaped and block blood flow."),
+        ("Aplastic anemia", "The bone marrow stops making enough blood cells."),
+        ("Sideroblastic anemia", "The body cannot use iron properly to make hemoglobin."),
+        ("Anemia in pregnancy &amp; children", "Special care for mothers-to-be, babies and teenagers."),
+    ]
+    types_html = "".join(f'<div class="card" data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic("i-drop")}<h3>{t}</h3><p>{d}</p></div>' for k, (t, d) in enumerate(types))
+
+    tests = [("Complete Blood Count (CBC)", "Checks hemoglobin and the size and number of red cells."),
+             ("Peripheral blood smear", "Looks at your blood cells under a microscope."),
+             ("Iron studies", "Serum iron, ferritin and TIBC to measure iron stores."),
+             ("Vitamin B12 and folate levels", "To find vitamin deficiencies."),
+             ("Reticulocyte count", "Shows whether your bone marrow is making new cells."),
+             ("Hemoglobin electrophoresis / HPLC", "To check for thalassemia or sickle cell."),
+             ("Kidney, liver and thyroid tests", "To look for long-term illnesses behind the anemia."),
+             ("Stool test or endoscopy", "If hidden bleeding is suspected."),
+             ("Bone marrow test", "Only when needed, for aplastic anemia or blood cancers.")]
+    tests_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><span class="olist__n">{k + 1:02d}</span><div><b>{t}</b><p>{d}</p></div></li>' for k, (t, d) in enumerate(tests))
+
+    treat = [("i-flask", "Iron tablets or syrup", "The usual iron deficiency anemia treatment for mild to moderate cases."),
+             ("i-drop", "IV iron infusion", "A faster option when tablets cause stomach upset, don’t work, or iron is needed quickly — for example in pregnancy or before surgery."),
+             ("i-check", "Vitamin B12 &amp; folic acid", "B12 injections or tablets and folic acid for B12 and folate deficiency."),
+             ("i-users", "Treating the root cause", "Such as heavy periods, gut bleeding, thyroid or kidney problems, with the right specialist."),
+             ("i-shield", "Immune-calming medicines", "For autoimmune hemolytic anemia."),
+             ("i-heart", "Blood transfusion", "Only for severe anemia or emergencies."),
+             ("i-cells", "Transfusion &amp; iron chelation", "Regular transfusions with iron chelation for thalassemia."),
+             ("i-award", "Immunosuppressive therapy", "For aplastic anemia."),
+             ("i-marrow", "Bone marrow (stem cell) transplant", f'A possible cure for thalassemia, sickle cell disease and severe aplastic anemia. <a href="{BMT_PAGE}">Learn more</a>'),
+             ("i-sun", "Diet &amp; lifestyle advice", "Simple Indian food choices to keep your hemoglobin healthy.")]
+    treat_html = "".join(f'<div class="card" data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic(i)}<h3>{t}</h3><p>{d}</p></div>' for k, (i, t, d) in enumerate(treat))
+
+    foods = [("Iron-rich foods", "ragi, green leafy vegetables (palak, methi, drumstick leaves), dals, rajma, chana, jaggery, dates, eggs, chicken, fish and meat."),
+             ("Vitamin C with meals", "lemon, amla, orange or guava help your body absorb iron."),
+             ("Vitamin B12 sources", "milk, curd, paneer, eggs and fish."),
+             ("Avoid tea or coffee within one hour of meals", "it reduces iron absorption.")]
+    foods_html = "".join(li(f"<b>{a}:</b> {b}") for a, b in foods)
+
+    why = [("i-award", "US-trained hematologist", "MD from Cooper University Hospital, USA, and Fellowship in Pediatric Hematology/Oncology and Bone Marrow Transplantation at Penn State Health, USA."),
+           ("i-cells", "10+ years of experience", "Treating simple and complex anemias, thalassemia, aplastic anemia and blood cancers."),
+           ("i-marrow", "Bone marrow transplant expertise", "75+ allogeneic and 30+ autologous transplants."),
+           ("i-child", "Care for adults and children", "Board-certified in pediatrics (FAAP, USA)."),
+           ("i-check", "Root-cause approach", "She treats why your hemoglobin is low, not just the number."),
+           ("i-pin", "Apollo Hospitals, Bannerghatta Road", "Easily reached from JP Nagar, Jayanagar, BTM Layout, HSR Layout, Koramangala, Electronic City and Banashankari.")]
+    why_html = "".join(f'<li data-fx="fade" style="--d:{k * 0.06:.2f}s">{ic(i)}<div><b>{t}</b><span>{d}</span></div></li>' for k, (i, t, d) in enumerate(why))
+
+    return head("Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
+                "Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it — for adults and children at Apollo Hospitals, Bannerghatta Road.",
+                ANEMIA_PAGE, LD_PHYSICIAN + ld_cond + ld_faq) + f"""
+<body data-page="service">{ICONS}{header('service')}
+  <main id="main">
+    <section class="phero" aria-labelledby="an-title" style="padding-bottom:clamp(56px,6vw,84px)">
+      <div class="wrap phero__in">
+        <div>
+          <ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li>Anemia Treatment</li></ol>
+          <h1 id="an-title" data-fx="wipe">Anemia Treatment in <span class="grad-text">Bangalore</span></h1>
+          <p class="phero__sub" data-fx="fade" style="--d:.15s">Anemia means your blood has fewer healthy red blood cells or less hemoglobin than it needs, so less oxygen reaches your body and you feel tired, weak or breathless. Most anemia is treatable once the cause is found — and that is where the right {T} begins.</p>
+          <div class="hero__acts" data-fx="fade" style="--d:.25s">
+            <a class="btn btn--grad" href="contact.html?topic=anaemia">Book a consultation{ic('i-go', 'ic ic--go')}</a>
+            <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
+          </div>
+        </div>
+        <div class="phero__card" data-fx="fade" style="--d:.2s">
+          <dl>
+            <div><dt>Doctor</dt><dd>Dr. Neema Bhat — US-trained hematologist, 10+ years</dd></div>
+            <div><dt>Approach</dt><dd>Finds the exact reason for low hemoglobin and treats it, not just the number on your report</dd></div>
+            <div><dt>For</dt><dd>Adults, children and pregnant women</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="facts">{facts_html}</div></div>
+
+    <section class="sec" aria-labelledby="what-title">
+      <div class="wrap split split--top">
+        <div>
+          <p class="tag" data-fx="wipe-x">Overview</p>
+          <h2 class="title" id="what-title" data-fx="wipe">What is <span class="grad-text">anemia?</span></h2>
+          <p class="lead" data-fx="fade">Your red blood cells carry oxygen from your lungs to every part of your body. They use a protein called hemoglobin to do this. When hemoglobin drops below the healthy level, your organs get less oxygen. This is anemia.</p>
+          <p class="lead" data-fx="fade">Anemia is very common in our state. About 48 out of every 100 women and two out of three young children in Karnataka have anemia (NFHS-5). Many people live with it for years, thinking tiredness is “normal”. It is not, and with timely {T}, you don’t have to put up with it.</p>
+        </div>
+        <div class="box" data-fx="fade">
+          <h3>{ic('i-flask')}When is it anemia?</h3>
+          <p class="box__sub">According to the World Health Organization, you have anemia if your hemoglobin is below:</p>
+          <table class="htable"><thead><tr><th>Who</th><th>Hemoglobin below</th></tr></thead><tbody>{who_html}</tbody></table>
+          <p class="box__sub">Anemia can be mild, moderate or severe. Even mild anemia is worth checking, because it is often an early sign of another problem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--tint" aria-labelledby="sym-title">
+      <div class="wrap">
+        {sec_head('Signs &amp; symptoms', 'Common signs of <span class="grad-text">anemia</span>', 'Anemia often develops slowly, so many people don’t notice it at first. Watch for:', hid='sym-title')}
+        <ul class="sym sym--3">{sym_html}</ul>
+        <div class="cols2 mt">
+          <div class="box" data-fx="fade"><h3>{ic('i-users')}Anemia symptoms in women</h3><p class="box__sub">Women are more likely to have anemia because of monthly periods, pregnancy and breastfeeding. Heavy periods, constant tiredness and hair fall are common clues.</p></div>
+          <div class="box" data-fx="fade" style="--d:.08s"><h3>{ic('i-child')}Anemia symptoms in children</h3><p class="box__sub">Children may look pale, eat poorly, get irritable, fall sick often or grow more slowly. Dr. Neema Bhat is a US board-certified pediatrician and pediatric hematologist, so children with anemia get specialised care.</p></div>
+        </div>
+        <p class="alert" data-fx="fade">{ic('i-heart')}<span><b>See a doctor urgently</b> if you have chest pain, fainting, severe breathlessness, or black or bloody stools.</span></p>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="cause-title">
+      <div class="wrap">
+        {sec_head('Causes', 'What causes <span class="grad-text">anemia?</span>', 'Anemia is not one disease. It is a sign that something is wrong. The common causes are:', hid='cause-title')}
+        <ul class="conds conds--4">{causes_html}</ul>
+      </div>
+    </section>
+
+    <section class="sec sec--tint" aria-labelledby="risk-title">
+      <div class="wrap cols2">
+        <div class="box" data-fx="fade">
+          <h3 id="risk-title">{ic('i-users')}Who is at risk of anemia?</h3>
+          <p class="box__sub">Anyone can get anemia, but the risk is higher for:</p>
+          <ul class="list">{risk_html}</ul>
+        </div>
+        <div class="box" data-fx="fade" style="--d:.08s">
+          <h3>{ic('i-shield')}What happens if anemia is left untreated?</h3>
+          <p class="box__sub">Mild anemia may feel like simple tiredness, but over time it can cause serious problems:</p>
+          <ul class="list">{untreated_html}</ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="types-title">
+      <div class="wrap">
+        {sec_head('Types', 'Types of anemia <span class="grad-text">we treat</span>', center=True, hid='types-title')}
+        <div class="cards3">{types_html}</div>
+      </div>
+    </section>
+
+    <section class="sec sec--tint" aria-labelledby="dx-title">
+      <div class="wrap">
+        {sec_head('Diagnosis', 'How is anemia <span class="grad-text">diagnosed?</span>', 'Finding the right cause is the most important step. Dr. Neema Bhat may advise some of these anemia blood tests:', hid='dx-title')}
+        <ol class="olist">{tests_html}</ol>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="tx-title">
+      <div class="wrap">
+        {sec_head('Treatment', 'Anemia treatment options <span class="grad-text">in Bangalore</span>', f'Your {T} depends on the type and cause of your condition. Dr. Neema Bhat creates a plan for you that may include:', hid='tx-title')}
+        <div class="cards3 cards3--5">{treat_html}</div>
+        <p class="alert alert--warn" data-fx="fade">{ic('i-shield')}<span><b>Do not start iron tablets on your own for a long time.</b> Too much iron can harm the body, and the tablets may hide a more serious cause.</span></p>
+      </div>
+    </section>
+
+    <section class="sec sec--tint" aria-labelledby="food-title">
+      <div class="wrap cols2">
+        <div class="box" data-fx="fade">
+          <h3 id="food-title">{ic('i-sun')}Foods that help treat and prevent anemia</h3>
+          <p class="box__sub">Food supports treatment but rarely fixes anemia alone. Include:</p>
+          <ul class="list">{foods_html}</ul>
+        </div>
+        <div class="box" data-fx="fade" style="--d:.08s">
+          <h3>{ic('i-users')}Prevention &amp; carrier testing</h3>
+          <p class="box__sub">India’s national Anemia Mukt Bharat programme gives free iron and folic acid tablets to children, teenagers, and pregnant and breastfeeding women through government health centres.</p>
+          <p class="box__sub">Inherited anemias such as thalassemia cannot be prevented with food. A simple thalassemia carrier test (HPLC) before marriage or pregnancy shows whether a couple could pass on the condition. If both partners are carriers, each child has a 1 in 4 chance of thalassemia major, so early counselling helps families plan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="why-title">
+      <div class="wrap why">
+        <div class="pic" data-fx="iris">
+          <img src="assets/images/portrait-coat.webp" srcset="assets/images/portrait-coat-720.webp 720w, assets/images/portrait-coat.webp 1200w" sizes="(max-width: 900px) 90vw, 440px" alt="Dr. Neema Bhat in a white coat, arms folded, smiling" width="1200" height="1911" loading="lazy">
+          <div class="pic__badge">{ic('i-award')}<div><b>Dr. Neema Bhat</b><span>US-trained hematologist · FAAP</span></div></div>
+        </div>
+        <div>
+          <p class="tag" data-fx="wipe-x">Why Dr. Neema Bhat</p>
+          <h2 class="title" id="why-title" data-fx="wipe">Why choose Dr. Neema Bhat for <span class="grad-text">anemia treatment?</span></h2>
+          <ul class="why__list">{why_html}</ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--tint" aria-labelledby="fq-title">
+      <div class="wrap">
+        <div class="head head--center"><h2 class="title" id="fq-title" data-fx="wipe">FAQs</h2></div>
+        <div class="faq">{faq_html}</div>
+      </div>
+    </section>
+
+    <section class="sec sec--tight" aria-labelledby="bk-title">
+      <div class="wrap">
+        <div class="cta" data-fx="iris">
+          <div>
+            <h2 id="bk-title">Tired of feeling tired?</h2>
+            <p>Get your hemoglobin checked and find the real cause. Book a consultation for anemia treatment in Bangalore with Dr. Neema Bhat today.</p>
+            <ul class="cta__info">
+              <li>{ic('i-pin')}Apollo Hospitals, 154/11, Opp. IIM-B, Bannerghatta Main Road, Bangalore 560076</li>
+              <li>{ic('i-clock')}Monday to Saturday, 11 AM – 4 PM</li>
+              <li>{ic('i-phone')}<a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · Call or WhatsApp</li>
+            </ul>
+          </div>
+          <div class="cta__acts">
+            <a class="btn btn--white" href="contact.html?topic=anaemia">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
+            <a class="btn btn--line" href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}WhatsApp</a>
+          </div>
+        </div>
+        <p class="small">Medical disclaimer: This page is for general information only and is not a substitute for medical advice. Please consult a doctor for diagnosis and treatment.</p>
+      </div>
+    </section>
+  </main>
+""" + footer()
+
+
 if __name__ == "__main__":
-    for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt)]:
+    for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia)]:
         (ROOT / name).write_text(fn(), encoding="utf-8")
         print("built", name)

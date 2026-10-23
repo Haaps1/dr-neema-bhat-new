@@ -800,3 +800,37 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
   .hero .chip--a b { font-size: .86rem; line-height: 1.2; }
   .hero .chip--a span { font-size: .62rem; }
 }
+
+/* ---------- Anemia page pieces ---------- */
+.sym--3 { grid-template-columns: repeat(3, 1fr); }
+.conds--4 { grid-template-columns: repeat(4, 1fr); }
+.box__sub { margin-top: 10px; color: var(--muted); font-size: .95rem; }
+.box .list { margin-top: 14px; }
+.list li span { color: var(--ink); }
+.card p a, .box a { color: var(--teal-dark); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.htable { width: 100%; margin-top: 14px; border-collapse: separate; border-spacing: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; font-size: .95rem; }
+.htable th { text-align: left; padding: 12px 16px; background: var(--teal-50); font: 600 .72rem var(--f-head); letter-spacing: .12em; text-transform: uppercase; color: var(--teal-dark); }
+.htable td { padding: 12px 16px; border-top: 1px solid var(--line); color: var(--ink); }
+.htable td:last-child, .htable th:last-child { text-align: right; }
+.htable td b { font-family: var(--f-head); color: var(--navy); }
+.alert { display: flex; align-items: flex-start; gap: 12px; margin-top: 18px; padding: 14px 18px; border-radius: 14px; background: #fff; border: 1px solid #f3c7c0; color: var(--ink); font-size: .95rem; }
+.alert .ic { flex: none; margin-top: 3px; color: #c0392b; }
+.alert b { color: #a3301f; font-family: var(--f-head); font-weight: 600; }
+.alert--warn { border-color: #f1dca4; background: #fffbef; }
+.alert--warn .ic { color: #b07d00; }
+.alert--warn b { color: #8a6400; }
+.olist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: none; }
+.olist li { display: grid; grid-template-columns: 46px 1fr; gap: 14px; align-items: start; padding: 18px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); transition: border-color .3s, box-shadow .4s var(--ease); }
+@media (hover: hover) { .olist li:hover { border-color: var(--teal-200); box-shadow: 0 0 0 4px rgba(79, 182, 187, .08), 0 14px 30px -16px rgba(79, 182, 187, .45); } }
+.olist__n { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--grad) border-box; color: #fff; font: 700 .9rem var(--f-head); }
+.olist b { display: block; font: 600 1rem var(--f-head); color: var(--navy); }
+.olist p { margin-top: 4px; font-size: .9rem; color: var(--muted); }
+.cta__info { position: relative; display: grid; gap: 8px; margin-top: 16px; color: rgba(255, 255, 255, .9); font-size: .92rem; }
+.cta__info li { display: flex; gap: 10px; align-items: flex-start; }
+.cta__info .ic { flex: none; margin-top: 3px; }
+.cta__info a { color: #fff; font-weight: 500; }
+@media (max-width: 1100px) { .conds--4 { grid-template-columns: repeat(2, 1fr); } .olist { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) { .sym--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .conds--4, .olist { grid-template-columns: 1fr; } .htable th, .htable td { padding: 10px 12px; } }
+@media (min-width: 1201px) { .cards3--5 { grid-template-columns: repeat(5, 1fr); } }
+@media (min-width: 901px) and (max-width: 1200px) { .cards3--5 { grid-template-columns: repeat(2, 1fr); } }
