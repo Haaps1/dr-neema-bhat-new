@@ -356,6 +356,33 @@ def faq_block(faqs):
     return html, ld
 
 
+def faq_section(faqs, intro, note=""):
+    """Two-column FAQ: sticky intro + help box on the left, numbered question cards on the right."""
+    cards = "".join(
+        f'<details class="qa"{" open" if k == 0 else ""}><summary><span class="qa__n">{k + 1:02d}</span><span class="qa__q">{q}</span><span class="qa__pm" aria-hidden="true"></span></summary><p class="qa__a">{a}</p></details>'
+        for k, (q, a) in enumerate(faqs))
+    note_html = f'<p class="faq2__note">{note}</p>' if note else ""
+    return f"""
+    <section class="sec sec--tint" aria-labelledby="fq-title">
+      <div class="wrap faq2">
+        <div class="faq2__intro" data-fx="fade">
+          <h2 class="title" id="fq-title">FAQs</h2>
+          <p class="lead">{intro}</p>
+          <div class="faq2__help">
+            <b>Still have a question?</b>
+            <span>Talk to the clinic directly.</span>
+            <div class="faq2__acts">
+              <a class="btn btn--grad btn--sm" href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}WhatsApp</a>
+              <a class="btn btn--line btn--sm" href="tel:{PHONE_TEL}">{ic('i-phone')}Call</a>
+            </div>
+          </div>
+          {note_html}
+        </div>
+        <div class="faq2__list">{cards}</div>
+      </div>
+    </section>"""
+
+
 def cta(title, text, topic=""):
     href = "contact.html" + (f"?topic={topic}" if topic else "")
     return f"""
@@ -480,7 +507,7 @@ def home():
         ("Can I get a second opinion?", "Yes. Bring your reports, biopsy results and current treatment details, and Dr. Neema Bhat will review the diagnosis and options with you."),
         ("How do I book an appointment?", f"Call or WhatsApp {PHONE_DISPLAY}, or use the booking form on the Contact page — your request opens in WhatsApp so you can review it before sending."),
     ]
-    faq_html, ld_faq = faq_block(faqs)
+    _, ld_faq = faq_block(faqs)
 
     return head("Dr. Neema Bhat | Best Hematologist &amp; Pediatric Oncologist in Bangalore",
                 "Dr. Neema Bhat is a Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore, caring for children and adults with blood disorders and blood cancers.",
@@ -567,13 +594,7 @@ def home():
     </section>
 {reviews_section()}
 {where_section()}
-
-    <section class="sec sec--tint" aria-labelledby="faq-title">
-      <div class="wrap">
-        {sec_head('FAQs', 'Common <span class="grad-text">questions</span>', center=True, hid='faq-title')}
-        <div class="faq">{faq_html}</div>
-      </div>
-    </section>
+{faq_section(faqs, 'Quick answers to the questions patients ask most about seeing a hematologist.')}
 {cta('Questions about a diagnosis? Talk to a specialist.', 'Consultations for children and adults at Apollo Hospitals, Bannerghatta Road.')}
   </main>
 """ + footer()
@@ -745,7 +766,7 @@ def bmt():
         ("How long is the hospital stay?", "It varies with the type of transplant and the condition being treated. Hospital stays are commonly several weeks, until blood counts recover and the patient is well enough to go home."),
         ("What happens after discharge?", "Regular follow-up visits, blood tests and medicines continue for months while the immune system recovers. The team guides the family on infection precautions, diet, vaccinations and returning to school or work."),
     ]
-    faq_html, ld_faq = faq_block(faqs)
+    _, ld_faq = faq_block(faqs)
     ld_proc = '  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalProcedure","name":"Bone Marrow Transplantation","alternateName":"Stem cell transplant","procedureType":"https://schema.org/TherapeuticProcedure","performer":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n'
 
     facts = [("i-marrow", "100+ transplants", "Performed and supervised"), ("i-users", "Children &amp; adults", "Pediatric and adult BMT"),
@@ -929,14 +950,7 @@ def bmt():
         </div>
       </div>
     </section>
-
-    <section class="sec sec--tint" aria-labelledby="fq-title">
-      <div class="wrap">
-        {sec_head('Questions', 'Bone marrow transplant <span class="grad-text">FAQs</span>', center=True, hid='fq-title')}
-        <div class="faq">{faq_html}</div>
-        <p class="small">General information only — every patient is different. Your consultation is the place for advice specific to you or your child.</p>
-      </div>
-    </section>
+{faq_section(faqs, 'Quick answers to the questions families ask most about bone marrow transplants.', 'General information only — every patient is different. Your consultation is the place for advice specific to you or your child.')}
 {cta('Considering a transplant? Talk it through.', 'Bring your reports — Dr. Neema Bhat will explain the options for you or your child.', 'bone-marrow-transplant')}
   </main>
 """ + footer()
@@ -957,10 +971,7 @@ def anemia():
         ("How much does anemia treatment in Bangalore cost?", "Most anemia treatment, such as blood tests and iron or vitamin supplements, is affordable. Costs rise only for IV infusions, transfusions or specialised treatments. The clinic can share an estimate after your first consultation."),
         ("Can children and pregnant women get anemia treatment?", "Yes. Dr. Neema Bhat is a US board-certified pediatrician and hematologist, and she treats anemia in babies, children, teenagers and pregnant women with safe, age-appropriate care."),
     ]
-    faq_html, ld_faq = faq_block(faqs)
-    faq_cards = "".join(
-        f'<details class="qa"{" open" if k == 0 else ""}><summary><span class="qa__n">{k + 1:02d}</span><span class="qa__q">{q}</span><span class="qa__pm" aria-hidden="true"></span></summary><p class="qa__a">{ans}</p></details>'
-        for k, (q, ans) in enumerate(faqs))
+    _, ld_faq = faq_block(faqs)
     ld_cond = ('  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Anemia Treatment in Bangalore",'
                '"about":{"@type":"MedicalCondition","name":"Anemia","alternateName":["Anaemia","Low hemoglobin"]},'
                '"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n')
@@ -1179,23 +1190,7 @@ def anemia():
       </div>
     </section>
 
-    <section class="sec sec--tint" aria-labelledby="fq-title">
-      <div class="wrap faq2">
-        <div class="faq2__intro" data-fx="fade">
-          <h2 class="title" id="fq-title">FAQs</h2>
-          <p class="lead">Quick answers to the questions patients ask most about anemia and its treatment.</p>
-          <div class="faq2__help">
-            <b>Still have a question?</b>
-            <span>Talk to the clinic directly.</span>
-            <div class="faq2__acts">
-              <a class="btn btn--grad btn--sm" href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}WhatsApp</a>
-              <a class="btn btn--line btn--sm" href="tel:{PHONE_TEL}">{ic('i-phone')}Call</a>
-            </div>
-          </div>
-        </div>
-        <div class="faq2__list">{faq_cards}</div>
-      </div>
-    </section>
+{faq_section(faqs, 'Quick answers to the questions patients ask most about anemia and its treatment.')}
 
     <section class="sec sec--tight" aria-labelledby="bk-title">
       <div class="wrap">

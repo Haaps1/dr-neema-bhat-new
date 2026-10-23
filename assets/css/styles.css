@@ -873,3 +873,4 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
   .qa__n { width: 34px; height: 34px; border-radius: 10px; }
   .qa__a { padding: 0 14px 16px 14px; }
 }
+.faq2__note { margin-top: 14px; font-size: .84rem; color: var(--muted); }
