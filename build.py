@@ -4,9 +4,15 @@ Run:  python3 build.py
 Edit shared pieces (header, menu, footer, services list) here, then rebuild.
 The generated .html files are what gets published.
 """
+from hashlib import md5
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+
+
+def asset_v(rel):
+    """Short content hash so browsers fetch the new file after every change."""
+    return md5((ROOT / rel).read_bytes()).hexdigest()[:8]
 PHONE_DISPLAY = "+91 78997 56677"
 PHONE_TEL = "+917899756677"
 WA = "https://wa.me/917899756677"
@@ -139,7 +145,7 @@ def head(title, desc, canonical, extra=""):
   <link rel="apple-touch-icon" href="assets/images/logo-mark.png">
   <link rel="preload" href="assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v={asset_v('assets/css/styles.css')}">
 {extra}</head>"""
 
 
@@ -231,7 +237,7 @@ def footer(fab=True):
     <a class="dock__book" href="{'contact.html' if fab else '#wizard'}">{ic('i-cal')}<span>Book</span></a>
   </nav>
   <dialog class="lb" id="lb" aria-label="Photo viewer"><button class="lb__x" type="button" aria-label="Close">×</button><button class="lb__nav lb__nav--p" type="button" aria-label="Previous">‹</button><figure><img src="" alt=""><figcaption></figcaption></figure><button class="lb__nav lb__nav--n" type="button" aria-label="Next">›</button></dialog>
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js?v={asset_v('assets/js/main.js')}" defer></script>
 </body>
 </html>
 """
