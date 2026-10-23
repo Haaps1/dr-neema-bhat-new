@@ -1077,8 +1077,8 @@ def anemia():
             <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
           </div>
         </div>
-        <div class="phero__pic" data-fx="iris" style="--d:.15s">
-          <div class="frame"><img src="assets/images/portrait-classic.webp" srcset="assets/images/portrait-classic-720.webp 720w, assets/images/portrait-classic.webp 1200w" sizes="(max-width: 900px) 60vw, 300px" alt="Dr. Neema Bhat, hematologist in Bangalore" width="1200" height="1893" fetchpriority="high"></div>
+        <div class="phero__pic phero__pic--art" data-fx="iris" style="--d:.15s">
+          <img src="assets/images/illustrations/anemia-cells.svg" alt="Illustration of red blood cells, some pale and fewer in number, representing anemia" width="400" height="400" fetchpriority="high">
         </div>
       </div>
     </section>

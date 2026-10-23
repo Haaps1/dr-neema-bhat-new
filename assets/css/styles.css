@@ -874,3 +874,8 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
   .qa__a { padding: 0 14px 16px 14px; }
 }
 .faq2__note { margin-top: 14px; font-size: .84rem; color: var(--muted); }
+.phero__pic--art { position: relative; width: min(100%, 340px); }
+.phero__pic--art > img { width: 100%; height: auto; filter: drop-shadow(0 24px 40px rgba(15, 38, 93, .25)); }
+.phero__chip { left: -34px; bottom: 14%; }
+.phero__chip .ic { color: #e2475a; }
+@media (max-width: 900px) { .phero__pic--art { width: min(70%, 280px); } .phero__chip { left: -24px; padding: 8px 12px; } .phero__chip b { font-size: .95rem; } }
