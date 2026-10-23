@@ -32,7 +32,7 @@
   --r-lg: 26px;
   --shadow: 0 1px 2px rgba(15, 38, 93, .04), 0 12px 32px rgba(15, 38, 93, .07);
   --shadow-lg: 0 24px 60px -20px rgba(15, 38, 93, .25);
-  --container: 1200px;
+  --container: 1440px;
   --ease: cubic-bezier(.16, 1, .3, 1);
   --ease-io: cubic-bezier(.65, 0, .35, 1);
   --bar: 76px;
@@ -55,7 +55,7 @@ main { overflow-x: clip; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip { position: absolute; left: 16px; top: -60px; z-index: 999; padding: 10px 16px; border-radius: 10px; background: var(--navy); color: #fff; transition: top .2s; }
 .skip:focus { top: 12px; }
-.wrap { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 24px; }
+.wrap { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: clamp(24px, 3.5vw, 56px); }
 
 /* ---------- Type ---------- */
 .tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: var(--teal-50); border: 1px solid var(--teal-100); font: 600 .74rem var(--f-head); letter-spacing: .12em; text-transform: uppercase; color: var(--teal-dark); }
