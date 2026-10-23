@@ -1049,13 +1049,6 @@ def anemia():
              ("Avoid tea or coffee within one hour of meals", "it reduces iron absorption.")]
     foods_html = "".join(li(f"<b>{a}:</b> {b}") for a, b in foods)
 
-    why = [("i-award", "US-trained hematologist", "MD from Cooper University Hospital, USA, and Fellowship in Pediatric Hematology/Oncology and Bone Marrow Transplantation at Penn State Health, USA."),
-           ("i-cells", "10+ years of experience", "Treating simple and complex anemias, thalassemia, aplastic anemia and blood cancers."),
-           ("i-marrow", "Bone marrow transplant expertise", "75+ allogeneic and 30+ autologous transplants."),
-           ("i-child", "Care for adults and children", "Board-certified in pediatrics (FAAP, USA)."),
-           ("i-check", "Root-cause approach", "She treats why your hemoglobin is low, not just the number."),
-           ("i-pin", "Apollo Hospitals, Bannerghatta Road", "Easily reached from JP Nagar, Jayanagar, BTM Layout, HSR Layout, Koramangala, Electronic City and Banashankari.")]
-    why_html = "".join(f'<li data-fx="fade" style="--d:{k * 0.06:.2f}s">{ic(i)}<div><b>{t}</b><span>{d}</span></div></li>' for k, (i, t, d) in enumerate(why))
 
     return head("Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
                 "Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it — for adults and children at Apollo Hospitals, Bannerghatta Road.",
@@ -1075,9 +1068,9 @@ def anemia():
         </div>
         <div class="phero__card" data-fx="fade" style="--d:.2s">
           <dl>
-            <div><dt>Doctor</dt><dd>Dr. Neema Bhat — US-trained hematologist, 10+ years</dd></div>
-            <div><dt>Approach</dt><dd>Finds the exact reason for low hemoglobin and treats it, not just the number on your report</dd></div>
-            <div><dt>For</dt><dd>Adults, children and pregnant women</dd></div>
+            <div><dt>Doctor</dt><dd>Dr. Neema Bhat</dd></div>
+            <div><dt>Speciality</dt><dd>Hematologist, Pediatric Oncologist &amp; Bone Marrow Transplant Specialist</dd></div>
+            <div><dt>Education</dt><dd>MD (USA) · Fellowship (FAAP), Penn State Health</dd></div>
           </dl>
         </div>
       </div>
@@ -1177,12 +1170,17 @@ def anemia():
       <div class="wrap why">
         <div class="pic" data-fx="iris">
           <img src="assets/images/portrait-coat.webp" srcset="assets/images/portrait-coat-720.webp 720w, assets/images/portrait-coat.webp 1200w" sizes="(max-width: 900px) 90vw, 440px" alt="Dr. Neema Bhat in a white coat, arms folded, smiling" width="1200" height="1911" loading="lazy">
-          <div class="pic__badge">{ic('i-award')}<div><b>Dr. Neema Bhat</b><span>US-trained hematologist · FAAP</span></div></div>
+          <div class="pic__badge">{ic('i-award')}<div><b>Dr. Neema Bhat</b><span>MD (USA) · FAAP · Haemato-Oncologist</span></div></div>
         </div>
         <div>
-          <p class="tag" data-fx="wipe-x">Why Dr. Neema Bhat</p>
-          <h2 class="title" id="why-title" data-fx="wipe">Why choose Dr. Neema Bhat for <span class="grad-text">anemia treatment?</span></h2>
-          <ul class="why__list">{why_html}</ul>
+          <p class="tag" data-fx="wipe-x">About the doctor</p>
+          <h2 class="title" id="why-title" data-fx="wipe">Dr. <span class="grad-text">Neema Bhat</span></h2>
+          <ul class="why__list">
+            <li data-fx="fade">{ic('i-marrow')}<div><b>Speciality</b><span>Hematologist, Pediatric Oncologist &amp; Bone Marrow Transplant Specialist</span></div></li>
+            <li data-fx="fade" style="--d:.06s">{ic('i-award')}<div><b>Education</b><span>MD (USA) · Fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation, Penn State Health, USA</span></div></li>
+          </ul>
+          <p class="lead" data-fx="fade">Dr. Neema Bhat is a Haemato-Oncologist in Bangalore with more than ten years of experience treating blood disorders and blood cancers in children and adults. For anemia, she looks for the exact reason your hemoglobin is low and treats that cause, with clear explanations at every step.</p>
+          <div class="hero__acts" data-fx="fade"><a class="btn btn--line" href="about.html">Read more about her{ic('i-go', 'ic ic--go')}</a></div>
         </div>
       </div>
     </section>
@@ -1201,8 +1199,6 @@ def anemia():
             <h2 id="bk-title">Tired of feeling tired?</h2>
             <p>Get your hemoglobin checked and find the real cause. Book a consultation for anemia treatment in Bangalore with Dr. Neema Bhat today.</p>
             <ul class="cta__info">
-              <li>{ic('i-pin')}Apollo Hospitals, 154/11, Opp. IIM-B, Bannerghatta Main Road, Bangalore 560076</li>
-              <li>{ic('i-clock')}Monday to Saturday, 11 AM – 4 PM</li>
               <li>{ic('i-phone')}<a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · Call or WhatsApp</li>
             </ul>
           </div>
