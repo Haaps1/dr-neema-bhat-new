@@ -879,3 +879,28 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 .phero__chip { left: -34px; bottom: 14%; }
 .phero__chip .ic { color: #e2475a; }
 @media (max-width: 900px) { .phero__pic--art { width: min(70%, 280px); } .phero__chip { left: -24px; padding: 8px 12px; } .phero__chip b { font-size: .95rem; } }
+
+/* ---------- Condition pages ---------- */
+.drop .drop__all { font-weight: 600; color: var(--teal-dark); }
+.dtable-wrap { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: #fff; }
+.dtable { width: 100%; border-collapse: collapse; font-size: .94rem; }
+.dtable th { text-align: left; padding: 14px 18px; background: var(--teal-50); font: 600 .72rem var(--f-head); letter-spacing: .12em; text-transform: uppercase; color: var(--teal-dark); }
+.dtable td { padding: 14px 18px; border-top: 1px solid var(--line); vertical-align: top; color: var(--ink); }
+.dtable td:not(:first-child) { color: var(--muted); }
+.dtable td b { font-family: var(--f-head); font-weight: 600; color: var(--navy); }
+.dtable a, .lead a, .box__sub a { color: var(--teal-dark); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+@media (hover: hover) { .dtable tbody tr:hover td { background: #fbfefe; } }
+.tsteps { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tstep { display: grid; grid-template-columns: 46px 1fr; gap: 14px; align-items: start; padding: 22px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); }
+.tstep h3 { font-size: 1.06rem; margin-top: 10px; }
+.tstep .box__sub:first-child { margin-top: 8px; }
+.tstep .list { margin-top: 10px; }
+@media (max-width: 900px) { .tsteps { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  .dtable thead { display: none; }
+  .dtable, .dtable tbody, .dtable tr, .dtable td { display: block; width: 100%; }
+  .dtable tr { padding: 14px 16px; border-top: 1px solid var(--line); }
+  .dtable tr:first-child { border-top: 0; }
+  .dtable td { border: 0; padding: 4px 0; }
+  .dtable td:not(:first-child)::before { content: attr(data-label); display: block; font: 600 .66rem var(--f-head); letter-spacing: .12em; text-transform: uppercase; color: var(--teal-dark); margin-top: 6px; }
+}

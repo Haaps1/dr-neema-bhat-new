@@ -68,8 +68,13 @@ REVIEWS = [
 
 
 ANEMIA_PAGE = "anemia-treatment.html"
+HEMA_PAGE = "hematology-treatment.html"
+THAL_PAGE = "thalassemia-treatment.html"
+LEUK_PAGE = "leukemia-treatment.html"
+MYEL_PAGE = "multiple-myeloma-treatment.html"
 # treatments that have their own page
-SERVICE_PAGES = {"bone-marrow-transplant": BMT_PAGE, "anaemia": ANEMIA_PAGE}
+SERVICE_PAGES = {"bone-marrow-transplant": BMT_PAGE, "anaemia": ANEMIA_PAGE, "thalassemia": THAL_PAGE,
+                 "leukaemia": LEUK_PAGE, "lymphoma-myeloma": MYEL_PAGE}
 
 
 def svc_href(slug):
@@ -178,7 +183,7 @@ def header(active):
           <li class="has-drop">
             <button type="button" aria-expanded="false" aria-controls="drop-services"{' aria-current="page"' if active == 'service' else ''}>Services{ic('i-chev', 'ic chev')}</button>
             <div class="drop" id="drop-services">
-              <div class="drop__col"><h3>Hematology</h3>{hema}</div>
+              <div class="drop__col"><h3>Hematology</h3><a class="drop__all" href="{HEMA_PAGE}">Hematology Treatment (overview)</a>{hema}</div>
               <div class="drop__col"><h3>Pediatric</h3>{ped}</div>
               <a class="drop__feat" href="{BMT_PAGE}">Bone Marrow Transplant{ic('i-go')}</a>
             </div>
@@ -205,7 +210,7 @@ def header(active):
         <li><a href="index.html"{cur('home')}>Home{ic('i-go')}</a></li>
         <li><a href="about.html"{cur('about')}>About{ic('i-go')}</a></li>
         <li><button type="button" data-acc aria-expanded="false">Services{ic('i-chev', 'ic chev')}</button>
-          <div class="sheet__sub"><div><small>Hematology</small>{hema}<small>Pediatric</small>{ped}<small>Specialty</small><a href="{BMT_PAGE}">Bone Marrow Transplant</a></div></div></li>
+          <div class="sheet__sub"><div><small>Hematology</small><a href="{HEMA_PAGE}">Hematology Treatment (overview)</a>{hema}<small>Pediatric</small>{ped}<small>Specialty</small><a href="{BMT_PAGE}">Bone Marrow Transplant</a></div></div></li>
         <li><a href="contact.html"{cur('contact')}>Contact{ic('i-go')}</a></li>
       </ul>
       <div class="sheet__actions">
@@ -233,7 +238,7 @@ def footer(fab=True):
             <li>Apollo Hospitals, Bannerghatta Road, Bengaluru</li>
           </ul>
         </div>
-        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="{ANEMIA_PAGE}">Anemia Treatment</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="{HEMA_PAGE}">Hematology Treatment</a></li><li><a href="{ANEMIA_PAGE}">Anemia Treatment</a></li><li><a href="{THAL_PAGE}">Thalassemia Treatment</a></li><li><a href="{LEUK_PAGE}">Leukemia Treatment</a></li><li><a href="{MYEL_PAGE}">Multiple Myeloma Treatment</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div><h2>Hematology</h2><ul>{links}</ul></div>
         <div><h2>Pediatric</h2><ul>{links2}</ul></div>
       </div>
@@ -1066,22 +1071,7 @@ def anemia():
                 ANEMIA_PAGE, LD_PHYSICIAN + ld_cond + ld_faq) + f"""
 <body data-page="service">{ICONS}{header('service')}
   <main id="main">
-    <section class="phero" aria-labelledby="an-title">
-      <div class="wrap phero__in">
-        <div>
-          <ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li>Anemia Treatment</li></ol>
-          <h1 id="an-title" data-fx="wipe">Anemia Treatment in <span class="grad-text">Bangalore</span></h1>
-          <p class="phero__sub" data-fx="fade" style="--d:.15s">Anemia means your blood has fewer healthy red blood cells or less hemoglobin than it needs, so less oxygen reaches your body and you feel tired, weak or breathless. Most anemia is treatable once the cause is found — and that is where the right {T} begins.</p>
-          <div class="hero__acts" data-fx="fade" style="--d:.25s">
-            <a class="btn btn--grad" href="contact.html?topic=anaemia">Book a consultation{ic('i-go', 'ic ic--go')}</a>
-            <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
-          </div>
-        </div>
-        <div class="phero__pic phero__pic--art" data-fx="iris" style="--d:.15s">
-          <img src="assets/images/illustrations/anemia-cells.svg" alt="Illustration of red blood cells, some pale and fewer in number, representing anemia" width="400" height="400" fetchpriority="high">
-        </div>
-      </div>
-    </section>
+{cond_hero("an-title", "Anemia Treatment", 'Anemia Treatment in <span class="grad-text">Bangalore</span>', f"Anemia means your blood has fewer healthy red blood cells or less hemoglobin than it needs, so less oxygen reaches your body and you feel tired, weak or breathless. Most anemia is treatable once the cause is found — and that is where the right {T} begins.", "anemia-cells.svg", "Illustration of red blood cells, some pale and fewer in number, representing anemia", "anaemia")}
 
     <section class="sec" aria-labelledby="what-title">
       <div class="wrap split split--top">
@@ -1171,6 +1161,39 @@ def anemia():
       </div>
     </section>
 
+{about_doctor("For anemia, she looks for the exact reason your hemoglobin is low and treats that cause, with clear explanations at every step.")}
+
+{faq_section(faqs, 'Quick answers to the questions patients ask most about anemia and its treatment.')}
+
+{book_section("Tired of feeling tired?", "Get your hemoglobin checked and find the real cause. Book a consultation for anemia treatment in Bangalore with Dr. Neema Bhat today.", "anaemia")}
+  </main>
+""" + footer()
+
+
+# ------------------------------------------------------------------ CONDITION PAGES (shared parts)
+def cond_hero(hid, crumb, h1, sub, art, alt, topic):
+    return f"""
+    <section class="phero" aria-labelledby="{hid}">
+      <div class="wrap phero__in">
+        <div>
+          <ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li>{crumb}</li></ol>
+          <h1 id="{hid}" data-fx="wipe">{h1}</h1>
+          <p class="phero__sub" data-fx="fade" style="--d:.15s">{sub}</p>
+          <div class="hero__acts" data-fx="fade" style="--d:.25s">
+            <a class="btn btn--grad" href="contact.html?topic={topic}">Book a consultation{ic('i-go', 'ic ic--go')}</a>
+            <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
+          </div>
+        </div>
+        <div class="phero__pic phero__pic--art" data-fx="iris" style="--d:.15s">
+          <img src="assets/images/illustrations/{art}" alt="{alt}" width="400" height="400" fetchpriority="high">
+        </div>
+      </div>
+    </section>"""
+
+
+def about_doctor(focus):
+    """Same 'About the doctor' block on every treatment page; `focus` is one sentence about this condition."""
+    return f"""
     <section class="sec" aria-labelledby="why-title">
       <div class="wrap why">
         <div class="pic" data-fx="iris">
@@ -1184,37 +1207,504 @@ def anemia():
             <li data-fx="fade">{ic('i-marrow')}<div><b>Speciality</b><span>Hematologist, Pediatric Oncologist &amp; Bone Marrow Transplant Specialist</span></div></li>
             <li data-fx="fade" style="--d:.06s">{ic('i-award')}<div><b>Education</b><span>MD (USA) · Fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation, Penn State Health, USA</span></div></li>
           </ul>
-          <p class="lead" data-fx="fade">Dr. Neema Bhat is a Haemato-Oncologist in Bangalore with more than ten years of experience treating blood disorders and blood cancers in children and adults. For anemia, she looks for the exact reason your hemoglobin is low and treats that cause, with clear explanations at every step.</p>
+          <p class="lead" data-fx="fade">Dr. Neema Bhat is a Haemato-Oncologist in Bangalore with more than ten years of experience treating blood disorders and blood cancers in children and adults. {focus}</p>
           <div class="hero__acts" data-fx="fade"><a class="btn btn--line" href="about.html">Read more about her{ic('i-go', 'ic ic--go')}</a></div>
         </div>
       </div>
-    </section>
+    </section>"""
 
-{faq_section(faqs, 'Quick answers to the questions patients ask most about anemia and its treatment.')}
 
+def book_section(title, text, topic):
+    """Same closing booking block on every treatment page (phone only, no address or timings)."""
+    return f"""
     <section class="sec sec--tight" aria-labelledby="bk-title">
       <div class="wrap">
         <div class="cta" data-fx="iris">
           <div>
-            <h2 id="bk-title">Tired of feeling tired?</h2>
-            <p>Get your hemoglobin checked and find the real cause. Book a consultation for anemia treatment in Bangalore with Dr. Neema Bhat today.</p>
+            <h2 id="bk-title">{title}</h2>
+            <p>{text}</p>
             <ul class="cta__info">
               <li>{ic('i-phone')}<a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · Call or WhatsApp</li>
             </ul>
           </div>
           <div class="cta__acts">
-            <a class="btn btn--white" href="contact.html?topic=anaemia">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
+            <a class="btn btn--white" href="contact.html?topic={topic}">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
             <a class="btn btn--line" href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}WhatsApp</a>
           </div>
         </div>
         <p class="small">Medical disclaimer: This page is for general information only and is not a substitute for medical advice. Please consult a doctor for diagnosis and treatment.</p>
       </div>
-    </section>
+    </section>"""
+
+
+def _li(t):
+    return f'<li>{ic("i-check")}<span>{t}</span></li>'
+
+
+def _ul(items):
+    return '<ul class="list">' + "".join(_li(t) for t in items) + "</ul>"
+
+
+def _box(icon, title, inner, d=0, hid=""):
+    idattr = f' id="{hid}"' if hid else ""
+    return f'<div class="box" data-fx="fade" style="--d:{d:.2f}s"><h3{idattr}>{ic(icon)}{title}</h3>{inner}</div>'
+
+
+def _p(t):
+    return f'<p class="box__sub">{t}</p>'
+
+
+def _sec(inner, tint=False, label=""):
+    lab = f' aria-labelledby="{label}"' if label else ""
+    return f'\n    <section class="sec{" sec--tint" if tint else ""}"{lab}>\n      <div class="wrap">{inner}\n      </div>\n    </section>'
+
+
+def _cards(items, cls="cards3"):
+    return f'<div class="{cls}">' + "".join(
+        f'<div class="card" data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic(i)}<h3>{t}</h3><p>{d}</p></div>' for k, (i, t, d) in enumerate(items)) + "</div>"
+
+
+def _conds(items, cols4=True):
+    return f'<ul class="conds{" conds--4" if cols4 else ""}">' + "".join(
+        f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><b>{ic(i)}{t}</b><p>{d}</p></li>' for k, (i, t, d) in enumerate(items)) + "</ul>"
+
+
+def _sym(items, cls="sym sym--3"):
+    return f'<ul class="{cls}">' + "".join(
+        f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic(i)}<b>{t}</b><span>{d}</span></li>' for k, (i, t, d) in enumerate(items)) + "</ul>"
+
+
+def _olist(items):
+    return '<ol class="olist">' + "".join(
+        f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><span class="olist__n">{k + 1:02d}</span><div><b>{t}</b><p>{d}</p></div></li>' for k, (t, d) in enumerate(items)) + "</ol>"
+
+
+def _table(headers, rows):
+    """Readable table that turns into stacked cards on phones."""
+    th = "".join(f"<th>{h}</th>" for h in headers)
+    trs = "".join("<tr>" + "".join(f'<td data-label="{headers[k]}">{"<b>" + c + "</b>" if k == 0 else c}</td>' for k, c in enumerate(r)) + "</tr>" for r in rows)
+    return f'<div class="dtable-wrap" data-fx="fade"><table class="dtable"><thead><tr>{th}</tr></thead><tbody>{trs}</tbody></table></div>'
+
+
+def _alert(bold, rest, warn=False):
+    return f'<p class="alert{" alert--warn" if warn else ""}" data-fx="fade">{ic("i-shield" if warn else "i-heart")}<span><b>{bold}</b> {rest}</span></p>'
+
+
+def _steps(items):
+    """Numbered sub-sections (e.g. the four parts of thalassemia care)."""
+    return '<div class="tsteps">' + "".join(
+        f'<div class="tstep" data-fx="fade" style="--d:{(k % 2) * 0.06:.2f}s"><span class="olist__n">{k + 1:02d}</span><div><h3>{t}</h3>{body}</div></div>' for k, (t, body) in enumerate(items)) + "</div>"
+
+
+def cond_page(fname, title, desc, ld_name, alt_names, hero, sections, faqs, faq_intro, focus, book):
+    _, ld_faq = faq_block(faqs)
+    ld_page = ('  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"%s",'
+               '"about":{"@type":"MedicalCondition","name":"%s","alternateName":[%s]},'
+               '"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n') % (title.split(" | ")[0], ld_name, ",".join('"%s"' % a for a in alt_names))
+    return head(title, desc, fname, LD_PHYSICIAN + ld_page + ld_faq) + f"""
+<body data-page="service">{ICONS}{header('service')}
+  <main id="main">{hero}{''.join(sections)}
+{about_doctor(focus)}
+{faq_section(faqs, faq_intro)}
+{book}
   </main>
 """ + footer()
 
 
+# ------------------------------------------------------------------ HEMATOLOGY (overview)
+def hematology():
+    T = "hematology treatment in Bangalore"
+    hero = cond_hero("hm-title", "Hematology Treatment", 'Hematology Treatment in <span class="grad-text">Bangalore</span>',
+                     f"Hematology is the branch of medicine that diagnoses and treats diseases of the blood, bone marrow and lymph nodes — anemia, bleeding and clotting problems, low or high blood counts, inherited conditions like thalassemia, and blood cancers. Many blood disorders can be cured or well controlled when they are found early.",
+                     "hematology-cells.svg", "Illustration of red blood cells, a white blood cell and platelets", "hematology")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="hm-what" data-fx="wipe">What is <span class="grad-text">hematology?</span></h2>
+            <p class="lead" data-fx="fade">Dr. Neema Bhat, a US-trained hematologist in Bangalore with 10+ years of experience, offers complete {T} for adults and children, from simple anemia to bone marrow transplant.</p>
+            <p class="lead" data-fx="fade">Blood disorders are very common in India. About 48 out of every 100 women and two out of three young children in Karnataka have anemia (NFHS-5). In 2022, about 55,600 people in India were diagnosed with leukemia, 55,300 with lymphoma and 19,400 with multiple myeloma (National Cancer Registry Programme, ICMR). An abnormal blood report is often the first clue, and the right {T} starts with finding the exact cause.</p>
+          </div>
+          {_box('i-cells', 'Your blood, in simple words', _p('Your blood has three main types of cells, all made in the bone marrow:') + _ul(['<b>Red blood cells</b> carry oxygen to every part of your body.', '<b>White blood cells</b> fight infections.', '<b>Platelets</b> help your blood clot and stop bleeding.']) + _p('Your blood also contains clotting proteins that work with platelets to seal a cut. When any of these are too low, too high or not working properly, it is called a blood disorder.'))}
+        </div>
+        <div class="cols2 mt">
+          {_box('i-doc', 'What does a hematologist do?', _p('A hematologist is a doctor who specialises in blood disorders. A hematologist:') + _ul(['Finds out why your blood counts or blood tests are abnormal', 'Treats anemia, bleeding and clotting disorders, and low or high blood counts', 'Treats blood cancers such as leukemia, lymphoma and myeloma (a hemato-oncologist)', 'Performs bone marrow tests and bone marrow (stem cell) transplants', 'Works with other doctors, such as gynaecologists, surgeons and kidney specialists, when a blood problem affects their care']))}
+          {_box('i-child', 'Pediatric hematology', _p('A pediatric hematologist treats blood disorders in babies, children and teenagers. Dr. Neema Bhat is trained in both adult and pediatric hematology.') + _p('Children may look pale, bruise easily, bleed for a long time after a fall or vaccine, get infections often, or have swollen glands or a swollen tummy. Children with these signs should see a pediatric hematologist.'), 0.08)}
+        </div>""", label="hm-what")
+    signs = _sec(sec_head('Signs', 'Signs you should see a <span class="grad-text">hematologist</span>', 'Many blood disorders are first found on a routine blood test. See a hematologist if you have:', hid='hm-signs') + _sym([
+        ("i-drop", "Low hemoglobin", "Anemia that keeps coming back or does not improve with iron tablets"),
+        ("i-sun", "Constant tiredness", "Weakness, breathlessness or pale skin"),
+        ("i-cells", "Easy bruising", "Small red or purple spots on the skin (petechiae)"),
+        ("i-drop", "Frequent bleeding", "Nosebleeds, bleeding gums, or heavy or long periods"),
+        ("i-shield", "Bleeding that won’t stop", "After a cut, tooth extraction or surgery"),
+        ("i-heart", "Leg swelling or pain", "Swelling, pain or redness in one leg — possibly a clot (DVT)"),
+        ("i-users", "Repeated clots", "Blood clots at a young age, or repeated clots or miscarriages"),
+        ("i-flask", "Abnormal counts", "Low or high platelet, white cell or red cell counts on your report"),
+        ("i-thermo", "Frequent infections", "Infections that are frequent or unusual"),
+        ("i-cells", "Swollen lymph nodes", "Glands in the neck, armpit or groin"),
+        ("i-scale", "Unexplained symptoms", "Fever, night sweats or weight loss without a clear reason"),
+        ("i-bone", "Bone pain", "Especially in the back"),
+    ]) + _alert('See a doctor urgently', 'if you have heavy bleeding that will not stop, sudden chest pain or breathlessness, sudden weakness on one side of the body, blood in vomit or black stools, high fever with very low white cell counts, or fainting.'), tint=True, label="hm-signs")
+    causes = _sec(f"""<div class="cols2">
+          {_box('i-flask', 'What causes blood disorders?', _p('Blood disorders have many causes. The common ones are:') + _ul(['<b>Nutritional deficiency:</b> low iron, vitamin B12 or folate.', '<b>Blood loss:</b> heavy periods, piles, ulcers or slow bleeding in the gut.', '<b>Inherited (genetic) conditions:</b> thalassemia, sickle cell disease, hemophilia and some clotting disorders.', '<b>Immune system problems:</b> the body attacks its own blood cells, as in ITP or autoimmune hemolytic anemia.', '<b>Long-term illnesses:</b> kidney disease, liver disease, thyroid problems and autoimmune diseases.', '<b>Infections:</b> such as dengue, malaria, viral infections and worm infections.', '<b>Medicines:</b> some painkillers, antibiotics, blood thinners and chemotherapy.', '<b>Bone marrow problems:</b> aplastic anemia, myelodysplastic syndromes and blood cancers.']), hid='hm-cause')}
+          {_box('i-users', 'Who is at risk?', _p('The risk is higher for:') + _ul(['Women with heavy periods, and pregnant or breastfeeding women', 'Babies, children and teenagers, who grow fast', 'Vegetarians and vegans, who may get too little vitamin B12', 'Adults over 60', 'People with a family history of blood disorders', 'Couples where both partners are thalassemia carriers', 'People with long-term illnesses or who take certain medicines for a long time', 'People who smoke or have had radiation or chemotherapy', 'People who are overweight, inactive, or sit for long hours (higher clot risk)']), 0.08)}
+        </div>""", label="hm-cause")
+    untreated = _sec(sec_head('Complications', 'What happens if blood disorders are <span class="grad-text">left untreated?</span>', 'Some blood problems seem mild at first but can become serious over time:', hid='hm-untr') + _conds([
+        ("i-heart", "Heart strain", "Long-term anemia makes the heart work harder and can lead to heart failure."),
+        ("i-drop", "Dangerous bleeding", "Low platelets or clotting disorders can cause bleeding into joints, the gut or the brain."),
+        ("i-lungs", "Blood clots", "An untreated clot in the leg can travel to the lungs (pulmonary embolism) and be life-threatening."),
+        ("i-thermo", "Serious infections", "Low white cell counts make infections more likely and harder to treat."),
+        ("i-shield", "Organ damage", "Iron overload from repeated transfusions can harm the heart and liver."),
+        ("i-child", "Pregnancy problems", "Anemia and clotting disorders raise the risk of miscarriage, preterm birth and heavy bleeding."),
+        ("i-cells", "Late cancer diagnosis", "An abnormal blood count can be the first sign of leukemia, lymphoma or myeloma. Early diagnosis improves treatment results."),
+    ], cols4=False), tint=True, label="hm-untr")
+    disorders = _sec(sec_head('Conditions', 'Blood disorders <span class="grad-text">we treat</span>', center=True, hid='hm-dis') + _table(
+        ["Group", "Conditions", "What it means in simple words"], [
+            ("Red blood cell disorders", f'<a href="{ANEMIA_PAGE}">Iron deficiency anemia</a>, vitamin B12 and folate deficiency, anemia of chronic disease, hemolytic anemia, polycythemia', "Too few red cells, red cells that break down early, or too many red cells."),
+            ("Inherited blood disorders", f'<a href="{THAL_PAGE}">Thalassemia</a>, sickle cell disease, hereditary spherocytosis, G6PD deficiency', "Conditions passed down in families that affect how red cells are made or how long they last."),
+            ("Platelet disorders", "ITP (immune thrombocytopenia), low platelets in dengue or pregnancy, high platelets (thrombocytosis)", "Too few or too many platelets, causing bleeding or clotting."),
+            ("Bleeding disorders", "Hemophilia A and B, von Willebrand disease, other clotting factor deficiencies", "The blood does not clot properly, so bleeding lasts longer."),
+            ("Clotting (thrombosis) disorders", "Deep vein thrombosis (DVT), pulmonary embolism, thrombophilia, antiphospholipid syndrome", "The blood clots too easily, blocking veins or arteries."),
+            ("White blood cell disorders", "Low white cell count (neutropenia), high white cell count", "Too few white cells to fight infection, or too many for an unclear reason."),
+            ("Bone marrow failure", "Aplastic anemia, pure red cell aplasia", "The bone marrow stops making enough blood cells."),
+            ("Blood cancers", f'Acute and chronic <a href="{LEUK_PAGE}">leukemia</a>, Hodgkin and non-Hodgkin lymphoma, <a href="{MYEL_PAGE}">multiple myeloma</a>, myelodysplastic syndromes (MDS), myeloproliferative neoplasms (MPN)', "Cancers that start in the bone marrow, blood or lymph nodes."),
+            ("Immune and rare disorders", "HLH (hemophagocytic lymphohistiocytosis), primary immunodeficiency disorders, thrombotic microangiopathy", "Rare conditions where the immune system or small blood vessels damage blood cells."),
+            ("Children’s blood disorders", "Anemia, thalassemia, ITP, hemophilia and childhood leukemia", "Specialised care for babies, children and teenagers."),
+        ]), label="hm-dis")
+    dx = _sec(sec_head('Diagnosis', 'How are blood disorders <span class="grad-text">diagnosed?</span>', 'The right test depends on your symptoms and blood report. Dr. Neema Bhat may advise some of these tests:', hid='hm-dx') + _olist([
+        ("Complete Blood Count (CBC)", "Checks hemoglobin, white cells and platelets."),
+        ("Peripheral blood smear", "Looks at the shape and size of blood cells under a microscope."),
+        ("Reticulocyte count", "Shows whether the bone marrow is making new red cells."),
+        ("Iron studies, vitamin B12 and folate", "Find nutritional causes of anemia."),
+        ("Hemoglobin electrophoresis / HPLC", "Checks for thalassemia and sickle cell disease."),
+        ("Coagulation tests", "PT/INR, APTT, fibrinogen and D-dimer check how well your blood clots."),
+        ("Clotting factor assays &amp; von Willebrand tests", "Diagnose hemophilia and other bleeding disorders."),
+        ("Thrombophilia screening", "Looks for inherited or acquired causes of repeated blood clots."),
+        ("Flow cytometry (immunophenotyping)", "Identifies abnormal cells in leukemia and lymphoma."),
+        ("Bone marrow aspiration and biopsy", "Examines the bone marrow directly."),
+        ("Cytogenetics, FISH &amp; molecular tests", "Find genetic changes that guide treatment of blood cancers."),
+        ("Lymph node biopsy", "Diagnoses lymphoma."),
+        ("Imaging", "Ultrasound, Doppler, CT or PET-CT find clots, enlarged lymph nodes or spleen, and check the spread of blood cancers."),
+    ]), tint=True, label="hm-dx")
+    tx = _sec(sec_head('Treatment', 'Hematology treatment <span class="grad-text">options</span>', 'Treatment depends on the type of blood disorder, its cause, your age and your overall health. Some conditions need only a short course of treatment, while others need long-term care.', hid='hm-tx') + _cards([
+        ("i-flask", "Nutritional supplements", "Iron, vitamin B12 and folic acid as tablets, syrups or injections."),
+        ("i-drop", "IV iron infusion", "A faster way to replace iron when tablets do not work or cannot be taken."),
+        ("i-users", "Treating the root cause", "Such as heavy periods, gut bleeding, infections, thyroid or kidney problems, with the right specialist."),
+        ("i-heart", "Blood transfusion", "Red cells, platelets or plasma, for severe anemia, bleeding or low counts."),
+        ("i-cells", "Iron chelation therapy", "Removes extra iron in patients who need regular transfusions, such as in thalassemia."),
+        ("i-shield", "Clotting factor replacement", "Including preventive (prophylaxis) therapy for hemophilia and other bleeding disorders."),
+        ("i-lungs", "Anticoagulation therapy", "Blood-thinning treatment that treats and prevents blood clots, with regular monitoring."),
+        ("i-shield", "Immune-suppressing therapy", "For ITP, autoimmune hemolytic anemia and aplastic anemia."),
+        ("i-check", "Count-boosting medicines", "To raise platelets, white cells or red cells when needed."),
+        ("i-doc", "Chemotherapy", "Anti-cancer medicines for leukemia, lymphoma and myeloma."),
+        ("i-flask", "Targeted therapy", "Medicines that attack specific changes in cancer cells, often as tablets."),
+        ("i-award", "Immunotherapy", "Monoclonal antibodies and other treatments that help the immune system fight blood cancers."),
+        ("i-cells", "CAR-T cell therapy", "For selected relapsed blood cancers, where suitable and available."),
+        ("i-marrow", "Autologous stem cell transplant", "Your own stem cells are returned after high-dose treatment, mainly for myeloma and lymphoma."),
+        ("i-marrow", "Allogeneic (donor) stem cell transplant", f'Healthy stem cells from a matched or half-matched donor. It can cure thalassemia, sickle cell disease, aplastic anemia and some leukemias. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-drop", "Therapeutic phlebotomy", "Removing blood to lower high red cell counts or iron levels."),
+        ("i-flask", "Plasmapheresis", "Plasma exchange removes harmful antibodies or proteins from the blood."),
+        ("i-heart", "Supportive care", "Infection prevention, vaccines, pain relief and nutrition support."),
+        ("i-chat", "Counselling &amp; palliative care", "Emotional support and symptom control for patients and families."),
+        ("i-clock", "Watch and wait", "Active monitoring for mild or slow-growing conditions that do not need treatment yet."),
+    ], "cards3 cards3--5") + _alert('Do not take iron tablets, blood thinners or steroids for a long time without a doctor’s advice.', 'Wrong or delayed treatment can hide a serious cause.', warn=True), label="hm-tx")
+    living = _sec(f"""<div class="cols2">
+          {_box('i-sun', 'Living well and preventing blood disorders', _p('Not every blood disorder can be prevented, but these steps help:') + _ul(['<b>Eat iron-rich foods:</b> ragi, green leafy vegetables (palak, methi, drumstick leaves), dals, rajma, chana, jaggery, dates, eggs, chicken, fish and meat.', '<b>Add vitamin C to meals</b> (lemon, amla, orange, guava) to help your body absorb iron, and avoid tea or coffee within one hour of meals.', '<b>Get enough vitamin B12:</b> milk, curd, paneer, eggs and fish. Vegetarians may need supplements.', '<b>Prevent blood clots:</b> stay active, drink enough water, and walk or stretch during long journeys.']), hid='hm-live')}
+          {_box('i-shield', 'Protect yourself', _ul(['<b>Get a thalassemia carrier test (HPLC)</b> before marriage or pregnancy. If both partners are carriers, each child has a 1 in 4 chance of thalassemia major.', '<b>Protect yourself from infections:</b> use mosquito protection against dengue and malaria, and take deworming tablets as advised.', '<b>Avoid self-medication:</b> some painkillers and other medicines affect platelets and blood counts.', '<b>If you have a bleeding disorder:</b> tell your dentist and surgeon before any procedure, and carry a medical card.', 'Keep every follow-up appointment and repeat blood tests as advised.']) + _p('India’s Anemia Mukt Bharat programme gives free iron and folic acid tablets to children, teenagers, and pregnant and breastfeeding women through government health centres.'), 0.08)}
+        </div>""", tint=True, label="hm-live")
+    faqs = [
+        ("What does a hematologist treat?", "A hematologist treats diseases of the blood, bone marrow and lymph nodes. This includes anemia, bleeding and clotting disorders, low or high blood counts, thalassemia, sickle cell disease and blood cancers like leukemia, lymphoma and myeloma."),
+        ("When should I see a hematologist?", "See a hematologist if your blood report shows abnormal counts, if anemia does not improve with treatment, or if you have easy bruising, unusual bleeding, repeated blood clots, swollen glands or a family history of a blood disorder."),
+        ("Is a hematologist the same as an oncologist?", "Not exactly. A hematologist treats all blood disorders, both non-cancerous and cancerous. A hemato-oncologist specialises in blood cancers. An oncologist treats cancers of other organs. Dr. Neema Bhat treats both blood disorders and blood cancers."),
+        ("Does being referred to a hematologist mean I have cancer?", "No. Most people seen by a hematologist have non-cancerous problems like anemia, low platelets or clotting issues. A referral simply means a blood specialist will find the cause faster."),
+        ("What happens at the first hematology appointment?", "The doctor will ask about your symptoms, medical and family history, and medicines. She will examine you and review your reports. You may need more blood tests, and rarely a bone marrow test."),
+        ("What should I bring to my first visit?", "Bring all recent blood reports, scans, discharge summaries and a list of your current medicines. Older reports help show how your counts have changed over time."),
+        ("Are blood disorders curable?", "Many are. Nutritional anemias are usually cured once the cause is fixed. Some conditions like hemophilia need lifelong care, while thalassemia, sickle cell disease, aplastic anemia and some blood cancers can be cured with a bone marrow transplant."),
+        ("Is a bone marrow test painful?", "The area is numbed with local anaesthesia, so most people feel only pressure and brief discomfort. The test usually takes 15 to 30 minutes, and you can go home the same day."),
+        ("Can children see a hematologist?", "Yes. Dr. Neema Bhat is a US board-certified pediatrician and pediatric hematologist. She treats babies, children and teenagers with anemia, thalassemia, ITP, hemophilia and childhood leukemia."),
+        ("How much does hematology treatment in Bangalore cost?", "The cost depends on the condition. Blood tests and tablets are usually affordable, while transfusions, chemotherapy and bone marrow transplant cost more. The clinic can share an estimate after your first consultation."),
+    ]
+    return cond_page(HEMA_PAGE, "Hematology Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
+                     "Hematology treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience — anemia, bleeding and clotting disorders, thalassemia and blood cancers in adults and children.",
+                     "Blood disorders", ["Hematologic diseases"], hero, [intro, signs, causes, untreated, disorders, dx, tx, living], faqs,
+                     "Quick answers to the questions patients ask most about seeing a hematologist.",
+                     "She finds out why your blood counts are abnormal and treats that cause, not just the numbers.",
+                     book_section("Abnormal blood report?", "Unexplained tiredness, bruising or bleeding? Get it checked by a blood specialist. Book a consultation for hematology treatment in Bangalore with Dr. Neema Bhat today.", "hematology"))
+
+
+# ------------------------------------------------------------------ THALASSEMIA
+def thalassemia():
+    T = "thalassemia treatment in Bangalore"
+    hero = cond_hero("th-title", "Thalassemia Treatment", 'Thalassemia Treatment in <span class="grad-text">Bangalore</span>',
+                     "Thalassemia is an inherited blood disorder in which the body cannot make enough healthy hemoglobin. Low levels cause anemia, tiredness and, in severe forms, a lifelong need for blood transfusions. The good news: thalassemia can be managed well, and for many children it can be cured.",
+                     "thalassemia-cells.svg", "Illustration of small, pale red blood cells and a DNA strand, representing inherited thalassemia", "thalassemia")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="th-what" data-fx="wipe">What is <span class="grad-text">thalassemia?</span></h2>
+            <p class="lead" data-fx="fade">Hemoglobin is made of two kinds of protein chains, called alpha and beta. In thalassemia, a change in the genes means the body makes too little of one chain. Red blood cells then become small, weak and break down early, which leads to anemia.</p>
+            <p class="lead" data-fx="fade">Thalassemia is not an infection and not a cancer. It is passed from parents to children through genes, and it is present from birth.</p>
+            <p class="lead" data-fx="fade">India has more children with thalassemia major than any other country: about 1 to 1.5 lakh children live with it, and 10,000 to 15,000 more are born every year (Union Health Ministry). With the right {T}, children and adults with thalassemia can grow, study, work and live full lives.</p>
+          </div>
+          {_box('i-users', 'How is thalassemia inherited?', _p('Thalassemia passes down when both parents carry a faulty gene. Carriers are usually healthy and often don’t know they carry it.') + _ul(['<b>If both parents are carriers:</b> each pregnancy has a 1 in 4 chance of a child with thalassemia major, a 2 in 4 chance of a carrier child and a 1 in 4 chance of an unaffected child.', '<b>If only one parent is a carrier:</b> children cannot get thalassemia major, but each child has a 1 in 2 chance of being a carrier.']))}
+        </div>""", label="th-what")
+    types = _sec(sec_head('Types', 'Types of <span class="grad-text">thalassemia</span>', center=True, hid='th-types') + _table(
+        ["Type", "What it means", "Treatment needed"], [
+            ("Thalassemia minor (trait or carrier)", "One faulty gene. Usually no symptoms or only mild anemia.", "Usually none. Important for marriage and pregnancy planning."),
+            ("Thalassemia intermedia", "Moderate anemia that starts later in childhood.", "Regular check-ups; transfusions only at times."),
+            ("Thalassemia major (Cooley’s anemia)", "Two faulty beta genes. Severe anemia from early childhood.", "Regular transfusions and iron removal for life, or a bone marrow transplant."),
+            ("Alpha thalassemia", "Ranges from silent carrier to HbH disease to a severe form before birth.", "Depends on the type; many need no treatment."),
+            ("HbE beta thalassemia", "A mix of HbE and beta thalassemia, more common in eastern India.", "Ranges from mild to transfusion-dependent."),
+        ]), tint=True, label="th-types")
+    signs = _sec(sec_head('Signs &amp; symptoms', 'Signs and symptoms of <span class="grad-text">thalassemia</span>', 'Thalassemia minor usually causes no symptoms. Children with thalassemia major usually show signs between 6 months and 2 years of age:', hid='th-sym') + _sym([
+        ("i-sun", "Pale skin &amp; tiredness", "Looking pale and tiring easily"),
+        ("i-child", "Poor feeding", "Irritability and slow weight gain"),
+        ("i-drop", "Jaundice", "Yellow eyes or skin and dark urine"),
+        ("i-heart", "Swollen tummy", "From an enlarged spleen or liver"),
+        ("i-scale", "Slow growth", "And delayed puberty"),
+        ("i-bone", "Bone changes", "In the face and skull, if treatment starts late"),
+    ]) + f"""<div class="cols2 mt">
+          {_box('i-adult', 'Thalassemia symptoms in adults', _p('Adults with thalassemia minor may have mild, lifelong anemia that does not improve with iron tablets. Adults with thalassemia intermedia may have tiredness, bone pain, gallstones or an enlarged spleen.'))}
+          {_box('i-doc', 'When should you see a thalassemia specialist?', _ul(['Your baby or child is pale, feeding poorly or not gaining weight', 'Your blood report shows small red cells or low hemoglobin that does not improve with iron', 'You or your partner is a thalassemia carrier and you are planning marriage or a pregnancy', 'A family member has thalassemia', 'Your child needs blood transfusions and you want to know about a cure']), 0.08)}
+        </div>""", label="th-sym")
+    dx = _sec(sec_head('Diagnosis', 'How is thalassemia <span class="grad-text">diagnosed?</span>', 'Dr. Neema Bhat may advise some of these thalassemia diagnostic tests:', hid='th-dx') + _olist([
+        ("Complete Blood Count (CBC)", "Shows low hemoglobin and small red cells (low MCV and MCH)."),
+        ("Peripheral blood smear", "Shows the shape of the red cells under a microscope."),
+        ("HPLC or hemoglobin electrophoresis", "The main thalassemia test. It measures HbA2 and HbF and confirms carriers and thalassemia major."),
+        ("Iron studies (ferritin)", "To tell thalassemia minor apart from iron deficiency, which looks similar on a CBC."),
+        ("DNA (genetic) test", "Finds the exact gene change. Useful for family planning and prenatal testing."),
+        ("HLA typing", "Checks whether a brother or sister is a matching donor for a bone marrow transplant."),
+        ("Prenatal testing", "If both parents are carriers, a test at 10 to 12 weeks of pregnancy (CVS) can show whether the baby is affected."),
+    ]), tint=True, label="th-dx")
+    tx = _sec(sec_head('Treatment', 'Thalassemia treatment <span class="grad-text">options</span>', f'Your {T} depends on the type and how severe it is. Thalassemia minor usually needs no treatment. For thalassemia major, care has four parts:', hid='th-tx') + _steps([
+        ("Regular blood transfusions", _p('Most children with thalassemia major need safe, filtered blood every 2 to 4 weeks for life. Regular transfusions keep hemoglobin at a healthy level, so the child grows normally and the bones do not change shape.')),
+        ("Iron chelation therapy", _p('Every transfusion adds iron that the body cannot remove. Over time this iron builds up in the heart, liver and glands. Iron chelation medicines (deferasirox and deferiprone tablets, or deferoxamine injections) remove the extra iron and protect these organs. They must be taken every day.')),
+        ("Regular monitoring", _p('Serum ferritin is checked every few months. Older children and adults also need yearly heart and liver MRI scans (T2*) to measure iron, along with tests for growth, thyroid, diabetes and bone health.')),
+        ("Supportive care", _ul(['Folic acid, calcium and vitamin D as advised', 'Vaccines, including hepatitis B', 'Hydroxyurea for some people with thalassemia intermedia or HbE beta thalassemia', 'Newer medicines that can reduce transfusion needs in some adults'])),
+    ]) + _alert('Do not take iron tablets unless your doctor confirms you are low in iron.', 'People with thalassemia, including carriers, can build up too much iron.', warn=True), label="th-tx")
+    bmt_sec = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">A cure</p>
+            <h2 class="title" id="th-bmt" data-fx="wipe">Bone marrow transplant: <span class="grad-text">the cure for thalassemia</span></h2>
+            <p class="lead" data-fx="fade">A bone marrow (stem cell) transplant is currently the only established cure for thalassemia major in India. Healthy stem cells from a matched donor replace the patient’s bone marrow, so the body starts making normal red blood cells. After a successful transplant, the child no longer needs transfusions or iron chelation.</p>
+            <div class="hero__acts" data-fx="fade"><a class="btn btn--line" href="{BMT_PAGE}">About bone marrow transplant{ic('i-go', 'ic ic--go')}</a></div>
+          </div>
+          {_box('i-marrow', 'What families should know', _ul(['<b>The best donor is a fully matched brother or sister.</b> Each sibling has a 1 in 4 chance of being a full match, so HLA typing of the whole family is the first step.', '<b>Earlier is better.</b> Results are best when the child is young, has had good chelation and has little iron damage to the liver.', '<b>Other donors:</b> if no sibling matches, a matched unrelated donor from a donor registry, or a half-matched parent, may be possible in an experienced centre.', '<b>Gene therapy</b> is approved in some countries and is being studied in India, but it is not yet routinely available here.']))}
+        </div>""", tint=True, label="th-bmt")
+    cost = _sec(f"""<div class="cols2">
+          {_box('i-doc', 'Cost of thalassemia treatment in Bangalore', _p('Costs depend on the type of thalassemia and the treatment chosen:') + _ul(['<b>Lifelong transfusion care:</b> transfusions every few weeks, daily chelation medicines and regular tests. This is an ongoing monthly cost for life.', '<b>Bone marrow transplant:</b> a one-time cost that usually ranges from ₹15 to ₹25 lakh in India, depending on the donor type and the child’s condition.', '<b>Carrier test (HPLC):</b> a simple, low-cost blood test.']) + _p('The clinic can give you a personalised estimate after the first consultation.'), hid='th-cost')}
+          {_box('i-heart', 'Financial help and free treatment options', _ul(['<b>Thalassemia Bal Sewa Yojana:</b> Coal India’s scheme gives up to ₹10 lakh towards a bone marrow transplant for eligible children aged 12 or younger, from families earning up to ₹8 lakh a year, at empanelled hospitals.', '<b>Day care and NGO support:</b> Bangalore has thalassemia day care centres and patient groups that help with transfusions and medicines, such as the Thalassaemia and Sickle Cell Society of Bangalore.', '<b>Insurance and CSR funds:</b> some insurance policies and company CSR programmes support transplant costs. The team can guide you through the paperwork.']), 0.08)}
+        </div>""", label="th-cost")
+    comp = _sec(sec_head('Complications', 'Complications of <span class="grad-text">thalassemia</span>', 'Without regular treatment, or if iron is not removed well, thalassemia can cause:', hid='th-comp') + _conds([
+        ("i-heart", "Heart problems", "An irregular heartbeat and heart failure, from iron overload."),
+        ("i-flask", "Liver damage", "And gallstones."),
+        ("i-scale", "Hormone problems", "Diabetes, thyroid problems and delayed puberty."),
+        ("i-bone", "Weak bones", "Osteoporosis and bone changes in the face."),
+        ("i-shield", "Enlarged spleen", "And a higher risk of infections."),
+        ("i-child", "Slow growth", "In children."),
+    ], cols4=False) + _p('Good transfusion care, daily chelation and regular check-ups prevent most of these problems.'), tint=True, label="th-comp")
+    prevent = _sec(f"""<div class="cols2">
+          {_box('i-users', 'Preventing thalassemia: carrier test before marriage and pregnancy', _p('Thalassemia major can be prevented. A simple HPLC blood test shows whether you are a carrier. It is best done:') + _ul(['Before marriage, especially if someone in the family has thalassemia', 'Before planning a pregnancy, or early in pregnancy', 'For brothers and sisters of anyone with thalassemia']) + _p('If both partners are carriers, genetic counselling and a prenatal test at 10 to 12 weeks of pregnancy can show whether the baby is affected, so families can plan with full information.'), hid='th-prev')}
+          {_box('i-sun', 'Living well with thalassemia', _ul(['Keep to the transfusion schedule and never skip chelation medicines', 'Eat a balanced diet; avoid iron-rich supplements and tonics unless prescribed', 'Stay active; most children can go to school and play sports', 'Track ferritin, growth and heart checks in one file and bring it to every visit', 'Connect with other families through local thalassemia support groups']), 0.08)}
+        </div>""", label="th-prev")
+    faqs = [
+        ("Can thalassemia be cured permanently?", "Yes. A bone marrow transplant can cure thalassemia major permanently, especially when it is done early with a matched sibling donor. Without a transplant, thalassemia is managed lifelong with transfusions and iron chelation."),
+        ("What is the best treatment for thalassemia major?", "For children with a matched donor, a bone marrow transplant is the best treatment because it is curative. For others, regular transfusions with good iron chelation give a long and active life."),
+        ("How often do thalassemia patients need blood?", "Most people with thalassemia major need a transfusion every 2 to 4 weeks. The exact gap depends on their hemoglobin level, age and weight."),
+        ("Is thalassemia minor dangerous?", "No. Thalassemia minor usually causes no symptoms or only mild anemia and needs no treatment. It matters mainly for family planning, because two carriers can have a child with thalassemia major."),
+        ("Can a thalassemia minor person get married?", "Yes. A carrier can marry anyone. If both partners are carriers, they should have genetic counselling and prenatal testing in each pregnancy."),
+        ("How long do thalassemia major patients live?", "With regular transfusions, daily chelation and good follow-up, many people with thalassemia major now live well into adulthood, study, work and have families. A successful transplant offers a normal life expectancy."),
+        ("What kind of doctor treats thalassemia?", "A hematologist, especially a pediatric hematologist with bone marrow transplant experience, treats thalassemia. Dr. Neema Bhat is a US-trained hematologist in Bangalore who manages both transfusion care and transplant."),
+        ("What is the thalassemia treatment cost in India?", "Lifelong transfusion care is an ongoing monthly cost. A bone marrow transplant usually costs ₹15 to ₹25 lakh, and schemes such as Thalassemia Bal Sewa Yojana can cover up to ₹10 lakh for eligible children."),
+        ("Can I get free or low-cost treatment for thalassemia in Bangalore?", "Yes. Government schemes, CSR funds and NGO-run day care centres in Bangalore help with transfusions, medicines and transplant costs. The team can help you check which ones you qualify for."),
+        ("Is thalassemia a blood cancer?", "No. Thalassemia is an inherited problem with hemoglobin production. It is not cancer and it is not contagious."),
+    ]
+    return cond_page(THAL_PAGE, "Thalassemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
+                     "Thalassemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — carrier testing, transfusion and chelation care, and curative transplant.",
+                     "Thalassemia", ["Thalassaemia", "Cooley's anemia"], hero, [intro, types, signs, dx, tx, bmt_sec, cost, comp, prevent], faqs,
+                     "Quick answers to the questions families ask most about thalassemia and its treatment.",
+                     "For thalassemia, she guides families from carrier testing and transfusion care to a possible cure with bone marrow transplant.",
+                     book_section("Expert thalassemia care, close by", "Whether you have just received a carrier report or your child needs transfusions, book a consultation for thalassemia treatment in Bangalore with Dr. Neema Bhat to understand your options, including a possible cure.", "thalassemia"))
+
+
+# ------------------------------------------------------------------ LEUKEMIA
+def leukemia():
+    T = "leukemia treatment in Bangalore"
+    hero = cond_hero("lk-title", "Leukemia Treatment", 'Leukemia Treatment in <span class="grad-text">Bangalore</span>',
+                     "Leukemia is a cancer of the blood that starts in the bone marrow, where blood cells are made. The marrow makes too many abnormal white blood cells, which crowd out the healthy cells your body needs. Today, many types of leukemia can be treated very well, and many can be cured, especially in children.",
+                     "leukemia-cells.svg", "Illustration of many abnormal white blood cells crowding out red blood cells, representing leukemia", "leukaemia")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="lk-what" data-fx="wipe">What is <span class="grad-text">leukemia?</span></h2>
+            <p class="lead" data-fx="fade">Your bone marrow makes three kinds of blood cells: red cells that carry oxygen, white cells that fight infection and platelets that stop bleeding. In leukemia, a change in the DNA of a young blood cell makes it grow out of control. These leukemia cells fill the bone marrow, so the body cannot make enough normal blood cells. This leads to anemia, infections and bleeding.</p>
+            <p class="lead" data-fx="fade">Leukemia is not contagious and, in most people, it is not inherited from parents.</p>
+          </div>
+          {_box('i-heart', 'You are not alone', _p('Hearing the words “blood cancer” is frightening. The right diagnosis, a clear plan and an experienced team make a real difference to the outcome.') + _p(f'With timely {T}, most children with the commonest type of leukemia are alive and well years later.'))}
+        </div>""", label="lk-what")
+    types = _sec(sec_head('Types', 'Types of <span class="grad-text">leukemia</span>', 'Doctors group leukemia by how fast it grows (acute or chronic) and by the type of white cell involved (lymphoid or myeloid).', hid='lk-types') + _table(
+        ["Type", "Who it usually affects", "How it is treated"], [
+            ("Acute lymphoblastic leukemia (ALL)", "Most common cancer in children; also seen in adults", "Chemotherapy in phases for about 2 to 3 years; immunotherapy or transplant for high-risk or relapsed cases"),
+            ("Acute myeloid leukemia (AML)", "More common in adults; can occur in children", "Intensive chemotherapy; targeted medicines; transplant for many patients"),
+            ("Acute promyelocytic leukemia (APL)", "A special type of AML", "Vitamin A-based medicine (ATRA) with arsenic trioxide; one of the most curable leukemias when treated quickly"),
+            ("Chronic myeloid leukemia (CML)", "Mostly adults", "Daily targeted tablets (such as imatinib) that control it for years"),
+            ("Chronic lymphocytic leukemia (CLL)", "Older adults", "Often only regular monitoring at first; tablets or other medicines when needed"),
+        ]), tint=True, label="lk-types")
+    signs = _sec(sec_head('Signs &amp; symptoms', 'Signs and symptoms of <span class="grad-text">leukemia</span>', 'Early symptoms can look like a viral fever or simple tiredness, which is why leukemia is sometimes found on a routine blood test. Watch for:', hid='lk-sym') + _sym([
+        ("i-sun", "Tiredness", "Weakness and pale skin"),
+        ("i-thermo", "Repeated fevers", "Fevers or infections that keep coming back"),
+        ("i-drop", "Easy bleeding", "Bruising, bleeding gums or frequent nosebleeds"),
+        ("i-cells", "Skin spots", "Tiny red or purple spots (petechiae)"),
+        ("i-bone", "Bone or joint pain", "In children, limping or refusing to walk"),
+        ("i-cells", "Swollen glands", "In the neck, armpits or groin"),
+        ("i-heart", "Swollen tummy", "From an enlarged liver or spleen"),
+        ("i-scale", "Weight loss", "Poor appetite and night sweats"),
+        ("i-child", "Signs in children", "Paleness, repeated fever, unusual bruises, leg pain and tiredness that stops play"),
+    ]) + _p('These symptoms usually have common causes, but if they last more than a week or two, a simple blood test is worth doing.') + _alert('Go to a hospital immediately', 'if there is bleeding that will not stop, a high fever with shivering, breathlessness, severe headache or confusion.'), label="lk-sym")
+    causes = _sec(f"""<div class="cols2">
+          {_box('i-flask', 'What causes leukemia? Risk factors', _p('In most people, the exact cause is not known. Leukemia is not caused by anything a parent did or did not do. Factors that raise the risk include:') + _ul(['Previous chemotherapy or radiation for another cancer', 'Genetic conditions such as Down syndrome', 'Long-term exposure to benzene and some industrial chemicals', 'Smoking (for AML)', 'Certain bone marrow disorders, such as myelodysplastic syndrome (MDS)', 'A family history, mainly for CLL']), hid='lk-cause')}
+          {_box('i-doc', 'When should you see a blood cancer specialist?', _p('See a hematologist (blood cancer doctor) if:') + _ul(['Your blood report shows very high or very low white cells, low platelets or abnormal (blast) cells', 'You or your child has unexplained bruises, repeated fevers or bone pain with low blood counts', 'A doctor suspects leukemia and you want a confirmed diagnosis and a second opinion', 'Leukemia has come back after treatment, or you want to know about transplant or CAR-T']), 0.08)}
+        </div>""", tint=True, label="lk-cause")
+    dx = _sec(sec_head('Diagnosis', 'How is leukemia <span class="grad-text">diagnosed?</span>', 'A correct and complete diagnosis decides the right treatment. Dr. Neema Bhat may advise these tests:', hid='lk-dx') + _olist([
+        ("CBC and peripheral smear", "Show abnormal white cell counts and leukemia (blast) cells."),
+        ("Bone marrow aspiration and biopsy", "A small sample from the hip bone, taken under local anesthesia or sedation, confirms leukemia."),
+        ("Flow cytometry", "Identifies the exact type, such as B-cell ALL, T-cell ALL or AML."),
+        ("Cytogenetic and molecular tests", "Find gene changes (such as the Philadelphia chromosome) that guide treatment and predict outcome."),
+        ("Lumbar puncture", "Checks whether leukemia cells have reached the brain and spinal fluid, mainly in ALL."),
+        ("Other tests", "Imaging, heart checks before chemotherapy, and HLA typing of the family if a transplant may be needed."),
+    ]), label="lk-dx")
+    tx = _sec(sec_head('Treatment', 'Leukemia treatment <span class="grad-text">options</span>', f'Your {T} depends on the type of leukemia, its gene changes, the patient’s age and overall health. Treatment is planned to destroy the leukemia cells and let the bone marrow make healthy blood again.', hid='lk-tx') + _steps([
+        ("Chemotherapy", _p('Chemotherapy is given in planned phases. Induction (about 4 to 6 weeks) aims to clear leukemia from the bone marrow, a state called remission. Consolidation removes any remaining cells. For ALL, a long maintenance phase of mostly oral tablets follows, so total treatment lasts about 2 to 3 years. Medicine is also given into the spinal fluid to protect the brain.')),
+        ("Targeted therapy", _p('Targeted medicines attack a specific change in the leukemia cells — tablets such as imatinib and dasatinib for CML and Philadelphia-positive ALL, and ATRA with arsenic trioxide for APL. Many patients with CML only need daily tablets and regular blood tests.')),
+        ("Immunotherapy and CAR-T cell therapy", _p('Antibody medicines help the immune system find and kill leukemia cells, mainly in ALL that has come back. In CAR-T therapy, the patient’s own immune cells are trained in a lab to attack the cancer. India approved its own CAR-T therapy in 2023 for some relapsed B-cell blood cancers, at a fraction of the cost abroad.')),
+        ("Bone marrow (stem cell) transplant", _p(f'A transplant replaces diseased marrow with healthy stem cells from a donor. It is advised for high-risk AML, ALL that has come back, and some other cases. The donor can be a fully matched brother or sister, a matched unrelated donor from a registry, or a half-matched family member. <a href="{BMT_PAGE}">Learn more</a>')),
+        ("Supportive care", _ul(['Blood and platelet transfusions during low-count periods', 'Quick treatment of fever and infections with antibiotics', 'Nutrition support and anti-nausea medicines', 'Fertility preservation advice for teenagers and adults before treatment starts'])),
+    ]), tint=True, label="lk-tx")
+    cure = _sec(sec_head('Outlook', 'Is leukemia curable? <span class="grad-text">Success rates</span>', 'Yes, many types of leukemia can be cured or controlled for many years. Results depend on the type, its gene changes, age and how well the leukemia responds to the first phase of treatment.', hid='lk-cure') + _conds([
+        ("i-child", "Childhood ALL", "A large Indian study of 2,695 children found that 73 to 88 out of 100 were alive four years after treatment, depending on their risk group (Lancet Regional Health, Southeast Asia, 2025)."),
+        ("i-award", "APL", "One of the most curable leukemias when diagnosed and treated without delay."),
+        ("i-check", "CML", "Most people on daily targeted tablets live long, active lives."),
+        ("i-marrow", "AML", "Harder to treat, but outcomes improve with the right chemotherapy and a transplant when needed."),
+    ]), label="lk-cure")
+    cost = _sec(f"""<div class="cols2">
+          {_box('i-doc', 'Cost of leukemia treatment in Bangalore', _p('The cost depends on the type of leukemia, the treatment plan and the length of hospital stay:') + _ul(['<b>Chemotherapy for ALL:</b> spread over 2 to 3 years, with the highest costs in the first few months.', '<b>AML:</b> intensive chemotherapy needs longer hospital stays, so costs are higher.', '<b>CML:</b> mainly the ongoing cost of daily tablets and blood tests.', '<b>Bone marrow transplant:</b> a one-time cost that depends on the donor type.', '<b>CAR-T therapy:</b> about ₹30 to 35 lakh in India, compared with about ₹3.3 crore in the US.']) + _p('The clinic can give you a personalised estimate after the first consultation.'), hid='lk-cost')}
+          {_box('i-heart', 'Financial help', _ul(['<b>Ayushman Bharat PM-JAY:</b> covers cancer care, including medical oncology and bone marrow transplants, up to ₹5 lakh per family per year for eligible families.', '<b>Insurance:</b> most health insurance plans cover chemotherapy and transplant; the team helps with pre-authorisation.', '<b>NGOs and CSR funds:</b> several charities support children with leukemia during treatment. The team can guide you to them.']), 0.08)}
+        </div>""", tint=True, label="lk-cost")
+    life = _sec(_box('i-sun', 'Life during and after leukemia treatment', _ul(['<b>Call the team at once if you get a fever (38°C or higher) during chemotherapy.</b> With low white cells, infections can become serious quickly.', 'Wash hands often, avoid crowds and eat freshly cooked food during low-count periods.', 'Hair loss from chemotherapy is temporary; hair grows back after treatment.', 'Children can usually return to school once the intensive phase is over.', 'After treatment, regular check-ups and blood tests watch for relapse and long-term effects.']), hid='lk-life'), label="lk-life")
+    faqs = [
+        ("Is leukemia curable?", "Many types are. Most children with ALL and most people with APL can be cured, and CML can be controlled for many years with daily tablets. AML is harder to treat, but a transplant improves the chances of cure."),
+        ("Can leukemia in children be cured?", "Yes. Childhood ALL is one of the most treatable childhood cancers. In a large Indian study, 73 to 88 out of 100 children were alive four years after treatment, depending on their risk group."),
+        ("What is the most effective treatment for leukemia?", "It depends on the type. Chemotherapy is the main treatment for ALL and AML, targeted tablets for CML, ATRA with arsenic for APL, and a bone marrow transplant for high-risk or relapsed leukemia."),
+        ("How long does leukemia treatment take?", "ALL treatment takes about 2 to 3 years, though most of it is oral tablets at home after the first months. AML treatment usually takes about 6 months. CML tablets are taken long term."),
+        ("Can leukemia be treated without chemotherapy?", "Some types can. CML is treated with targeted tablets, APL mainly with ATRA and arsenic, and early CLL may only need monitoring. ALL and AML usually need chemotherapy."),
+        ("Will chemotherapy cause hair loss?", "Many chemotherapy medicines cause hair loss, but it is temporary. Hair usually grows back within a few months after treatment."),
+        ("Can leukemia come back after treatment?", "Sometimes. That is why regular follow-up and blood tests continue after treatment. If it comes back, options include more chemotherapy, immunotherapy, CAR-T or a transplant."),
+        ("Which doctor treats leukemia?", "A hematologist or hemato-oncologist, a blood cancer specialist, treats leukemia. Dr. Neema Bhat is a US-trained hematologist in Bangalore who treats leukemia in children and adults."),
+        ("What is the leukemia treatment cost in India?", "It varies with the type and plan. CML needs ongoing tablet costs, ALL treatment is spread over 2 to 3 years, and transplants and CAR-T cost more. PM-JAY and health insurance cover many of these treatments."),
+        ("Is leukemia hereditary?", "Usually not. Most leukemias are caused by gene changes that happen during a person’s life, not ones passed down from parents. Leukemia is also not contagious."),
+    ]
+    return cond_page(LEUK_PAGE, "Leukemia Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
+                     "Leukemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — diagnosis, chemotherapy, targeted therapy and transplant for children and adults.",
+                     "Leukemia", ["Leukaemia", "Blood cancer"], hero, [intro, types, signs, causes, dx, tx, cure, cost, life], faqs,
+                     "Quick answers to the questions patients and families ask most about leukemia.",
+                     "For leukemia, she plans every step — diagnosis, chemotherapy, targeted medicines and transplant — for children and adults.",
+                     book_section("Early expert care matters", "If you or your child has an abnormal blood report or a leukemia diagnosis, book a consultation for leukemia treatment in Bangalore with Dr. Neema Bhat for a clear diagnosis, a personalised plan and a second opinion if you need one.", "leukaemia"))
+
+
+# ------------------------------------------------------------------ MULTIPLE MYELOMA
+def myeloma():
+    T = "multiple myeloma treatment in Bangalore"
+    hero = cond_hero("my-title", "Multiple Myeloma Treatment", 'Multiple Myeloma Treatment in <span class="grad-text">Bangalore</span>',
+                     "Multiple myeloma is a blood cancer that starts in plasma cells, a type of white blood cell in the bone marrow. It can weaken bones, damage kidneys and lower your blood counts. Myeloma is not usually curable, but it is very treatable today, and many people live active lives for years.",
+                     "myeloma-cells.svg", "Illustration of plasma cells in the bone marrow and a bone, representing multiple myeloma", "lymphoma-myeloma")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="my-what" data-fx="wipe">What is <span class="grad-text">multiple myeloma?</span></h2>
+            <p class="lead" data-fx="fade">Your bone marrow makes plasma cells. Healthy plasma cells make antibodies that fight infections. In multiple myeloma, one plasma cell turns abnormal and starts making copies of itself. These myeloma cells crowd out healthy blood cells in the bone marrow.</p>
+            <p class="lead" data-fx="fade">Myeloma cells also release a faulty antibody called M-protein (monoclonal protein). M-protein does not fight infection. It can build up in the blood and urine and damage the kidneys. It is called “multiple” myeloma because it often affects many bones at the same time, such as the spine, skull, ribs and hips.</p>
+          </div>
+          {_box('i-users', 'Who gets myeloma?', _p('Myeloma usually affects people over 50. It is slightly more common in men than in women, and it can run in families, though rarely.') + _p(f'About 19,400 people in India were diagnosed with multiple myeloma in 2022 (National Cancer Registry Programme, ICMR). Early signs like back pain and tiredness are often mistaken for age or a “weak back”. With timely {T}, the disease can be controlled before it harms your bones and kidneys.'))}
+        </div>""", label="my-what")
+    crab = _sec(sec_head('Signs &amp; symptoms', 'Common signs of <span class="grad-text">multiple myeloma</span>', 'Early myeloma may cause no symptoms and is sometimes found on a routine blood test. Doctors remember the main signs with the word CRAB:', hid='my-sym') + _table(
+        ["Letter", "Stands for", "What you may notice"], [
+            ("C", "High calcium", "Thirst, passing urine often, constipation, confusion, nausea"),
+            ("R", "Renal (kidney) damage", "Swelling in the legs, less urine, foamy urine, high creatinine"),
+            ("A", "Anemia", "Tiredness, weakness, breathlessness, pale skin"),
+            ("B", "Bone damage", "Back, rib or hip pain, bones that break easily"),
+        ]) + f'<div class="mt">{_sym([("i-bone", "Back pain", "That does not go away with rest or painkillers"), ("i-thermo", "Frequent infections", "Like pneumonia or urinary infections"), ("i-scale", "Weight loss", "Without trying"), ("i-adult", "Numbness or tingling", "In the hands and feet"), ("i-drop", "Easy bruising", "Or bleeding"), ("i-sun", "Blurred vision", "Headaches or dizziness (from thick blood)")])}</div>' + _alert('See a doctor urgently', 'if you have sudden severe back pain, weakness or numbness in the legs, trouble passing urine or stools, confusion, or very little urine. These can be signs of spinal cord pressure or kidney failure, which need emergency care.'), tint=True, label="my-sym")
+    causes = _sec(f"""<div class="cols2">
+          {_box('i-flask', 'What causes myeloma and who is at risk?', _p('The exact cause is not known. It starts with changes (mutations) in the DNA of a plasma cell. It is not contagious, and it is not caused by anything you ate or did. The risk is higher for:') + _ul(['People over 50, and especially over 60', 'Men, who get myeloma slightly more often than women', 'People with MGUS (monoclonal gammopathy of undetermined significance), a harmless-looking condition that can slowly turn into myeloma', 'People with a parent, brother or sister who had myeloma or MGUS', 'People who are overweight', 'People with long-term exposure to radiation, pesticides, benzene or some industrial chemicals']) + _p('Having a risk factor does not mean you will get myeloma. Most people with MGUS never develop it, but they need a blood test once or twice a year.'), hid='my-cause')}
+          {_box('i-shield', 'What happens if myeloma is left untreated?', _p('Active myeloma keeps growing without treatment. Over time it can cause:') + _ul(['<b>Bone fractures:</b> weak spots (lytic lesions) in the spine can collapse, causing severe pain and loss of height.', '<b>Spinal cord pressure:</b> a collapsed bone can press on nerves and cause leg weakness or paralysis.', '<b>Kidney failure:</b> M-protein and high calcium can damage the kidneys, sometimes needing dialysis.', '<b>Serious infections:</b> low healthy antibodies make pneumonia and other infections more likely and more dangerous.', '<b>Severe anemia and bleeding problems</b> that affect energy and daily life.']) + _p('The good news: when myeloma is treated early, much of this damage can be prevented, and kidney function often improves.'), 0.08)}
+        </div>""", label="my-cause")
+    types = _sec(sec_head('Conditions', 'Types of myeloma and plasma cell disorders <span class="grad-text">we treat</span>', center=True, hid='my-types') + _cards([
+        ("i-flask", "MGUS", "A small amount of M-protein with no symptoms. Not cancer, but needs regular blood tests."),
+        ("i-clock", "Smoldering myeloma", "More abnormal plasma cells than MGUS, but no organ damage yet. Watched closely; some high-risk cases are treated early."),
+        ("i-cells", "Active (symptomatic) myeloma", "Myeloma that is causing CRAB problems or is likely to soon. Needs treatment."),
+        ("i-drop", "Light chain myeloma", "Myeloma cells make only part of the antibody (light chains). More likely to affect the kidneys."),
+        ("i-doc", "Non-secretory myeloma", "A rare type that makes little or no M-protein, so it is harder to spot on blood tests."),
+        ("i-bone", "Solitary plasmacytoma", "A single tumour of plasma cells in one bone or soft tissue. Often treated with radiation."),
+        ("i-thermo", "Plasma cell leukemia", "A rare, fast-growing form where myeloma cells spill into the blood. Needs urgent treatment."),
+        ("i-heart", "AL amyloidosis", "A related condition where light chains form deposits in the heart, kidneys or nerves."),
+        ("i-shield", "Relapsed or refractory myeloma", "Myeloma that comes back or does not respond to earlier treatment. Newer drugs and therapies can help."),
+    ]) + f"""<div class="split split--top mt">
+          {_box('i-award', 'Stages of multiple myeloma', _p('Doctors use the Revised International Staging System (R-ISS). It looks at blood tests (beta-2 microglobulin, albumin and LDH) and genetic changes in the myeloma cells. Your stage and risk group help Dr. Neema Bhat choose how strong your treatment should be.'))}
+          {_table(["Stage", "What it means"], [("Stage I", "Lower amount of disease and no high-risk genetic changes. Usually the best outlook."), ("Stage II", "Neither Stage I nor Stage III."), ("Stage III", "Higher amount of disease, plus high-risk genetic changes or high LDH. Needs more intensive treatment.")])}
+        </div>""", tint=True, label="my-types")
+    dx = _sec(sec_head('Diagnosis', 'How is multiple myeloma <span class="grad-text">diagnosed?</span>', 'Myeloma is diagnosed with a mix of blood, urine, bone marrow and imaging tests. These tests also give a baseline, so your doctor can see how well treatment is working. Dr. Neema Bhat may advise:', hid='my-dx') + _olist([
+        ("Complete Blood Count (CBC)", "Checks for anemia and low blood counts."),
+        ("Kidney tests and calcium level", "Serum creatinine and calcium."),
+        ("SPEP and immunofixation", "Serum protein electrophoresis finds and measures M-protein in the blood."),
+        ("Serum free light chain test", "Measures kappa and lambda light chains."),
+        ("Urine tests (24-hour protein, UPEP)", "Check for light chains in the urine (Bence Jones protein)."),
+        ("Beta-2 microglobulin, albumin and LDH", "Used for staging."),
+        ("Bone marrow aspiration and biopsy", "Confirms the diagnosis and counts the plasma cells."),
+        ("FISH and genetic tests", "Show whether the myeloma is standard-risk or high-risk."),
+        ("Imaging", "PET-CT, whole-body low-dose CT or MRI finds bone damage that a simple X-ray may miss."),
+    ]), label="my-dx")
+    tx = _sec(sec_head('Treatment', 'Multiple myeloma treatment <span class="grad-text">options</span>', f'Your {T} depends on your stage, risk group, age, kidney function and overall health. Most patients follow these steps:', hid='my-tx') + _olist([
+        ("Induction (first) treatment", "3 to 6 months of drug combinations to bring the myeloma under control."),
+        ("Stem cell transplant", "For patients who are fit enough, to deepen the response."),
+        ("Maintenance", "A lighter, long-term medicine to keep the myeloma from coming back."),
+        ("Regular follow-up", "Blood tests to catch any return early."),
+    ]) + '<p class="lead mt" data-fx="fade" style="max-width:none">Dr. Neema Bhat creates a plan for you that may include:</p>' + _cards([
+        ("i-flask", "Combination drug therapy", "Usually three or four medicines together, such as bortezomib, lenalidomide and dexamethasone. Many are tablets or small injections under the skin, given as outpatient care."),
+        ("i-shield", "Targeted antibody therapy", "Medicines like daratumumab that attach to myeloma cells and help the immune system destroy them."),
+        ("i-marrow", "Autologous stem cell transplant", f'Your own stem cells are collected, you receive high-dose chemotherapy, and the cells are returned to rebuild healthy bone marrow. It helps many patients stay in remission longer. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-clock", "Maintenance therapy", "Usually a daily tablet such as lenalidomide after transplant or first treatment."),
+        ("i-award", "Newer treatments for relapse", "Next-generation drugs, bispecific antibodies and CAR-T cell therapy, where suitable and available."),
+        ("i-sun", "Radiation therapy", "For painful bone lesions, spinal cord pressure or a single plasmacytoma."),
+        ("i-bone", "Bone-strengthening medicines", "Monthly zoledronic acid or denosumab to reduce fractures and bone pain."),
+        ("i-heart", "Supportive care", "Pain relief, treatment for high calcium, kidney protection, transfusions when needed, infection prevention and vaccines."),
+        ("i-check", "Watch and wait", "For MGUS and most smoldering myeloma, with regular blood tests and no treatment until it is needed."),
+    ]) + _alert('Myeloma care works best when started early.', 'Do not delay treatment while trying only painkillers, calcium tablets or home remedies for back pain.', warn=True), tint=True, label="my-tx")
+    living = _sec(_box('i-sun', 'Living well with multiple myeloma', _p('Good daily habits support your treatment and protect your bones and kidneys:') + _ul(['<b>Drink enough water:</b> about 2 to 3 litres a day, unless your doctor limits fluids. This protects the kidneys.', '<b>Avoid painkillers like ibuprofen and diclofenac (NSAIDs):</b> they can harm the kidneys. Ask your doctor which pain medicine is safe.', '<b>Eat a balanced Indian diet:</b> dals, eggs, paneer, curd, fish or chicken for protein; fruits and vegetables for vitamins. Wash raw foods well, as infections are more likely during treatment.', 'Do not take calcium or herbal supplements without asking your doctor, as calcium may already be high.', '<b>Stay gently active:</b> walking and light exercise keep you strong, but avoid heavy lifting and sudden twisting to protect the spine.', '<b>Prevent infections:</b> wash hands often, avoid crowds when your counts are low, and take the vaccines your doctor advises (flu, pneumonia, shingles, COVID-19).', 'Visit a dentist before starting bone-strengthening injections, and keep good dental hygiene.', 'Keep every follow-up appointment, even when you feel well.']) + _p('Multiple myeloma cannot be prevented. But people with MGUS or a family history can get regular blood tests so that any change is found early.'), hid='my-live'), label="my-live")
+    faqs = [
+        ("Which doctor should I see for multiple myeloma in Bangalore?", "A hematologist or hemato-oncologist (blood cancer specialist) treats multiple myeloma. Dr. Neema Bhat is a US-trained hematologist in Bangalore and bone marrow transplant specialist who treats myeloma and related plasma cell disorders."),
+        ("Is multiple myeloma curable?", "Multiple myeloma is usually not curable, but it is very treatable. Many patients go into remission and stay well for years with modern medicines, stem cell transplant and maintenance therapy."),
+        ("What is the life expectancy with multiple myeloma?", "It depends on the stage, genetic risk, age and response to treatment. With today’s treatments, many people live 7 to 10 years or longer, and some live much longer."),
+        ("What is the first sign of multiple myeloma?", "The most common early sign is bone pain, especially in the back or ribs. Tiredness from anemia, frequent infections and kidney problems are also common early clues."),
+        ("Is a bone marrow transplant needed for myeloma?", "Not for everyone. An autologous stem cell transplant (using your own cells) is advised for patients who are fit enough, because it helps keep myeloma in remission longer. Your doctor will tell you if it suits you."),
+        ("How long does myeloma treatment take?", "First treatment usually takes 3 to 6 months. If a transplant is planned, it follows soon after. Maintenance therapy then continues, often for 2 years or more."),
+        ("Can myeloma come back after treatment?", "Yes, myeloma often returns after some time. That is why regular follow-up tests matter. If it comes back, there are many effective treatment options."),
+        ("What is the difference between MGUS and myeloma?", "MGUS is a harmless-looking condition with a small amount of M-protein and no symptoms. Myeloma has more abnormal cells and causes damage to bones, kidneys or blood. About 1 in 100 people with MGUS develop myeloma or a related disease each year."),
+        ("Is multiple myeloma hereditary?", "Myeloma is not directly inherited. Having a close family member with myeloma or MGUS slightly raises your risk, but most patients have no family history."),
+        ("How much does multiple myeloma treatment in Bangalore cost?", "The cost depends on the drugs used, the number of cycles and whether a stem cell transplant is needed. The clinic can share an estimate after your first consultation and help you with insurance paperwork."),
+    ]
+    return cond_page(MYEL_PAGE, "Multiple Myeloma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
+                     "Multiple myeloma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — diagnosis, staging, drug therapy, autologous transplant and long-term care.",
+                     "Multiple myeloma", ["Myeloma", "Plasma cell myeloma"], hero, [intro, crab, causes, types, dx, tx, living], faqs,
+                     "Quick answers to the questions patients ask most about multiple myeloma.",
+                     "For multiple myeloma, she builds a treatment plan around your type of myeloma, your health and your goals.",
+                     book_section("Back pain that won’t go away?", "Abnormal protein or calcium on your report? Get it checked by a specialist. Book a consultation for multiple myeloma treatment in Bangalore with Dr. Neema Bhat today.", "lymphoma-myeloma"))
+
+
 if __name__ == "__main__":
-    for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia)]:
+    for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia), (HEMA_PAGE, hematology),
+                     (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma)]:
         (ROOT / name).write_text(fn(), encoding="utf-8")
         print("built", name)
