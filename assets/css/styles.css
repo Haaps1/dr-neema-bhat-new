@@ -904,3 +904,72 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
   .dtable td { border: 0; padding: 4px 0; }
   .dtable td:not(:first-child)::before { content: attr(data-label); display: block; font: 600 .66rem var(--f-head); letter-spacing: .12em; text-transform: uppercase; color: var(--teal-dark); margin-top: 6px; }
 }
+
+/* ---------- Inner hero: text and image closer together ---------- */
+@media (min-width: 901px) {
+  .phero__in { grid-template-columns: minmax(0, 1fr) auto; gap: clamp(32px, 4vw, 64px); }
+  .phero__sub { max-width: 660px; }
+  .phero__pic--art { width: clamp(300px, 30vw, 430px); }
+}
+
+/* ---------- Current page inside the Services menu ---------- */
+.drop .drop__all { font-weight: 400; color: var(--ink); }
+.drop a[aria-current="page"], .sheet__sub a[aria-current="page"] { background: var(--teal-50); color: var(--teal-dark); font-weight: 600; box-shadow: inset 3px 0 0 var(--teal); }
+.drop .drop__feat[aria-current="page"] { box-shadow: 0 0 0 3px rgba(79, 182, 187, .35); }
+
+/* ---------- 10 services: BMT card spans the last row ---------- */
+@media (min-width: 901px) { .svc-grid .svc--feat { grid-column: 1 / -1; } }
+.apps li:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+.bento > .tile:last-child:nth-child(even) { grid-column: 1 / -1; }
+
+/* =========================================================
+   Treatment pages: lighter, less "boxy" layouts (same content)
+   ========================================================= */
+/* Symptoms: icon rows, no cards */
+[data-page="service"] .sym { gap: 22px 32px; }
+[data-page="service"] .sym li { display: grid; grid-template-columns: 48px 1fr; column-gap: 14px; row-gap: 2px; align-items: start; padding: 0; background: none; border: 0; border-radius: 0; }
+[data-page="service"] .sym li:hover { transform: none; }
+[data-page="service"] .sym li > .ic { grid-row: span 2; width: 48px; height: 48px; padding: 12px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px var(--teal-100), 0 8px 18px -12px rgba(79, 182, 187, .6); }
+[data-page="service"] .sec:not(.sec--tint) .sym li > .ic { background: var(--teal-50); box-shadow: none; }
+[data-page="service"] .sym b { margin-top: 2px; }
+
+/* Causes / complications: accent line instead of a box */
+[data-page="service"] .conds { gap: 26px 32px; }
+[data-page="service"] .conds li { padding: 2px 0 2px 18px; background: none; border: 0; border-left: 3px solid var(--teal-200); border-radius: 0; transition: border-color .3s; }
+[data-page="service"] .conds li:hover { border-left-color: var(--teal); }
+
+/* Diagnosis: numbered timeline */
+[data-page="service"] .olist { gap: 0 40px; }
+[data-page="service"] .olist li { position: relative; padding: 0 0 26px; background: none; border: 0; border-radius: 0; box-shadow: none; }
+[data-page="service"] .olist li:hover { box-shadow: none; }
+[data-page="service"] .olist li::before { content: ""; position: absolute; left: 22px; top: 50px; bottom: 4px; width: 2px; background: linear-gradient(var(--teal-200), transparent); }
+[data-page="service"] .olist b { margin-top: 10px; }
+
+/* Two-column info: open columns split by a line */
+[data-page="service"] .cols2 { gap: 0; }
+[data-page="service"] .cols2 > .box { background: none; border: 0; border-radius: 0; padding: 4px clamp(20px, 3vw, 40px); }
+[data-page="service"] .cols2 > .box:first-child { padding-left: 0; }
+[data-page="service"] .cols2 > .box + .box { border-left: 1px solid var(--teal-200); }
+[data-page="service"] .cols2 > .box h3 { font-size: 1.2rem; }
+[data-page="service"] .cols2 > .box h3 .ic { width: 40px; height: 40px; padding: 9px; border-radius: 12px; background: var(--grad) border-box; color: #fff; }
+/* single info panel (overview side): soft tinted panel, no border */
+[data-page="service"] .split > .box, [data-page="service"] .wrap > .box { border: 0; background: var(--grad-soft); box-shadow: none; }
+[data-page="service"] .sec--tint .split > .box, [data-page="service"] .sec--tint .wrap > .box { background: #fff; }
+
+/* Treatment options: feature list with gradient icons */
+[data-page="service"] .cards3 { gap: 30px 34px; }
+[data-page="service"] .cards3 .card { padding: 20px 0 0; background: none; border: 0; border-top: 1px solid var(--teal-200); border-radius: 0; }
+[data-page="service"] .cards3 .card:hover { transform: none; box-shadow: none; }
+[data-page="service"] .cards3 .card > .ic { width: 44px; height: 44px; padding: 10px; border-radius: 14px; background: var(--grad) border-box; color: #fff; margin-bottom: 12px; }
+
+/* Numbered steps (thalassemia / leukemia care): open, big numbers */
+[data-page="service"] .tsteps { gap: 30px 40px; }
+[data-page="service"] .tstep { padding: 0; background: none; border: 0; grid-template-columns: 64px 1fr; }
+[data-page="service"] .tstep .olist__n { width: 56px; height: 56px; font-size: 1.05rem; }
+
+@media (max-width: 900px) {
+  [data-page="service"] .cols2 > .box, [data-page="service"] .cols2 > .box:first-child { padding: 0; }
+  [data-page="service"] .cols2 > .box + .box { border-left: 0; border-top: 1px solid var(--teal-200); padding-top: 24px; margin-top: 24px; }
+  [data-page="service"] .sym { gap: 18px; }
+}
+@media (max-width: 600px) { [data-page="service"] .sym { grid-template-columns: 1fr; } }

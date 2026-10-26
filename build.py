@@ -23,7 +23,8 @@ SERVICES = [
     ("Thalassemia Treatment", "thalassemia", "Hematology", "Transfusion programmes, iron chelation and evaluation for curative transplant."),
     ("Hemophilia & Bleeding Disorders", "hemophilia", "Hematology", "Diagnosis and long-term management of hemophilia, von Willebrand disease and low platelets."),
     ("Leukaemia (Blood Cancer)", "leukaemia", "Hematology", "Acute and chronic leukaemias, with chemotherapy, targeted therapy and transplant planning."),
-    ("Lymphoma & Myeloma", "lymphoma-myeloma", "Hematology", "Accurate subtyping and tailored treatment for Hodgkin, non-Hodgkin lymphoma and myeloma."),
+    ("Lymphoma", "lymphoma", "Hematology", "Hodgkin and non-Hodgkin lymphoma — accurate subtyping and treatment matched to each type."),
+    ("Multiple Myeloma", "multiple-myeloma", "Hematology", "Plasma cell cancer care — staging, drug therapy, transplant and protection for bones and kidneys."),
     ("Childhood Leukaemia & Lymphoma", "childhood-leukaemia", "Pediatric", "Child-centred treatment with close attention to comfort, growth and schooling."),
     ("Pediatric Solid Tumours", "pediatric-tumours", "Pediatric", "Neuroblastoma, Wilms tumour, sarcomas and more, with a multidisciplinary team."),
     ("Pediatric Blood Disorders", "pediatric-blood", "Pediatric", "Sickle cell disease, aplastic anaemia, ITP and immune disorders in children."),
@@ -38,7 +39,7 @@ SVC_MOBILE_DEFAULT = "icons"
 SHOW_SVC_SWITCH = True
 SHORT_NAMES = {
     "anaemia": "Anaemia", "thalassemia": "Thalassemia", "hemophilia": "Hemophilia",
-    "leukaemia": "Leukaemia", "lymphoma-myeloma": "Lymphoma &amp; Myeloma",
+    "leukaemia": "Leukaemia", "lymphoma": "Lymphoma", "multiple-myeloma": "Multiple Myeloma",
     "childhood-leukaemia": "Child Leukaemia", "pediatric-tumours": "Solid Tumours",
     "pediatric-blood": "Child Blood Disorders", "bone-marrow-transplant": "Bone Marrow Transplant",
 }
@@ -72,9 +73,10 @@ HEMA_PAGE = "hematology-treatment.html"
 THAL_PAGE = "thalassemia-treatment.html"
 LEUK_PAGE = "leukemia-treatment.html"
 MYEL_PAGE = "multiple-myeloma-treatment.html"
+LYMPH_PAGE = "lymphoma-treatment.html"
 # treatments that have their own page
 SERVICE_PAGES = {"bone-marrow-transplant": BMT_PAGE, "anaemia": ANEMIA_PAGE, "thalassemia": THAL_PAGE,
-                 "leukaemia": LEUK_PAGE, "lymphoma-myeloma": MYEL_PAGE}
+                 "leukaemia": LEUK_PAGE, "lymphoma": LYMPH_PAGE, "multiple-myeloma": MYEL_PAGE}
 
 
 def svc_href(slug):
@@ -131,7 +133,7 @@ LD_PHYSICIAN = """  <script type="application/ld+json">
 """
 
 SVC_ICON = {"Hematology": "i-drop", "Pediatric": "i-child", "Pediatric & Adult": "i-marrow"}
-SVC_ICON_BY_SLUG = {"leukaemia": "i-cells", "lymphoma-myeloma": "i-cells", "hemophilia": "i-shield", "pediatric-tumours": "i-heart"}
+SVC_ICON_BY_SLUG = {"leukaemia": "i-cells", "lymphoma": "i-cells", "multiple-myeloma": "i-bone", "hemophilia": "i-shield", "pediatric-tumours": "i-heart"}
 
 
 def ic(name, cls="ic"):
@@ -164,12 +166,12 @@ def head(title, desc, canonical, extra=""):
 {extra}</head>"""
 
 
-def header(active):
+def header(active, current=""):
     def cur(p):
         return ' aria-current="page"' if p == active else ""
     hema = "".join(f'<a href="{svc_href(s)}">{n}</a>' for n, s, c, _ in SERVICES if c == "Hematology")
     ped = "".join(f'<a href="{svc_href(s)}">{n}</a>' for n, s, c, _ in SERVICES if c == "Pediatric")
-    return f"""
+    html = f"""
   <a class="skip" href="#main">Skip to main content</a>
   <div class="curtain" aria-hidden="true"><img src="assets/images/logo-mark.png" alt=""></div>
 
@@ -220,7 +222,9 @@ def header(active):
     </div>
   </div>
 """
-
+    if current:  # highlight the page you are on inside Services
+        html = html.replace(f'href="{current}">', f'href="{current}" aria-current="page">')
+    return html
 
 def footer(fab=True):
     links = "".join(f'<li><a href="{svc_href(s)}">{n}</a></li>' for n, s, c, _ in SERVICES if c == "Hematology")
@@ -238,7 +242,7 @@ def footer(fab=True):
             <li>Apollo Hospitals, Bannerghatta Road, Bengaluru</li>
           </ul>
         </div>
-        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="{HEMA_PAGE}">Hematology Treatment</a></li><li><a href="{ANEMIA_PAGE}">Anemia Treatment</a></li><li><a href="{THAL_PAGE}">Thalassemia Treatment</a></li><li><a href="{LEUK_PAGE}">Leukemia Treatment</a></li><li><a href="{MYEL_PAGE}">Multiple Myeloma Treatment</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="{HEMA_PAGE}">Hematology Treatment</a></li><li><a href="{ANEMIA_PAGE}">Anemia Treatment</a></li><li><a href="{THAL_PAGE}">Thalassemia Treatment</a></li><li><a href="{LEUK_PAGE}">Leukemia Treatment</a></li><li><a href="{LYMPH_PAGE}">Lymphoma Treatment</a></li><li><a href="{MYEL_PAGE}">Multiple Myeloma Treatment</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div><h2>Hematology</h2><ul>{links}</ul></div>
         <div><h2>Pediatric</h2><ul>{links2}</ul></div>
       </div>
@@ -464,7 +468,7 @@ def home():
             <div class="svc__top">{ic(SVC_ICON_BY_SLUG.get(s, SVC_ICON[c]), 'ic svc__ic')}<span class="svc__cat">{c}</span></div>
             <h3>{n}</h3>
             <p>{d}</p>
-            <span class="svc__go">{'Explore the transplant page' if s == 'bone-marrow-transplant' else 'Learn about anemia treatment' if s == 'anaemia' else 'Book a consultation'}{ic('i-go')}</span>
+            <span class="svc__go">{'Explore the transplant page' if s == 'bone-marrow-transplant' else 'Learn more' if s in SERVICE_PAGES else 'Book a consultation'}{ic('i-go')}</span>
           </a>""" for i, (n, s, c, d) in enumerate(SERVICES))
 
     symptoms = [
@@ -552,7 +556,7 @@ def home():
 
     <section class="sec sec--tint" id="services" aria-labelledby="svc-title">
       <div class="wrap">
-        {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Nine specialist services across adult hematology and pediatric hemato-oncology — tap a service to book or learn more.', hid='svc-title')}
+        {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Ten specialist services across adult hematology and pediatric hemato-oncology — tap a service to book or learn more.', hid='svc-title')}
         <div class="svc-grid" data-svc>{cards}
         </div>
         <div class="dots" data-dots-for="svc" aria-hidden="true"></div>{svc_mobile()}
@@ -577,7 +581,7 @@ def home():
         <div class="nums">
           <div class="num" data-num><svg class="num__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50"/><circle class="arc" cx="60" cy="60" r="50" pathLength="100"/></svg><b><span data-count="10">10</span>+</b><span>Years of specialist experience in hematology &amp; oncology</span></div>
           <div class="num" data-num><b class="grad-text"><span data-count="100">100</span>+</b><span>Bone marrow transplants</span></div>
-          <div class="num" data-num><b class="grad-text"><span data-count="9">9</span></b><span>Specialist services</span></div>
+          <div class="num" data-num><b class="grad-text"><span data-count="10">10</span></b><span>Specialist services</span></div>
           <div class="num" data-num><b class="grad-text"><span data-count="4">4</span></b><span>Hospitals &amp; clinics</span></div>
           <div class="num" data-num><b class="grad-text"><span data-count="6">6</span></b><span>Days a week OPD</span></div>
         </div>
@@ -828,7 +832,7 @@ def bmt():
     return head("Bone Marrow Transplant in Bangalore | Dr. Neema Bhat",
                 "Bone marrow (stem cell) transplant in Bangalore with Dr. Neema Bhat, Program Director &amp; HOD of the BMT Unit at Bhagawan Mahaveer Jain Hospital. Autologous and allogeneic transplants for children and adults.",
                 BMT_PAGE, LD_PHYSICIAN + ld_proc + ld_faq) + f"""
-<body data-page="service">{ICONS}{header('service')}
+<body data-page="service">{ICONS}{header('service', BMT_PAGE)}
   <main id="main">
     <section class="phero" aria-labelledby="b-title" style="padding-bottom:clamp(56px,6vw,84px)">
       <div class="wrap phero__in">
@@ -1069,7 +1073,7 @@ def anemia():
     return head("Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
                 "Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it — for adults and children at Apollo Hospitals, Bannerghatta Road.",
                 ANEMIA_PAGE, LD_PHYSICIAN + ld_cond + ld_faq) + f"""
-<body data-page="service">{ICONS}{header('service')}
+<body data-page="service">{ICONS}{header('service', ANEMIA_PAGE)}
   <main id="main">
 {cond_hero("an-title", "Anemia Treatment", 'Anemia Treatment in <span class="grad-text">Bangalore</span>', f"Anemia means your blood has fewer healthy red blood cells or less hemoglobin than it needs, so less oxygen reaches your body and you feel tired, weak or breathless. Most anemia is treatable once the cause is found — and that is where the right {T} begins.", "anemia-cells.svg", "Illustration of red blood cells, some pale and fewer in number, representing anemia", "anaemia")}
 
@@ -1302,7 +1306,7 @@ def cond_page(fname, title, desc, ld_name, alt_names, hero, sections, faqs, faq_
                '"about":{"@type":"MedicalCondition","name":"%s","alternateName":[%s]},'
                '"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n') % (title.split(" | ")[0], ld_name, ",".join('"%s"' % a for a in alt_names))
     return head(title, desc, fname, LD_PHYSICIAN + ld_page + ld_faq) + f"""
-<body data-page="service">{ICONS}{header('service')}
+<body data-page="service">{ICONS}{header('service', fname)}
   <main id="main">{hero}{''.join(sections)}
 {about_doctor(focus)}
 {faq_section(faqs, faq_intro)}
@@ -1367,7 +1371,7 @@ def hematology():
             ("Clotting (thrombosis) disorders", "Deep vein thrombosis (DVT), pulmonary embolism, thrombophilia, antiphospholipid syndrome", "The blood clots too easily, blocking veins or arteries."),
             ("White blood cell disorders", "Low white cell count (neutropenia), high white cell count", "Too few white cells to fight infection, or too many for an unclear reason."),
             ("Bone marrow failure", "Aplastic anemia, pure red cell aplasia", "The bone marrow stops making enough blood cells."),
-            ("Blood cancers", f'Acute and chronic <a href="{LEUK_PAGE}">leukemia</a>, Hodgkin and non-Hodgkin lymphoma, <a href="{MYEL_PAGE}">multiple myeloma</a>, myelodysplastic syndromes (MDS), myeloproliferative neoplasms (MPN)', "Cancers that start in the bone marrow, blood or lymph nodes."),
+            ("Blood cancers", f'Acute and chronic <a href="{LEUK_PAGE}">leukemia</a>, Hodgkin and non-Hodgkin <a href="{LYMPH_PAGE}">lymphoma</a>, <a href="{MYEL_PAGE}">multiple myeloma</a>, myelodysplastic syndromes (MDS), myeloproliferative neoplasms (MPN)', "Cancers that start in the bone marrow, blood or lymph nodes."),
             ("Immune and rare disorders", "HLH (hemophagocytic lymphohistiocytosis), primary immunodeficiency disorders, thrombotic microangiopathy", "Rare conditions where the immune system or small blood vessels damage blood cells."),
             ("Children’s blood disorders", "Anemia, thalassemia, ITP, hemophilia and childhood leukemia", "Specialised care for babies, children and teenagers."),
         ]), label="hm-dis")
@@ -1619,7 +1623,7 @@ def myeloma():
     T = "multiple myeloma treatment in Bangalore"
     hero = cond_hero("my-title", "Multiple Myeloma Treatment", 'Multiple Myeloma Treatment in <span class="grad-text">Bangalore</span>',
                      "Multiple myeloma is a blood cancer that starts in plasma cells, a type of white blood cell in the bone marrow. It can weaken bones, damage kidneys and lower your blood counts. Myeloma is not usually curable, but it is very treatable today, and many people live active lives for years.",
-                     "myeloma-cells.svg", "Illustration of plasma cells in the bone marrow and a bone, representing multiple myeloma", "lymphoma-myeloma")
+                     "myeloma-cells.svg", "Illustration of plasma cells in the bone marrow and a bone, representing multiple myeloma", "multiple-myeloma")
     intro = _sec(f"""
         <div class="split split--top">
           <div>
@@ -1700,11 +1704,96 @@ def myeloma():
                      "Multiple myeloma", ["Myeloma", "Plasma cell myeloma"], hero, [intro, crab, causes, types, dx, tx, living], faqs,
                      "Quick answers to the questions patients ask most about multiple myeloma.",
                      "For multiple myeloma, she builds a treatment plan around your type of myeloma, your health and your goals.",
-                     book_section("Back pain that won’t go away?", "Abnormal protein or calcium on your report? Get it checked by a specialist. Book a consultation for multiple myeloma treatment in Bangalore with Dr. Neema Bhat today.", "lymphoma-myeloma"))
+                     book_section("Back pain that won’t go away?", "Abnormal protein or calcium on your report? Get it checked by a specialist. Book a consultation for multiple myeloma treatment in Bangalore with Dr. Neema Bhat today.", "multiple-myeloma"))
+
+
+# ------------------------------------------------------------------ LYMPHOMA
+def lymphoma():
+    T = "lymphoma treatment in Bangalore"
+    hero = cond_hero("ly-title", "Lymphoma Treatment", 'Lymphoma Treatment in <span class="grad-text">Bangalore</span>',
+                     "Lymphoma is a blood cancer that starts in lymphocytes, the infection-fighting white cells of the lymph nodes and immune system. It often shows up as a painless swelling in the neck, armpit or groin. Many types of lymphoma respond very well to treatment, and many can be cured.",
+                     "lymphoma-cells.svg", "Illustration of a swollen lymph node with lymphocytes, representing lymphoma", "lymphoma")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="ly-what" data-fx="wipe">What is <span class="grad-text">lymphoma?</span></h2>
+            <p class="lead" data-fx="fade">Your lymphatic system is a network of lymph nodes, vessels, the spleen and bone marrow that helps your body fight infection. Lymphocytes are the white blood cells that do this work. In lymphoma, some lymphocytes change and grow out of control, forming lumps in the lymph nodes or other organs.</p>
+            <p class="lead" data-fx="fade">Lymphoma is not contagious. In most people it is not inherited, and it is not caused by anything they did. With an accurate diagnosis of the exact type, the right {T} can be planned.</p>
+          </div>
+          {_box('i-cells', 'The two main groups', _ul(['<b>Hodgkin lymphoma:</b> has a typical abnormal cell (the Reed–Sternberg cell). It often affects young adults and is one of the most curable cancers.', '<b>Non-Hodgkin lymphoma (NHL):</b> a large family of lymphomas. Some grow slowly (low-grade) and some grow fast (high-grade). It is more common in older adults but also affects children.']) + _p('Getting the exact type matters, because each type is treated differently.'))}
+        </div>""", label="ly-what")
+    types = _sec(sec_head('Types', 'Common types of <span class="grad-text">lymphoma</span>', center=True, hid='ly-types') + _table(
+        ["Type", "What it means", "How it is usually treated"], [
+            ("Hodgkin lymphoma", "Often starts in lymph nodes in the neck or chest; common in young adults.", "Chemotherapy, sometimes with radiation; highly curable"),
+            ("Diffuse large B-cell lymphoma (DLBCL)", "The most common fast-growing non-Hodgkin lymphoma.", "Chemo-immunotherapy; many patients are cured"),
+            ("Follicular lymphoma", "A common slow-growing lymphoma.", "Often watch and wait at first; treatment when needed"),
+            ("Mantle cell lymphoma", "A less common B-cell lymphoma, usually in older adults.", "Chemo-immunotherapy, targeted tablets and sometimes transplant"),
+            ("Burkitt lymphoma", "A very fast-growing lymphoma, more common in children.", "Intensive chemotherapy; often curable"),
+            ("T-cell lymphomas", "Less common lymphomas that start in T-lymphocytes.", "Chemotherapy and, in some cases, transplant"),
+            ("Lymphoma in children", "Hodgkin, Burkitt, lymphoblastic and large-cell lymphomas.", "Child-specific protocols with very good results"),
+        ]), tint=True, label="ly-types")
+    signs = _sec(sec_head('Signs &amp; symptoms', 'Signs and symptoms of <span class="grad-text">lymphoma</span>', 'Many lymphomas are first noticed as a lump. Watch for:', hid='ly-sym') + _sym([
+        ("i-cells", "Painless swelling", "Lymph nodes in the neck, armpit or groin"),
+        ("i-thermo", "Fever", "That keeps coming back without an infection"),
+        ("i-moon", "Night sweats", "Drenching sweats at night"),
+        ("i-scale", "Weight loss", "Without trying"),
+        ("i-sun", "Tiredness", "Constant tiredness or weakness"),
+        ("i-shield", "Itching", "Itchy skin without a rash"),
+        ("i-lungs", "Cough or breathlessness", "From swollen nodes in the chest"),
+        ("i-heart", "Tummy swelling", "Pain or fullness from an enlarged spleen or nodes"),
+        ("i-flask", "Abnormal blood tests", "Low blood counts or high LDH"),
+    ]) + _p('Swollen glands are usually caused by infections and settle in two to three weeks. A gland that keeps growing, stays for more than a few weeks or comes with fever, sweats or weight loss should be checked.') + _alert('See a doctor urgently', 'if you have sudden breathlessness, swelling of the face or neck, severe tummy pain, or weakness or numbness in the legs.'), label="ly-sym")
+    causes = _sec(f"""<div class="cols2">
+          {_box('i-flask', 'What raises the risk of lymphoma?', _p('In most people, the exact cause is not known. Factors that raise the risk include:') + _ul(['A weakened immune system, such as with HIV or after an organ transplant', 'Some infections, such as Epstein–Barr virus (EBV), hepatitis C and H. pylori', 'Autoimmune diseases such as rheumatoid arthritis, lupus or Sjögren’s syndrome', 'Older age for most non-Hodgkin lymphomas', 'A close family member with lymphoma (a small increase in risk)', 'Previous chemotherapy or radiation']), hid='ly-cause')}
+          {_box('i-doc', 'When should you see a lymphoma specialist?', _ul(['A lymph node is swollen for more than a few weeks or keeps growing', 'Swollen glands come with fever, night sweats or weight loss', 'A scan shows enlarged lymph nodes or spleen', 'A biopsy report says lymphoma and you want a clear plan or a second opinion', 'Lymphoma has come back after treatment and you want to know about transplant or CAR-T']), 0.08)}
+        </div>""", tint=True, label="ly-cause")
+    dx = _sec(sec_head('Diagnosis', 'How is lymphoma <span class="grad-text">diagnosed?</span>', 'A correct diagnosis of the exact type is the most important step. Dr. Neema Bhat may advise:', hid='ly-dx') + _olist([
+        ("Lymph node biopsy", "Removing a whole node or a core of tissue is the key test. A needle aspiration alone is usually not enough."),
+        ("Immunohistochemistry &amp; flow cytometry", "Identify the exact type of lymphoma."),
+        ("Blood tests", "CBC, LDH, kidney and liver tests, and tests for hepatitis B, hepatitis C and HIV."),
+        ("PET-CT scan", "Shows where the lymphoma is in the body and is used for staging and checking response."),
+        ("Bone marrow biopsy", "Checks whether lymphoma has reached the bone marrow, when needed."),
+        ("Other tests", "Heart and lung checks before treatment, and a lumbar puncture for some fast-growing types."),
+    ]), label="ly-dx")
+    stage = _sec(f"""<div class="split split--top">
+          {_box('i-award', 'Stages of lymphoma', _p('Lymphoma is staged from I to IV, based on how many lymph node areas are involved and whether it has spread to other organs. The type of lymphoma, its stage and your overall health together decide the treatment plan. Even advanced-stage lymphoma is often very treatable.'), hid='ly-stage')}
+          {_table(["Stage", "What it means"], [("Stage I", "One lymph node area or one organ."), ("Stage II", "Two or more lymph node areas on the same side of the diaphragm."), ("Stage III", "Lymph node areas on both sides of the diaphragm."), ("Stage IV", "Spread to organs such as the liver, lungs or bone marrow.")])}
+        </div>""", tint=True, label="ly-stage")
+    tx = _sec(sec_head('Treatment', 'Lymphoma treatment <span class="grad-text">options</span>', f'Your {T} depends on the type and stage of lymphoma, your age and overall health. Dr. Neema Bhat creates a plan for you that may include:', hid='ly-tx') + _cards([
+        ("i-doc", "Chemotherapy", "Combinations of medicines given in cycles, usually as day-care treatment."),
+        ("i-shield", "Immunotherapy", "Antibody medicines such as rituximab that help the immune system attack B-cell lymphoma; often given with chemotherapy."),
+        ("i-flask", "Targeted therapy", "Tablets and newer medicines that block signals lymphoma cells need to grow, for selected types."),
+        ("i-sun", "Radiation therapy", "For lymphoma in one area, or to treat a bulky node after chemotherapy."),
+        ("i-marrow", "Autologous stem cell transplant", f'High-dose treatment followed by your own stem cells, mainly for lymphoma that has come back. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-cells", "CAR-T cell therapy", "For selected relapsed lymphomas, where suitable and available."),
+        ("i-clock", "Watch and wait", "Some slow-growing lymphomas need only regular check-ups until treatment is needed."),
+        ("i-heart", "Supportive care", "Infection prevention, vaccines, nutrition, and help with side effects."),
+        ("i-check", "Follow-up", "Regular visits and scans after treatment to watch for relapse and long-term effects."),
+    ]) + _alert('Do not take steroids or start treatment before a biopsy.', 'They can shrink the lymph node for a while and make the exact type harder to diagnose.', warn=True), tint=True, label="ly-tx")
+    life = _sec(_box('i-sun', 'Life during and after lymphoma treatment', _ul(['<b>Call the team at once if you get a fever (38°C or higher) during chemotherapy.</b> Low white cells make infections serious quickly.', 'Wash hands often, avoid crowds and eat freshly cooked food when counts are low.', 'Hair loss from chemotherapy is temporary; hair grows back after treatment.', 'Stay gently active; most people can return to work or school after treatment.', 'Keep every follow-up appointment, even when you feel well.']), hid='ly-life'), label="ly-life")
+    faqs = [
+        ("Is lymphoma curable?", "Many types are. Hodgkin lymphoma and many fast-growing non-Hodgkin lymphomas, such as diffuse large B-cell lymphoma, are often cured. Slow-growing types can usually be controlled for many years."),
+        ("What is the first sign of lymphoma?", "The most common first sign is a painless swelling of a lymph node in the neck, armpit or groin. Fever, night sweats, weight loss and tiredness can also occur."),
+        ("Is every swollen lymph node lymphoma?", "No. Most swollen glands are caused by infections and settle in two to three weeks. A node that keeps growing, stays for weeks, or comes with fever, sweats or weight loss should be checked."),
+        ("How is lymphoma diagnosed?", "A lymph node biopsy is the key test. The tissue is examined to find the exact type, and a PET-CT scan shows the stage."),
+        ("What is the difference between Hodgkin and non-Hodgkin lymphoma?", "They are different families of lymphoma, identified by how the cells look under the microscope. They are treated differently, which is why the exact type matters."),
+        ("Is lymphoma the same as leukemia?", "No. Both are blood cancers, but lymphoma mainly starts in the lymph nodes, while leukemia starts in the bone marrow and blood. Hematologists treat both."),
+        ("How long does lymphoma treatment take?", "Most chemotherapy-based treatment takes about 3 to 6 months, given in cycles. Some slow-growing lymphomas only need regular monitoring."),
+        ("Is a bone marrow transplant needed for lymphoma?", "Not for most people. An autologous stem cell transplant is mainly used when lymphoma comes back after first treatment."),
+        ("Can lymphoma come back after treatment?", "Sometimes. Regular follow-up helps catch it early, and there are effective options for relapsed lymphoma, including transplant and CAR-T therapy for selected patients."),
+        ("Can children get lymphoma?", "Yes. Hodgkin lymphoma and some fast-growing non-Hodgkin lymphomas occur in children and teenagers, and results with child-specific treatment are very good. Dr. Neema Bhat is a pediatric hemato-oncologist."),
+    ]
+    return cond_page(LYMPH_PAGE, "Lymphoma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
+                     "Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — Hodgkin and non-Hodgkin lymphoma care for adults and children.",
+                     "Lymphoma", ["Hodgkin lymphoma", "Non-Hodgkin lymphoma"], hero, [intro, types, signs, causes, dx, stage, tx, life], faqs,
+                     "Quick answers to the questions patients ask most about lymphoma.",
+                     "For lymphoma, she makes sure the exact type is diagnosed and plans treatment matched to it, for children and adults.",
+                     book_section("A lump that won’t go away?", "Swollen glands, fever or night sweats? Get them checked by a specialist. Book a consultation for lymphoma treatment in Bangalore with Dr. Neema Bhat today.", "lymphoma"))
 
 
 if __name__ == "__main__":
     for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia), (HEMA_PAGE, hematology),
-                     (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma)]:
+                     (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma), (LYMPH_PAGE, lymphoma)]:
         (ROOT / name).write_text(fn(), encoding="utf-8")
         print("built", name)
