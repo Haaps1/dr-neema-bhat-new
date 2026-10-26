@@ -953,8 +953,8 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 [data-page="service"] .cols2 > .box h3 { font-size: 1.2rem; }
 [data-page="service"] .cols2 > .box h3 .ic { width: 40px; height: 40px; padding: 9px; border-radius: 12px; background: var(--grad) border-box; color: #fff; }
 /* single info panel (overview side): soft tinted panel, no border */
-[data-page="service"] .split > .box, [data-page="service"] .wrap > .box { border: 0; background: var(--grad-soft); box-shadow: none; }
-[data-page="service"] .sec--tint .split > .box, [data-page="service"] .sec--tint .wrap > .box { background: #fff; }
+[data-page="service"] .split > .box, [data-page="service"] .wrap:not(.cols2) > .box { border: 0; background: var(--grad-soft); box-shadow: none; }
+[data-page="service"] .sec--tint .split > .box, [data-page="service"] .sec--tint .wrap:not(.cols2) > .box { background: #fff; }
 
 /* Treatment options: feature list with gradient icons */
 [data-page="service"] .cards3 { gap: 30px 34px; }
@@ -973,3 +973,11 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
   [data-page="service"] .sym { gap: 18px; }
 }
 @media (max-width: 600px) { [data-page="service"] .sym { grid-template-columns: 1fr; } }
+
+/* FAQ: no text caret / selection when opening and closing */
+.qa summary, .faq summary { -webkit-user-select: none; user-select: none; caret-color: transparent; }
+.qa summary *, .faq summary * { cursor: pointer; }
+.qa summary:focus:not(:focus-visible) { outline: none; }
+
+/* Less space before the About-the-doctor section */
+.sec[aria-labelledby="why-title"] { padding-top: clamp(28px, 3vw, 44px); }
