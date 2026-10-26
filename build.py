@@ -765,207 +765,110 @@ def contact():
 
 # ------------------------------------------------------------------ BMT SERVICE
 def bmt():
+    T = "bone marrow transplant in Bangalore"
+    hero = cond_hero("b-title", "Bone Marrow Transplant", 'Bone Marrow Transplant in <span class="grad-text">Bangalore</span>',
+                     "A bone marrow transplant (BMT), also called a stem cell transplant, replaces diseased or damaged bone marrow with healthy blood-forming stem cells. It can cure conditions like thalassemia, aplastic anemia and some leukemias, and helps control others like myeloma and lymphoma.",
+                     "bmt-cells.svg", "Illustration of a stem cell inside bone marrow giving rise to new blood cells, representing a bone marrow transplant", "bone-marrow-transplant")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="bt-what" data-fx="wipe">What is a <span class="grad-text">bone marrow transplant?</span></h2>
+            <p class="lead" data-fx="fade">Bone marrow is the soft, spongy tissue inside your bones. It contains stem cells that make all your blood cells. When the bone marrow is damaged by disease, or when high-dose treatment is needed to destroy a cancer, healthy stem cells can be given to rebuild it.</p>
+            <p class="lead" data-fx="fade">In a bone marrow transplant, healthy stem cells are given into a vein, much like a blood transfusion. <b>It is not surgery.</b> The stem cells travel to the bone marrow on their own and start making new red cells, white cells and platelets. This is called engraftment.</p>
+            <p class="lead" data-fx="fade">Dr. Neema Bhat, a US-trained hematologist and bone marrow transplant specialist with 10+ years of experience and 100+ transplants, offers {T} for adults and children.</p>
+          </div>
+          {_box('i-marrow', 'Where the stem cells come from', _ul(['<b>Your own body</b> (autologous transplant)', '<b>A donor</b>, such as a brother, sister, parent or an unrelated volunteer (allogeneic transplant)']) + _p('Today, most stem cells are collected from the blood, not directly from the bone marrow. The term “bone marrow transplant” is still used for all types.') + _p(f'The need is large: India has about 1 to 1.5 lakh children with thalassemia major, and 10,000 to 15,000 more are born every year (Ministry of Health). For many of these children, a transplant is the only cure. Timely {T}, done at the right stage of disease, gives the best chance of success.'))}
+        </div>""", label="bt-what")
+    who = _sec(sec_head('Who needs it', 'Who needs a <span class="grad-text">bone marrow transplant?</span>', 'A bone marrow transplant may be advised for these conditions:', hid='bt-who') + f"""<div class="cols2">
+          {_box('i-cells', 'Blood cancers', _ul([f'Acute myeloid leukemia (AML) and acute lymphoblastic leukemia (ALL) — <a href="{LEUK_PAGE}">leukemia</a>', 'Chronic myeloid leukemia (CML) not controlled by other treatment', f'Hodgkin and non-Hodgkin <a href="{LYMPH_PAGE}">lymphoma</a> that has relapsed or is high-risk', f'<a href="{MYEL_PAGE}">Multiple myeloma</a>', 'Myelodysplastic syndromes (MDS) and myelofibrosis']))}
+          {_box('i-drop', 'Non-cancerous blood disorders', _ul([f'<a href="{THAL_PAGE}">Thalassemia major</a>', 'Sickle cell disease', 'Severe aplastic anemia', 'Other bone marrow failure syndromes, such as Fanconi anemia']), 0.08)}
+        </div>
+        <div class="cols2 mt">
+          {_box('i-child', 'Immune and inherited disorders, mostly in children', _ul(['Severe combined immunodeficiency (SCID) and other primary immunodeficiencies', 'Chronic granulomatous disease (CGD)', 'HLH (hemophagocytic lymphohistiocytosis)', 'Some inherited metabolic disorders']))}
+          {_box('i-heart', 'Solid tumours (selected cases)', _ul(['Neuroblastoma in children', 'Relapsed germ cell tumours']), 0.08)}
+        </div>""" + _p('Not every patient with these conditions needs a transplant. The decision depends on the disease, its stage, how it responded to earlier treatment, your age and overall health, and whether a suitable donor is available. A transplant evaluation with a BMT specialist answers these questions.'), tint=True, label="bt-who")
+    types = _sec(sec_head('Types', 'Types of bone marrow <span class="grad-text">transplant</span>', center=True, hid='bt-types') + _table(
+        ["Type", "Where the stem cells come from", "Mainly used for"], [
+            ("Autologous transplant", "Your own stem cells, collected and stored before high-dose treatment", "Multiple myeloma, relapsed lymphoma, some solid tumours"),
+            ("Matched sibling donor (allogeneic)", "A brother or sister with a full tissue (HLA) match", "Thalassemia, aplastic anemia, leukemia, sickle cell disease"),
+            ("Matched unrelated donor (allogeneic)", "An unrelated volunteer found through a stem cell donor registry", "Leukemia, MDS, aplastic anemia, when no family match is available"),
+            ("Haploidentical (half-matched)", "A parent, child, brother or sister who is a half match", "Leukemia, aplastic anemia, thalassemia and others, when no full match is available"),
+            ("Cord blood transplant", "Stem cells from a newborn’s umbilical cord, stored in a cord blood bank", "Mainly children, in selected cases"),
+        ]) + f"""<div class="cols2 mt">
+          {_box('i-flask', 'Myeloablative conditioning', _p('Before a transplant, you receive conditioning treatment with chemotherapy, and sometimes radiation. Myeloablative (full-intensity) conditioning uses high doses to fully clear the bone marrow. It is mostly used for younger, fitter patients.'))}
+          {_box('i-shield', 'Reduced-intensity conditioning', _p('Uses lower doses and relies more on the donor’s immune cells to fight the disease. It allows older patients or those with other health problems to have a transplant.'), 0.08)}
+        </div>""", label="bt-types")
+    donor = _sec(f"""<div class="cols2">
+          {_box('i-users', 'Finding a donor: HLA matching', _p('For a donor transplant, the donor’s tissue type must match the patient’s. This is checked with a simple blood test or cheek swab called HLA typing (human leukocyte antigen typing).') + _ul(['<b>Brothers and sisters:</b> each full sibling has a 1 in 4 chance of being a full match.', '<b>Parents and children:</b> are usually a half match, so they can be donors for a haploidentical transplant.', '<b>Unrelated donors:</b> can be searched in Indian and international stem cell donor registries.']) + _p('A close match lowers the risk of rejection and graft-versus-host disease (GVHD). Thanks to newer methods, a half-matched family member is now a safe option for many patients who do not have a full match.'), hid='bt-donor')}
+          {_box('i-heart', 'Is donating stem cells safe?', _p('Yes. Most donors give stem cells from the blood, through a process called apheresis. The donor first gets a few days of injections to move stem cells into the blood. Blood is then drawn from one arm, the stem cells are separated by a machine, and the rest of the blood is returned through the other arm.') + _p('It takes about 4 to 6 hours and needs no surgery. The donor’s body replaces the stem cells within a few weeks.'), 0.08)}
+        </div>""", tint=True, label="bt-donor")
+    process = _sec(sec_head('The process', 'The transplant process, <span class="grad-text">step by step</span>', hid='bt-proc') + _olist([
+        ("Transplant evaluation", "Blood tests, heart, lung, kidney and liver tests, imaging, infection screening and a dental check-up to make sure you are fit for transplant."),
+        ("Donor search and HLA typing", "For donor transplants, family members are tested first, then registries if needed."),
+        ("Central line placement", "A thin tube (catheter) is placed in a large vein in the chest to give medicines, blood and stem cells, and to take blood samples."),
+        ("Stem cell collection", "Stem cells are collected from you (autologous) or from your donor, usually from the blood by apheresis."),
+        ("Conditioning", "About 5 to 10 days of chemotherapy, sometimes with radiation, to clear the diseased marrow and prepare the body."),
+        ("Transplant day (Day 0)", "The stem cells are given through the central line, like a blood transfusion. It usually takes less than an hour to a few hours."),
+        ("Engraftment", "New stem cells start making blood cells in about 10 to 14 days after an autologous transplant and 2 to 4 weeks after a donor transplant. You stay in a clean, HEPA-filtered BMT room."),
+        ("Discharge", "Once blood counts recover and you can eat and drink well — usually about 2 to 3 weeks for an autologous and 4 to 6 weeks for a donor transplant."),
+        ("Follow-up and recovery", "Frequent visits in the first 100 days, then regular long-term check-ups."),
+    ]), label="bt-proc")
+    tx = _sec(sec_head('Treatment', 'Bone marrow transplant <span class="grad-text">treatment options</span>', 'Treatment is planned around your disease, its stage, your age, your fitness and the donor available. Options include:', hid='bt-tx') + _cards([
+        ("i-marrow", "Autologous stem cell transplant", "Your own stem cells are collected, stored and returned after high-dose chemotherapy."),
+        ("i-marrow", "Tandem (double) autologous transplant", "Two planned autologous transplants a few months apart, for selected myeloma patients."),
+        ("i-users", "Matched sibling donor transplant", "Stem cells from a fully matched brother or sister."),
+        ("i-link", "Matched unrelated donor transplant", "Stem cells from a matched volunteer donor found through a registry."),
+        ("i-users", "Haploidentical (half-matched) transplant", "Stem cells from a half-matched parent, child, brother or sister."),
+        ("i-child", "Cord blood transplant", "Stem cells from stored umbilical cord blood, in selected cases."),
+        ("i-flask", "Myeloablative conditioning", "Full-intensity chemotherapy, with or without radiation, before transplant."),
+        ("i-flask", "Reduced-intensity conditioning", "Lower-dose conditioning for older patients or those with other health problems."),
+        ("i-sun", "Total body irradiation (TBI)", "Radiation to the whole body as part of conditioning, for selected conditions."),
+        ("i-shield", "GVHD prevention and treatment", "Immune-suppressing therapy to stop donor cells from attacking the patient’s body."),
+        ("i-cells", "Donor lymphocyte infusion (DLI)", "Extra immune cells from the donor to treat relapse or boost the donor’s cells."),
+        ("i-shield", "Infection prevention", "HEPA-filtered rooms, preventive antibiotics, antivirals and antifungals, and regular monitoring."),
+        ("i-drop", "Blood and platelet transfusions", "To support you until the new marrow starts working."),
+        ("i-heart", "Nutrition support", "A dietitian-planned diet, and feeding support if eating is difficult."),
+        ("i-check", "Vaccination after transplant", "Childhood and adult vaccines are repeated, as the transplant resets the immune system."),
+        ("i-adult", "Physiotherapy and rehabilitation", "To rebuild strength and stamina."),
+        ("i-chat", "Counselling and support", "Psychological support for patients, donors and families through the transplant journey."),
+        ("i-clock", "Long-term follow-up care", "Checks for late effects on the heart, lungs, hormones, bones, eyes and fertility."),
+    ]), tint=True, label="bt-tx")
+    risks = _sec(sec_head('Risks', 'Risks and side effects of <span class="grad-text">bone marrow transplant</span>', 'A bone marrow transplant is a major treatment. Your transplant team watches closely for these risks and treats them early:', hid='bt-risk') + _conds([
+        ("i-thermo", "Infections", "The most common risk while blood counts are low, and for months after a donor transplant."),
+        ("i-heart", "Mouth sores, nausea, diarrhoea", "From conditioning chemotherapy. These usually settle as counts recover."),
+        ("i-drop", "Low blood counts", "You may need red cell and platelet transfusions until the new marrow works."),
+        ("i-shield", "Graft-versus-host disease (GVHD)", "After a donor transplant, the donor’s immune cells may attack the skin, gut or liver. It is treated with immune-suppressing medicines."),
+        ("i-marrow", "Graft failure", "Rarely, the new stem cells do not engraft and further treatment is needed."),
+        ("i-flask", "Organ problems", "Such as liver (veno-occlusive disease), kidney, lung or heart problems."),
+        ("i-users", "Infertility", "Conditioning can affect fertility. Ask about sperm, egg or embryo freezing before treatment."),
+        ("i-cells", "Relapse", "The original disease may come back in some patients."),
+        ("i-clock", "Late effects", "Cataracts, thyroid and hormone changes, bone thinning, and a small risk of second cancers years later."),
+    ], cols4=False) + _alert('Call your transplant team urgently', 'if you have a fever of 100.4°F (38°C) or more, chills, breathlessness, bleeding, severe diarrhoea, a new rash or yellow eyes after a transplant.'), label="bt-risk")
+    life = _sec(_box('i-sun', 'Recovery and life after a bone marrow transplant', _p('Recovery takes time. Blood counts usually recover in weeks, but the immune system can take 6 months to 1 year or more to rebuild, especially after a donor transplant. These steps help:') + _ul(['Stay close to the hospital for the first 100 days if you live far away, so that check-ups are easy.', '<b>Prevent infections:</b> wash hands often, wear a mask in crowded places, and avoid people with colds, fever or chickenpox.', '<b>Eat safe food:</b> freshly cooked, hot food and boiled or filtered water. Avoid raw salads, street food, cut fruit kept outside and unpasteurised milk until your doctor allows.', 'Take every medicine on time, especially immune-suppressing and anti-infection medicines. Never stop them on your own.', 'Protect your skin from the sun, as GVHD and some medicines make the skin sensitive.', 'Stay gently active: short walks help rebuild strength.', 'Get your vaccines again on the schedule your transplant team gives you.', 'Return to work or school gradually, usually within a few months, as advised.']) + _p('Most transplant survivors return to normal daily life. Children go back to school, and adults return to work and family life.'), hid='bt-life'), tint=True, label="bt-life")
     faqs = [
-        ("What is a bone marrow transplant?", "It replaces damaged or diseased bone marrow with healthy blood-forming stem cells. The new cells settle in the marrow and begin producing healthy red cells, white cells and platelets."),
-        ("Is a bone marrow transplant only for cancer?", "No. Besides leukaemia, lymphoma and myeloma, transplants are used for non-cancerous conditions such as thalassemia major, aplastic anaemia, sickle cell disease and some inherited immune disorders."),
-        ("Who can be a donor?", "For an allogeneic transplant, brothers and sisters are usually tested first — each full sibling has roughly a one-in-four chance of being a full match. Unrelated volunteer donors and half-matched (haploidentical) family donors may also be options."),
-        ("How is a donor matched?", "Donors are matched by HLA typing, a blood or cheek-swab test that compares immune markers between the patient and the potential donor."),
-        ("Is donating stem cells safe for the donor?", "For most healthy donors it is. Stem cells are commonly collected from the blood after a few days of growth-factor injections, and donors usually return to normal activities within days."),
-        ("Is the stem cell infusion painful?", "The infusion itself is given through a drip, much like a blood transfusion, and is usually not painful. The preparation (conditioning) and recovery phases need close care, which the team plans in detail with you."),
-        ("How long is the hospital stay?", "It varies with the type of transplant and the condition being treated. Hospital stays are commonly several weeks, until blood counts recover and the patient is well enough to go home."),
-        ("What happens after discharge?", "Regular follow-up visits, blood tests and medicines continue for months while the immune system recovers. The team guides the family on infection precautions, diet, vaccinations and returning to school or work."),
+        ("Is a bone marrow transplant a surgery?", "No. The stem cells are given through a vein, like a blood transfusion. There is no operation. Collecting stem cells from a donor is also usually done from the blood."),
+        ("Is a bone marrow transplant painful?", "The transplant itself is not painful. Some patients have discomfort from mouth sores, nausea or tiredness caused by conditioning chemotherapy, and these are treated with medicines."),
+        ("What is the success rate of bone marrow transplant?", "It depends on the disease, its stage, the patient’s age and health, and the donor match. Results are best when the transplant is done early. For example, children with thalassemia who receive a matched sibling transplant early have high cure rates. Your doctor can explain the expected outcome for your condition."),
+        ("Who can be a bone marrow donor?", "A healthy brother or sister with a full HLA match is usually the first choice. A parent, child or sibling with a half match, or a matched unrelated volunteer from a registry, can also donate."),
+        ("Is it safe to donate bone marrow or stem cells?", "Yes. Donation is safe for healthy donors. Most donors give stem cells from the blood by apheresis, which needs no surgery, and the body replaces the cells within a few weeks."),
+        ("How long does the bone marrow transplant process take?", "Evaluation and preparation take a few weeks. The hospital stay is usually about 2 to 3 weeks for an autologous transplant and 4 to 6 weeks for a donor transplant. Close follow-up continues for the first 100 days and beyond."),
+        ("What is the best age for a bone marrow transplant in thalassemia?", "Results are best when the transplant is done in early childhood, before iron overload damages the liver and heart. Families should get siblings HLA-tested soon after diagnosis."),
+        ("What is graft-versus-host disease (GVHD)?", "GVHD happens when the donor’s immune cells attack the patient’s body, such as the skin, gut or liver. It occurs only after a donor transplant and is treated with immune-suppressing medicines."),
+        ("How much does a bone marrow transplant cost in Bangalore?", "The cost depends on the type of transplant, the donor, the hospital stay and any complications. A donor transplant usually costs more than an autologous transplant. The clinic can share an estimate after evaluation. Eligible families may get support through schemes such as Coal India’s Thalassemia Bal Sewa Yojana, which gives up to ₹10 lakh for thalassemia major and aplastic anemia transplants (annual family income below ₹8 lakh)."),
+        ("Can a bone marrow transplant cure blood cancer?", "A donor transplant can cure some leukemias and other blood cancers. An autologous transplant helps control myeloma and lymphoma and keeps them in remission longer."),
     ]
-    _, ld_faq = faq_block(faqs)
-    ld_proc = '  <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalProcedure","name":"Bone Marrow Transplantation","alternateName":"Stem cell transplant","procedureType":"https://schema.org/TherapeuticProcedure","performer":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>\n'
-
-    facts = [("i-marrow", "100+ transplants", "Performed and supervised"), ("i-users", "Children &amp; adults", "Pediatric and adult BMT"),
-             ("i-link", "Two types", "Autologous &amp; allogeneic"), ("i-hosp", "Dedicated unit", "Bhagawan Mahaveer Jain Hospital")]
-    facts_html = "".join(f'<div class="fact" data-fx="fade" style="--d:{k * 0.06:.2f}s">{ic(i)}<b>{t}</b><span>{d}</span></div>' for k, (i, t, d) in enumerate(facts))
-
-    conds = [
-        ("i-cells", "Leukaemia", "Acute and chronic leukaemias, especially when high-risk or relapsed."),
-        ("i-cells", "Lymphoma", "Hodgkin and non-Hodgkin lymphoma that returns after treatment."),
-        ("i-cells", "Multiple myeloma", "Autologous transplant is a standard part of treatment for many patients."),
-        ("i-drop", "Thalassemia major", "A matched transplant can free a child from lifelong transfusions."),
-        ("i-drop", "Aplastic anaemia", "When the marrow stops making enough blood cells."),
-        ("i-drop", "Sickle cell disease", "For severe disease with repeated complications."),
-        ("i-shield", "Immune disorders", "Inherited immune deficiencies such as SCID."),
-        ("i-child", "Childhood cancers", "Selected solid tumours such as neuroblastoma."),
-        ("i-marrow", "Marrow failure syndromes", "Inherited conditions such as Fanconi anaemia."),
-    ]
-    conds_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><b>{ic(i)}{t}</b><p>{d}</p></li>' for k, (i, t, d) in enumerate(conds))
-
-    donors = [
-        ("i-users", "Matched sibling donor", "A brother or sister with a full HLA match — often the first choice."),
-        ("i-link", "Matched unrelated donor", "A volunteer found through stem cell donor registries."),
-        ("i-heart", "Half-matched family donor", "A parent, child or sibling who is a half match (haploidentical) — widening access when no full match is found."),
-    ]
-    donors_html = "".join(f'<div class="card" data-fx="fade" style="--d:{k * 0.08:.2f}s">{ic(i)}<h3>{t}</h3><p>{d}</p></div>' for k, (i, t, d) in enumerate(donors))
-
-    steps = [
-        ("Evaluation", "Tests, donor matching and counselling so the family understands each step.",
-         "The team reviews the diagnosis and overall health — blood tests, heart, lung and kidney checks and infection screening — and HLA-tests family members for a match. The family meets the team to understand the plan, the risks and the timeline."),
-        ("Collection", "Stem cells are collected from the patient (autologous) or a donor (allogeneic).",
-         "For an autologous transplant, the patient’s own stem cells are collected from the blood after growth-factor injections and frozen. For an allogeneic transplant, cells are collected from the donor’s blood or bone marrow."),
-        ("Conditioning", "Chemotherapy, sometimes with radiation, prepares the marrow for new cells.",
-         "Over several days, chemotherapy — sometimes with radiation — clears the diseased marrow and makes room for the new cells. In allogeneic transplants it also lowers immunity so donor cells are not rejected."),
-        ("Infusion", "Healthy stem cells are given through a drip, much like a transfusion.",
-         "On “Day 0” the stem cells are given through the central line, much like a blood transfusion. It is usually not painful, and the family can stay close by."),
-        ("Engraftment", "New cells settle in and start making blood, with close monitoring.",
-         "Over the following weeks the new cells settle in the marrow and begin making blood. Until counts recover, the patient stays in a protected room with transfusions, antibiotics and daily monitoring."),
-        ("Recovery", "A gradual return to daily life with long-term follow-up.",
-         "After discharge, regular visits continue for months — checking counts, adjusting medicines, watching for graft-versus-host disease and planning re-vaccination and the return to school or work."),
-    ]
-
-    before = ["Detailed review of diagnosis and disease status", "Blood tests, imaging and heart, lung and kidney checks", "HLA typing of the patient and family members",
-              "Dental and infection screening", "Central line placement for medicines and blood draws", "Counselling for the patient and caregivers"]
-    before_html = "".join(f'<li>{ic("i-check")}{t}</li>' for t in before)
-
-    why = [
-        ("i-award", "US fellowship training", "Fellowship (FAAP) in Pediatric Hematology, Oncology &amp; BMT at Penn State Health."),
-        ("i-marrow", "Leads a transplant unit", "Program Director &amp; HOD, Bone Marrow Transplant Unit, Bhagawan Mahaveer Jain Hospital."),
-        ("i-heart", "Access for families", "Works with Sankalp India Foundation to make curative transplant reachable for children with thalassemia."),
-        ("i-chat", "One doctor, start to finish", "From the first evaluation to long-term follow-up, families know who is guiding their care."),
-    ]
-    why_html = "".join(f'<li data-fx="fade" style="--d:{k * 0.08:.2f}s">{ic(i)}<div><b>{t}</b><span>{d}</span></div></li>' for k, (i, t, d) in enumerate(why))
-
-    return head("Bone Marrow Transplant in Bangalore | Dr. Neema Bhat",
-                "Bone marrow (stem cell) transplant in Bangalore with Dr. Neema Bhat, Program Director &amp; HOD of the BMT Unit at Bhagawan Mahaveer Jain Hospital. Autologous and allogeneic transplants for children and adults.",
-                BMT_PAGE, LD_PHYSICIAN + ld_proc + ld_faq) + f"""
-<body data-page="service">{ICONS}{header('service', BMT_PAGE)}
-  <main id="main">
-    <section class="phero" aria-labelledby="b-title" style="padding-bottom:clamp(56px,6vw,84px)">
-      <div class="wrap phero__in">
-        <div>
-          <ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li>Bone Marrow Transplant</li></ol>
-          <h1 id="b-title" data-fx="wipe">Bone Marrow <span class="grad-text">Transplant</span> in Bangalore</h1>
-          <p class="phero__sub" data-fx="fade" style="--d:.15s">Autologous and allogeneic stem cell transplants for children and adults — led by Dr. Neema Bhat, Program Director and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital.</p>
-          <div class="hero__acts" data-fx="fade" style="--d:.25s">
-            <a class="btn btn--grad" href="contact.html?topic=bone-marrow-transplant">Discuss a transplant{ic('i-go', 'ic ic--go')}</a>
-            <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
-          </div>
-        </div>
-        <div class="phero__card" data-fx="fade" style="--d:.2s">
-          <dl>
-            <div><dt>Transplants</dt><dd>Autologous &amp; allogeneic</dd></div>
-            <div><dt>For</dt><dd>Children and adults · cancers and non-cancerous blood disorders</dd></div>
-            <div><dt>Unit</dt><dd>Bhagawan Mahaveer Jain Hospital, with Sankalp India Foundation</dd></div>
-          </dl>
-        </div>
-      </div>
-    </section>
-
-    <div class="wrap"><div class="facts">{facts_html}</div></div>
-
-    <section class="sec" aria-labelledby="ov-title">
-      <div class="wrap split">
-        <div>
-          <p class="tag" data-fx="wipe-x">Overview</p>
-          <h2 class="title" id="ov-title" data-fx="wipe">A new source of <span class="grad-text">healthy blood cells</span></h2>
-          <p class="lead" data-fx="fade">A bone marrow (stem cell) transplant replaces damaged or diseased marrow with healthy blood-forming stem cells. For many blood cancers and serious blood disorders, it offers the best chance of long-term control — and for some, a cure.</p>
-          <p class="lead" data-fx="fade">Stem cells can come from the bone marrow, from the bloodstream (peripheral blood stem cells) or, in some cases, from umbilical cord blood. Every transplant is planned in detail, from choosing the right type and donor to the months of follow-up afterwards, with the family involved at each step.</p>
-        </div>
-        <div class="cellviz" data-cellviz aria-hidden="true">
-          <svg viewBox="0 0 460 460">
-            <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4fb6bb"/><stop offset=".5" stop-color="#2f84a0"/><stop offset="1" stop-color="#0f265d"/></linearGradient></defs>
-            <circle class="orb" cx="230" cy="230" r="210"/><circle class="orb" cx="230" cy="230" r="160" style="transition-delay:.3s"/><circle class="orb" cx="230" cy="230" r="110" style="transition-delay:.6s"/>
-            <circle class="core" cx="230" cy="230" r="72" fill="url(#cg)"/>
-            <text x="230" y="224" text-anchor="middle">Stem</text><text x="230" y="246" text-anchor="middle">cells</text>
-            <g class="sat"><circle cx="230" cy="20" r="11"/><circle cx="440" cy="230" r="7"/></g>
-            <g class="sat sat2"><circle cx="230" cy="390" r="9"/><circle cx="70" cy="230" r="6"/></g>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec sec--tint" aria-labelledby="w-title">
-      <div class="wrap">
-        {sec_head('Who may need it', 'Conditions treated with <span class="grad-text">transplant</span>', 'A transplant is considered when it offers a better chance of cure or long-term control than other treatments.', hid='w-title')}
-        <ul class="conds">{conds_html}</ul>
-      </div>
-    </section>
-
-    <section class="sec" aria-labelledby="ty-title">
-      <div class="wrap split">
-        <div>
-          <p class="tag" data-fx="wipe-x">Types of transplant</p>
-          <h2 class="title" id="ty-title" data-fx="wipe">Two ways to <span class="grad-text">rebuild the marrow</span></h2>
-          <p class="lead" data-fx="fade">The right type depends on the diagnosis, the stage of disease and whether a suitable donor is available.</p>
-          <div class="switch" role="tablist" aria-label="Transplant type" data-switch>
-            <button type="button" role="tab" aria-selected="true" aria-controls="t-auto" id="tab-auto">Autologous</button>
-            <button type="button" role="tab" aria-selected="false" aria-controls="t-allo" id="tab-allo" tabindex="-1">Allogeneic</button>
-            <span class="switch__thumb" aria-hidden="true"></span>
-          </div>
-        </div>
-        <div>
-          <div class="panel" id="t-auto" role="tabpanel" aria-labelledby="tab-auto">
-            <h3>Autologous — your own cells</h3>
-            <p>The patient’s own stem cells are collected and frozen, then returned after high-dose treatment to rebuild the marrow.</p>
-            <ul class="list"><li>{ic('i-check')}No donor needed</li><li>{ic('i-check')}Often used for lymphoma, myeloma and some solid tumours</li><li>{ic('i-check')}No risk of graft-versus-host disease</li><li>{ic('i-check')}Usually a shorter recovery</li></ul>
-          </div>
-          <div class="panel" id="t-allo" role="tabpanel" aria-labelledby="tab-allo" hidden>
-            <h3>Allogeneic — cells from a donor</h3>
-            <p>Healthy stem cells come from a donor — a matched sibling, an unrelated volunteer or a half-matched family member.</p>
-            <ul class="list"><li>{ic('i-check')}Used for leukaemia, thalassemia, aplastic anaemia and immune disorders</li><li>{ic('i-check')}The donor’s immune cells can help fight remaining disease</li><li>{ic('i-check')}Careful donor matching and close follow-up are essential</li><li>{ic('i-check')}Monitoring for graft-versus-host disease</li></ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec sec--tint" aria-labelledby="d-title">
-      <div class="wrap">
-        {sec_head('Donor matching', 'Finding the <span class="grad-text">right donor</span>', 'Matching is done by HLA typing — a simple blood or cheek-swab test for the patient and potential donors.', hid='d-title')}
-        <div class="cards3">{donors_html}</div>
-      </div>
-    </section>
-
-    <section class="sec" aria-labelledby="j-title">
-      <div class="wrap">
-        {sec_head('The journey', 'Six stages, <span class="grad-text">one team</span>', center=True, hid='j-title')}
-        {stepper('journey', steps, 'Transplant journey')}
-      </div>
-    </section>
-
-    <section class="sec sec--tint" aria-labelledby="ba-title">
-      <div class="wrap cols2">
-        <div class="box" data-fx="fade">
-          <h3 id="ba-title">{ic('i-doc')}Before the transplant</h3>
-          <ul class="list">{before_html}</ul>
-        </div>
-        <div class="box" data-fx="fade" style="--d:.1s">
-          <h3>{ic('i-shield')}After the transplant</h3>
-          <ul class="list">
-            <li>{ic('i-check')}Protective isolation while counts recover</li>
-            <li>{ic('i-check')}Daily blood tests, transfusions and infection control</li>
-            <li>{ic('i-check')}Monitoring for graft-versus-host disease</li>
-            <li>{ic('i-check')}Diet, hygiene and medicine plan for home</li>
-            <li>{ic('i-check')}Re-vaccination as the immune system rebuilds</li>
-            <li>{ic('i-check')}Guidance on returning to school or work</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec" aria-labelledby="wy-title">
-      <div class="wrap why">
-        <div class="pic" data-fx="iris">
-          <img src="assets/images/portrait-scrubs.webp" srcset="assets/images/portrait-scrubs-720.webp 720w, assets/images/portrait-scrubs.webp 1200w" sizes="(max-width: 900px) 90vw, 440px" alt="Dr. Neema Bhat in a white coat over blue scrubs" width="1200" height="1873" loading="lazy">
-          <div class="pic__badge">{ic('i-marrow')}<div><b>Dr. Neema Bhat</b><span>Program Director &amp; HOD, BMT Unit</span></div></div>
-        </div>
-        <div>
-          <p class="tag" data-fx="wipe-x">Why Dr. Neema Bhat</p>
-          <h2 class="title" id="wy-title" data-fx="wipe">Transplant care led by a <span class="grad-text">specialist</span></h2>
-          <ul class="why__list">{why_html}</ul>
-        </div>
-      </div>
-    </section>
-{faq_section(faqs, 'Quick answers to the questions families ask most about bone marrow transplants.', 'General information only — every patient is different. Your consultation is the place for advice specific to you or your child.')}
-{cta('Considering a transplant? Talk it through.', 'Bring your reports — Dr. Neema Bhat will explain the options for you or your child.', 'bone-marrow-transplant')}
-  </main>
-""" + footer()
+    page = cond_page(BMT_PAGE, "Bone Marrow Transplant in Bangalore | Dr. Neema Bhat",
+                     "Bone marrow (stem cell) transplant in Bangalore with Dr. Neema Bhat, US-trained hematologist and BMT specialist with 100+ transplants — autologous, matched donor and half-matched transplants for adults and children.",
+                     "Bone marrow transplant", ["Stem cell transplant", "BMT"], hero, [intro, who, types, donor, process, tx, risks, life], faqs,
+                     "Quick answers to the questions families ask most about bone marrow transplants.",
+                     "For transplants, she guides patients and families from evaluation and donor testing to the transplant and long-term follow-up.",
+                     book_section("Considering a transplant?", "Has your doctor advised a transplant, or do you want to know if a transplant can help you or your child? Book a transplant consultation with Dr. Neema Bhat for bone marrow transplant in Bangalore today.", "bone-marrow-transplant"))
+    # the condition schema type for a procedure page
+    return page.replace('"@type":"MedicalCondition","name":"Bone marrow transplant"', '"@type":"MedicalProcedure","name":"Bone marrow transplant"', 1)
 
 
-# ------------------------------------------------------------------ ANEMIA SERVICE
+
 def anemia():
     T = "anemia treatment in Bangalore"
     faqs = [
