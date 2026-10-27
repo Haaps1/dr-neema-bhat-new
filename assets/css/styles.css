@@ -981,3 +981,14 @@ a.ccard:hover { border-color: var(--teal-200); transform: translateY(-2px); }
 
 /* Less space before the About-the-doctor section */
 .sec[aria-labelledby="why-title"] { padding-top: clamp(28px, 3vw, 44px); }
+
+/* ---------- Services menu: one flat list, no headings ---------- */
+.drop { width: 560px; display: block; padding: 12px; }
+.drop__list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; }
+.sheet__sub a:first-child { margin-top: 6px; }
+/* footer: treatments in two columns */
+.foot__grid { grid-template-columns: 1.4fr .7fr 1.9fr; }
+.foot__cols { columns: 2; column-gap: 28px; }
+.foot__cols li { break-inside: avoid; }
+@media (max-width: 900px) { .foot__grid { grid-template-columns: 1fr 1fr; } .foot__wide { grid-column: 1 / -1; } }
+@media (max-width: 600px) { .foot__grid { grid-template-columns: 1fr; } }

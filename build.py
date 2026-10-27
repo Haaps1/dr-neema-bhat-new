@@ -19,15 +19,14 @@ WA = "https://wa.me/917899756677"
 
 # name, slug, category, short description
 SERVICES = [
-    ("Anaemia Treatment", "anaemia", "Hematology", "Iron-deficiency, nutritional and inherited anaemias — finding the cause, not just treating the count."),
-    ("Thalassemia Treatment", "thalassemia", "Hematology", "Transfusion programmes, iron chelation and evaluation for curative transplant."),
-    ("Hemophilia & Bleeding Disorders", "hemophilia", "Hematology", "Diagnosis and long-term management of hemophilia, von Willebrand disease and low platelets."),
-    ("Leukaemia (Blood Cancer)", "leukaemia", "Hematology", "Acute and chronic leukaemias, with chemotherapy, targeted therapy and transplant planning."),
-    ("Lymphoma", "lymphoma", "Hematology", "Hodgkin and non-Hodgkin lymphoma — accurate subtyping and treatment matched to each type."),
-    ("Multiple Myeloma", "multiple-myeloma", "Hematology", "Plasma cell cancer care — staging, drug therapy, transplant and protection for bones and kidneys."),
-    ("Childhood Leukaemia & Lymphoma", "childhood-leukaemia", "Pediatric", "Child-centred treatment with close attention to comfort, growth and schooling."),
-    ("Pediatric Solid Tumours", "pediatric-tumours", "Pediatric", "Neuroblastoma, Wilms tumour, sarcomas and more, with a multidisciplinary team."),
-    ("Pediatric Blood Disorders", "pediatric-blood", "Pediatric", "Sickle cell disease, aplastic anaemia, ITP and immune disorders in children."),
+    ("Hematology Treatment", "hematology", "Hematology", "Anemia, bleeding and clotting problems, abnormal blood counts and blood cancers — finding the exact cause."),
+    ("Anemia Treatment", "anaemia", "Hematology", "Iron-deficiency, nutritional and inherited anemias — finding the cause, not just treating the count."),
+    ("Thalassemia Treatment", "thalassemia", "Hematology", "Transfusion and chelation care, carrier testing and curative bone marrow transplant."),
+    ("Leukemia Treatment", "leukaemia", "Hematology", "Acute and chronic leukemias, with chemotherapy, targeted therapy and transplant planning."),
+    ("Lymphoma Treatment", "lymphoma", "Hematology", "Hodgkin and non-Hodgkin lymphoma — accurate subtyping and treatment matched to each type."),
+    ("Multiple Myeloma Treatment", "multiple-myeloma", "Hematology", "Plasma cell cancer care — staging, drug therapy, transplant and protection for bones and kidneys."),
+    ("Pediatric Oncology", "pediatric-oncology", "Pediatric", "Childhood leukemia, lymphoma, solid tumours and blood disorders, with child-friendly care."),
+    ("Brain Tumor Treatment", "brain-tumor", "Pediatric & Adult", "Brain and spinal tumours, with surgery, radiation and chemotherapy planned together."),
     ("Bone Marrow Transplant", "bone-marrow-transplant", "Pediatric & Adult", "Autologous and allogeneic transplants for children and adults, from donor matching to follow-up."),
 ]
 BMT_PAGE = "bone-marrow-transplant.html"
@@ -38,8 +37,9 @@ BMT_PAGE = "bone-marrow-transplant.html"
 SVC_MOBILE_DEFAULT = "icons"
 SHOW_SVC_SWITCH = True
 SHORT_NAMES = {
-    "anaemia": "Anaemia", "thalassemia": "Thalassemia", "hemophilia": "Hemophilia",
-    "leukaemia": "Leukaemia", "lymphoma": "Lymphoma", "multiple-myeloma": "Multiple Myeloma",
+    "hematology": "Hematology", "pediatric-oncology": "Pediatric Oncology", "brain-tumor": "Brain Tumor",
+    "anaemia": "Anemia", "thalassemia": "Thalassemia", "hemophilia": "Hemophilia",
+    "leukaemia": "Leukemia", "lymphoma": "Lymphoma", "multiple-myeloma": "Multiple Myeloma",
     "childhood-leukaemia": "Child Leukaemia", "pediatric-tumours": "Solid Tumours",
     "pediatric-blood": "Child Blood Disorders", "bone-marrow-transplant": "Bone Marrow Transplant",
 }
@@ -74,9 +74,12 @@ THAL_PAGE = "thalassemia-treatment.html"
 LEUK_PAGE = "leukemia-treatment.html"
 MYEL_PAGE = "multiple-myeloma-treatment.html"
 LYMPH_PAGE = "lymphoma-treatment.html"
+PEDONC_PAGE = "pediatric-oncology-treatment.html"
+BRAIN_PAGE = "brain-tumor-treatment.html"
 # treatments that have their own page
 SERVICE_PAGES = {"bone-marrow-transplant": BMT_PAGE, "anaemia": ANEMIA_PAGE, "thalassemia": THAL_PAGE,
-                 "leukaemia": LEUK_PAGE, "lymphoma": LYMPH_PAGE, "multiple-myeloma": MYEL_PAGE}
+                 "leukaemia": LEUK_PAGE, "lymphoma": LYMPH_PAGE, "multiple-myeloma": MYEL_PAGE,
+                 "hematology": HEMA_PAGE, "pediatric-oncology": PEDONC_PAGE, "brain-tumor": BRAIN_PAGE}
 
 
 def svc_href(slug):
@@ -133,7 +136,7 @@ LD_PHYSICIAN = """  <script type="application/ld+json">
 """
 
 SVC_ICON = {"Hematology": "i-drop", "Pediatric": "i-child", "Pediatric & Adult": "i-marrow"}
-SVC_ICON_BY_SLUG = {"leukaemia": "i-cells", "lymphoma": "i-cells", "multiple-myeloma": "i-bone", "hemophilia": "i-shield", "pediatric-tumours": "i-heart"}
+SVC_ICON_BY_SLUG = {"leukaemia": "i-cells", "lymphoma": "i-cells", "multiple-myeloma": "i-bone", "hematology": "i-flask", "brain-tumor": "i-doc", "hemophilia": "i-shield", "pediatric-tumours": "i-heart"}
 
 
 def ic(name, cls="ic"):
@@ -169,8 +172,7 @@ def head(title, desc, canonical, extra=""):
 def header(active, current=""):
     def cur(p):
         return ' aria-current="page"' if p == active else ""
-    hema = "".join(f'<a href="{svc_href(s)}">{n}</a>' for n, s, c, _ in SERVICES if c == "Hematology")
-    ped = "".join(f'<a href="{svc_href(s)}">{n}</a>' for n, s, c, _ in SERVICES if c == "Pediatric")
+    items = "".join(f'<a href="{svc_href(s)}">{n}</a>' for n, s, c, _ in SERVICES)
     html = f"""
   <a class="skip" href="#main">Skip to main content</a>
   <div class="curtain" aria-hidden="true"><img src="assets/images/logo-mark.png" alt=""></div>
@@ -185,9 +187,7 @@ def header(active, current=""):
           <li class="has-drop">
             <button type="button" aria-expanded="false" aria-controls="drop-services"{' aria-current="page"' if active == 'service' else ''}>Services{ic('i-chev', 'ic chev')}</button>
             <div class="drop" id="drop-services">
-              <div class="drop__col"><h3>Hematology</h3><a class="drop__all" href="{HEMA_PAGE}">Hematology Treatment (overview)</a>{hema}</div>
-              <div class="drop__col"><h3>Pediatric</h3>{ped}</div>
-              <a class="drop__feat" href="{BMT_PAGE}">Bone Marrow Transplant{ic('i-go')}</a>
+              <div class="drop__list">{items}</div>
             </div>
           </li>
           <li><a href="contact.html"{cur('contact')}>Contact</a></li>
@@ -212,7 +212,7 @@ def header(active, current=""):
         <li><a href="index.html"{cur('home')}>Home{ic('i-go')}</a></li>
         <li><a href="about.html"{cur('about')}>About{ic('i-go')}</a></li>
         <li><button type="button" data-acc aria-expanded="false">Services{ic('i-chev', 'ic chev')}</button>
-          <div class="sheet__sub"><div><small>Hematology</small><a href="{HEMA_PAGE}">Hematology Treatment (overview)</a>{hema}<small>Pediatric</small>{ped}<small>Specialty</small><a href="{BMT_PAGE}">Bone Marrow Transplant</a></div></div></li>
+          <div class="sheet__sub"><div>{items}</div></div></li>
         <li><a href="contact.html"{cur('contact')}>Contact{ic('i-go')}</a></li>
       </ul>
       <div class="sheet__actions">
@@ -227,8 +227,7 @@ def header(active, current=""):
     return html
 
 def footer(fab=True):
-    links = "".join(f'<li><a href="{svc_href(s)}">{n}</a></li>' for n, s, c, _ in SERVICES if c == "Hematology")
-    links2 = "".join(f'<li><a href="{svc_href(s)}">{n}</a></li>' for n, s, c, _ in SERVICES if c != "Hematology")
+    links = "".join(f'<li><a href="{svc_href(s)}">{n}</a></li>' for n, s, c, _ in SERVICES)
     return f"""
   <footer class="foot">
     <div class="wrap">
@@ -242,9 +241,8 @@ def footer(fab=True):
             <li>Apollo Hospitals, Bannerghatta Road, Bengaluru</li>
           </ul>
         </div>
-        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="{BMT_PAGE}">Bone Marrow Transplant</a></li><li><a href="{HEMA_PAGE}">Hematology Treatment</a></li><li><a href="{ANEMIA_PAGE}">Anemia Treatment</a></li><li><a href="{THAL_PAGE}">Thalassemia Treatment</a></li><li><a href="{LEUK_PAGE}">Leukemia Treatment</a></li><li><a href="{LYMPH_PAGE}">Lymphoma Treatment</a></li><li><a href="{MYEL_PAGE}">Multiple Myeloma Treatment</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-        <div><h2>Hematology</h2><ul>{links}</ul></div>
-        <div><h2>Pediatric</h2><ul>{links2}</ul></div>
+        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="foot__wide"><h2>Treatments</h2><ul class="foot__cols">{links}</ul></div>
       </div>
       <div class="foot__base"><p>© <span data-year>2026</span> Dr. Neema Bhat. All rights reserved.</p><p>Information on this website is for general awareness and is not a substitute for medical advice.</p></div>
     </div>
@@ -320,11 +318,11 @@ def svc_mobile():
     """Phone-only treatments block: app icon grid and bento tiles, switchable."""
     href = svc_link
     def cat_key(c):
-        return "hema" if c == "Hematology" else "ped"
+        return "hema" if c == "Hematology" else "ped" if c == "Pediatric" else "hema ped"
     def icon(s, c):
         return SVC_ICON_BY_SLUG.get(s, SVC_ICON[c])
     apps = "".join(
-        f'<li data-cat="{"hema ped" if s == "bone-marrow-transplant" else cat_key(c)}"><a class="app{" app--feat" if s == "bone-marrow-transplant" else ""}" href="{href(s)}" data-m-svc="{s}">'
+        f'<li data-cat="{cat_key(c)}"><a class="app{" app--feat" if s == "bone-marrow-transplant" else ""}" href="{href(s)}" data-m-svc="{s}">'
         f'<span class="app__ic">{ic(icon(s, c))}</span><b>{SHORT_NAMES[s]}</b></a></li>' for n, s, c, _ in SERVICES)
     order = [x for x in SERVICES if x[1] == "bone-marrow-transplant"] + [x for x in SERVICES if x[1] != "bone-marrow-transplant"]
     tiles = "".join(
@@ -556,7 +554,7 @@ def home():
 
     <section class="sec sec--tint" id="services" aria-labelledby="svc-title">
       <div class="wrap">
-        {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Ten specialist services across adult hematology and pediatric hemato-oncology — tap a service to book or learn more.', hid='svc-title')}
+        {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Nine specialist services across adult hematology and pediatric hemato-oncology — tap a service to book or learn more.', hid='svc-title')}
         <div class="svc-grid" data-svc>{cards}
         </div>
         <div class="dots" data-dots-for="svc" aria-hidden="true"></div>{svc_mobile()}
@@ -581,7 +579,7 @@ def home():
         <div class="nums">
           <div class="num" data-num><svg class="num__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50"/><circle class="arc" cx="60" cy="60" r="50" pathLength="100"/></svg><b><span data-count="10">10</span>+</b><span>Years of specialist experience in hematology &amp; oncology</span></div>
           <div class="num" data-num><b class="grad-text"><span data-count="100">100</span>+</b><span>Bone marrow transplants</span></div>
-          <div class="num" data-num><b class="grad-text"><span data-count="10">10</span></b><span>Specialist services</span></div>
+          <div class="num" data-num><b class="grad-text"><span data-count="9">9</span></b><span>Specialist services</span></div>
           <div class="num" data-num><b class="grad-text"><span data-count="4">4</span></b><span>Hospitals &amp; clinics</span></div>
           <div class="num" data-num><b class="grad-text"><span data-count="6">6</span></b><span>Days a week OPD</span></div>
         </div>
@@ -1614,89 +1612,330 @@ def myeloma():
 def lymphoma():
     T = "lymphoma treatment in Bangalore"
     hero = cond_hero("ly-title", "Lymphoma Treatment", 'Lymphoma Treatment in <span class="grad-text">Bangalore</span>',
-                     "Lymphoma is a blood cancer that starts in lymphocytes, the infection-fighting white cells of the lymph nodes and immune system. It often shows up as a painless swelling in the neck, armpit or groin. Many types of lymphoma respond very well to treatment, and many can be cured.",
+                     "Lymphoma is a blood cancer that starts in lymphocytes, the infection-fighting white blood cells of the lymphatic system. It often first shows as a painless swelling in the neck, armpit or groin. Lymphoma is one of the most treatable cancers, and many types can be cured, especially when found early.",
                      "lymphoma-cells.svg", "Illustration of a swollen lymph node with lymphocytes, representing lymphoma", "lymphoma")
     intro = _sec(f"""
         <div class="split split--top">
           <div>
             <p class="tag" data-fx="wipe-x">Overview</p>
             <h2 class="title" id="ly-what" data-fx="wipe">What is <span class="grad-text">lymphoma?</span></h2>
-            <p class="lead" data-fx="fade">Your lymphatic system is a network of lymph nodes, vessels, the spleen and bone marrow that helps your body fight infection. Lymphocytes are the white blood cells that do this work. In lymphoma, some lymphocytes change and grow out of control, forming lumps in the lymph nodes or other organs.</p>
-            <p class="lead" data-fx="fade">Lymphoma is not contagious. In most people it is not inherited, and it is not caused by anything they did. With an accurate diagnosis of the exact type, the right {T} can be planned.</p>
+            <p class="lead" data-fx="fade">Your lymphatic system is part of your immune system. It includes the lymph nodes (glands), spleen, thymus, tonsils and bone marrow, connected by thin tubes that carry a fluid called lymph. It helps your body fight infections.</p>
+            <p class="lead" data-fx="fade">Lymphoma starts when lymphocytes (B cells, T cells or NK cells) change and grow out of control. These abnormal cells collect in the lymph nodes and other organs, causing swelling. Lymphoma can also start in, or spread to, organs outside the lymph nodes, such as the stomach, skin, brain or bone marrow.</p>
+            <p class="lead" data-fx="fade">The right {T} starts with knowing the exact type. Dr. Neema Bhat, a US-trained hematologist and bone marrow transplant specialist with 10+ years of experience, treats all types of lymphoma in adults and children.</p>
           </div>
-          {_box('i-cells', 'The two main groups', _ul(['<b>Hodgkin lymphoma:</b> has a typical abnormal cell (the Reed–Sternberg cell). It often affects young adults and is one of the most curable cancers.', '<b>Non-Hodgkin lymphoma (NHL):</b> a large family of lymphomas. Some grow slowly (low-grade) and some grow fast (high-grade). It is more common in older adults but also affects children.']) + _p('Getting the exact type matters, because each type is treated differently.'))}
+          {_box('i-cells', 'The two main groups', _ul(['<b>Hodgkin lymphoma:</b> has a special abnormal cell called the Reed-Sternberg cell. It is common in young adults and has very high cure rates.', '<b>Non-Hodgkin lymphoma (NHL):</b> a large group of more than 60 subtypes. Some grow slowly (indolent), while others grow fast (aggressive) but often respond well to treatment.']) + _p(f'About 55,300 people in India were diagnosed with lymphoma in 2022: about 11,700 with Hodgkin lymphoma and 43,600 with non-Hodgkin lymphoma (National Cancer Registry Programme, ICMR). Swollen glands are often mistaken for an infection or tuberculosis. If a lump does not go away, timely {T} can make a big difference.'))}
         </div>""", label="ly-what")
-    types = _sec(sec_head('Types', 'Common types of <span class="grad-text">lymphoma</span>', center=True, hid='ly-types') + _table(
-        ["Type", "What it means", "How it is usually treated"], [
-            ("Hodgkin lymphoma", "Often starts in lymph nodes in the neck or chest; common in young adults.", "Chemotherapy, sometimes with radiation; highly curable"),
-            ("Diffuse large B-cell lymphoma (DLBCL)", "The most common fast-growing non-Hodgkin lymphoma.", "Chemo-immunotherapy; many patients are cured"),
-            ("Follicular lymphoma", "A common slow-growing lymphoma.", "Often watch and wait at first; treatment when needed"),
-            ("Mantle cell lymphoma", "A less common B-cell lymphoma, usually in older adults.", "Chemo-immunotherapy, targeted tablets and sometimes transplant"),
-            ("Burkitt lymphoma", "A very fast-growing lymphoma, more common in children.", "Intensive chemotherapy; often curable"),
-            ("T-cell lymphomas", "Less common lymphomas that start in T-lymphocytes.", "Chemotherapy and, in some cases, transplant"),
-            ("Lymphoma in children", "Hodgkin, Burkitt, lymphoblastic and large-cell lymphomas.", "Child-specific protocols with very good results"),
-        ]), tint=True, label="ly-types")
-    signs = _sec(sec_head('Signs &amp; symptoms', 'Signs and symptoms of <span class="grad-text">lymphoma</span>', 'Many lymphomas are first noticed as a lump. Watch for:', hid='ly-sym') + _sym([
-        ("i-cells", "Painless swelling", "Lymph nodes in the neck, armpit or groin"),
-        ("i-thermo", "Fever", "That keeps coming back without an infection"),
-        ("i-moon", "Night sweats", "Drenching sweats at night"),
-        ("i-scale", "Weight loss", "Without trying"),
+    signs = _sec(sec_head('Signs &amp; symptoms', 'Common signs of <span class="grad-text">lymphoma</span>', 'The most common sign is a painless swelling of the lymph nodes. Watch for:', hid='ly-sym') + _sym([
+        ("i-cells", "Painless lump", "In the neck, armpit or groin that does not go away after 2 to 3 weeks"),
+        ("i-thermo", "Recurring fever", "Fever that keeps coming back without an infection"),
+        ("i-moon", "Night sweats", "Heavy sweats that soak your clothes or bedsheets"),
+        ("i-scale", "Weight loss", "Losing weight without trying"),
         ("i-sun", "Tiredness", "Constant tiredness or weakness"),
-        ("i-shield", "Itching", "Itchy skin without a rash"),
-        ("i-lungs", "Cough or breathlessness", "From swollen nodes in the chest"),
-        ("i-heart", "Tummy swelling", "Pain or fullness from an enlarged spleen or nodes"),
-        ("i-flask", "Abnormal blood tests", "Low blood counts or high LDH"),
-    ]) + _p('Swollen glands are usually caused by infections and settle in two to three weeks. A gland that keeps growing, stays for more than a few weeks or comes with fever, sweats or weight loss should be checked.') + _alert('See a doctor urgently', 'if you have sudden breathlessness, swelling of the face or neck, severe tummy pain, or weakness or numbness in the legs.'), label="ly-sym")
+        ("i-shield", "Itching", "Itching all over the body"),
+        ("i-lungs", "Cough or breathlessness", "Cough or chest pain, from swollen glands in the chest"),
+        ("i-heart", "Swollen tummy", "Or pain in the upper left side, from an enlarged spleen"),
+        ("i-flask", "Poor appetite", "Loss of appetite or feeling full quickly"),
+        ("i-users", "Frequent infections", "Infections that keep coming back"),
+    ]) + _p('Fever, drenching night sweats and weight loss of more than 10% in 6 months are called B symptoms. They help doctors stage the lymphoma and plan treatment.') + f"""<div class="cols2 mt">
+          {_box('i-child', 'Lymphoma symptoms in children', _p('Children may have swollen glands in the neck, a swollen tummy, cough or breathing difficulty, fever or tiredness. Dr. Neema Bhat is a US board-certified pediatric hematologist-oncologist, so children with lymphoma get specialised care.'))}
+          {_box('i-heart', 'See a doctor urgently', _p('If you have sudden breathlessness, swelling of the face, neck or arms, severe tummy pain, weakness in the legs, or high fever with chills.'), 0.08)}
+        </div>""", tint=True, label="ly-sym")
     causes = _sec(f"""<div class="cols2">
-          {_box('i-flask', 'What raises the risk of lymphoma?', _p('In most people, the exact cause is not known. Factors that raise the risk include:') + _ul(['A weakened immune system, such as with HIV or after an organ transplant', 'Some infections, such as Epstein–Barr virus (EBV), hepatitis C and H. pylori', 'Autoimmune diseases such as rheumatoid arthritis, lupus or Sjögren’s syndrome', 'Older age for most non-Hodgkin lymphomas', 'A close family member with lymphoma (a small increase in risk)', 'Previous chemotherapy or radiation']), hid='ly-cause')}
-          {_box('i-doc', 'When should you see a lymphoma specialist?', _ul(['A lymph node is swollen for more than a few weeks or keeps growing', 'Swollen glands come with fever, night sweats or weight loss', 'A scan shows enlarged lymph nodes or spleen', 'A biopsy report says lymphoma and you want a clear plan or a second opinion', 'Lymphoma has come back after treatment and you want to know about transplant or CAR-T']), 0.08)}
-        </div>""", tint=True, label="ly-cause")
-    dx = _sec(sec_head('Diagnosis', 'How is lymphoma <span class="grad-text">diagnosed?</span>', 'A correct diagnosis of the exact type is the most important step. Dr. Neema Bhat may advise:', hid='ly-dx') + _olist([
-        ("Lymph node biopsy", "Removing a whole node or a core of tissue is the key test. A needle aspiration alone is usually not enough."),
-        ("Immunohistochemistry &amp; flow cytometry", "Identify the exact type of lymphoma."),
-        ("Blood tests", "CBC, LDH, kidney and liver tests, and tests for hepatitis B, hepatitis C and HIV."),
+          {_box('i-flask', 'What causes lymphoma and who is at risk?', _p('In most people, the exact cause is not known. It starts with changes (mutations) in the DNA of a lymphocyte. Lymphoma is not contagious. The risk is higher for:') + _ul(['<b>Age:</b> Hodgkin lymphoma is more common in young adults (15 to 35) and in people over 55. Most non-Hodgkin lymphomas are more common after 60.', 'Men, who get lymphoma slightly more often than women', '<b>Weak immune system:</b> HIV infection, organ transplant patients, or people taking long-term immune-suppressing medicines', '<b>Autoimmune diseases:</b> such as rheumatoid arthritis, lupus, Sjogren’s syndrome and celiac disease', '<b>Certain infections:</b> Epstein-Barr virus (EBV), Helicobacter pylori (stomach), hepatitis B and C, and HTLV-1', '<b>Family history:</b> a parent, brother or sister with lymphoma', '<b>Chemical exposure:</b> long-term exposure to some pesticides, herbicides and solvents', 'Previous cancer treatment with chemotherapy or radiation']) + _p('Most people with these risk factors never get lymphoma, and many people with lymphoma have no known risk factor.'), hid='ly-cause')}
+          {_box('i-shield', 'What happens if lymphoma is left untreated?', _p('Aggressive lymphomas can grow within weeks, and even slow-growing types can change over time. Without treatment, lymphoma can cause:') + _ul(['<b>Spread to other organs:</b> such as the liver, lungs, bone marrow, brain or spinal cord.', '<b>Pressure on vital structures:</b> swollen glands in the chest can press on the windpipe or a large vein (superior vena cava syndrome), causing breathlessness and face swelling.', '<b>Bone marrow failure:</b> low blood counts lead to anemia, infections and bleeding.', 'Serious infections because the immune system is weakened.', '<b>Kidney problems:</b> from blocked urine flow or from fast-growing lymphoma cells breaking down (tumour lysis).', 'Fewer treatment choices and a lower chance of cure.']) + _p('The good news: most lymphomas respond well to treatment, and many people are cured when treatment starts early.'), 0.08)}
+        </div>""", label="ly-cause")
+    types = _sec(sec_head('Types', 'Types of lymphoma <span class="grad-text">we treat</span>', center=True, hid='ly-types') + _table(
+        ["Type of lymphoma", "What it means in simple words"], [
+            ("Classical Hodgkin lymphoma", "The most common type of Hodgkin lymphoma. Often affects young adults and is usually curable."),
+            ("Nodular lymphocyte-predominant Hodgkin lymphoma", "A rare, slow-growing type of Hodgkin lymphoma."),
+            ("Diffuse large B-cell lymphoma (DLBCL)", "The most common non-Hodgkin lymphoma. Grows fast but is often curable."),
+            ("Follicular lymphoma", "A common slow-growing lymphoma. Can often be watched or treated gently for years."),
+            ("Mantle cell lymphoma", "A less common type that can be slow or fast-growing."),
+            ("Marginal zone and MALT lymphoma", "Slow-growing types. MALT lymphoma of the stomach is often linked to H. pylori infection."),
+            ("Burkitt lymphoma", "A very fast-growing type, more common in children and young adults. Needs urgent treatment and is often curable."),
+            ("Small lymphocytic lymphoma (SLL)", "The lymph node form of chronic lymphocytic leukemia (CLL). Usually slow-growing."),
+            ("T-cell and NK-cell lymphomas", "Less common types, including peripheral T-cell, anaplastic large cell and NK/T-cell lymphoma."),
+            ("Lymphoblastic lymphoma", "A fast-growing type, mostly in children and teenagers, treated like leukemia."),
+            ("Primary CNS lymphoma", "Lymphoma that starts in the brain, spinal cord or eyes."),
+            ("Lymphoma in children", "Specialised care for Hodgkin, Burkitt, lymphoblastic and anaplastic large cell lymphoma in children."),
+        ]) + f"""<div class="split split--top mt">
+          {_box('i-award', 'Stages of lymphoma', _p('Doctors use the Lugano staging system to stage most lymphomas, based on where the lymphoma is found. Stage I and II are called early (limited) stage, and Stage III and IV are called advanced stage. Even advanced-stage lymphoma is often curable.'))}
+          {_table(["Stage", "What it means"], [("Stage I", "One lymph node area or one organ is affected."), ("Stage II", "Two or more lymph node areas on the same side of the diaphragm (the muscle under the lungs)."), ("Stage III", "Lymph node areas on both sides of the diaphragm, or nodes above the diaphragm with the spleen."), ("Stage IV", "Lymphoma has spread outside the lymph nodes, such as to the liver, lungs or bone marrow.")])}
+        </div>""", tint=True, label="ly-types")
+    dx = _sec(sec_head('Diagnosis', 'How is lymphoma <span class="grad-text">diagnosed?</span>', 'A biopsy is the only way to confirm lymphoma and find its exact type. Dr. Neema Bhat may advise:', hid='ly-dx') + _olist([
+        ("Physical examination", "Checks the lymph nodes, liver and spleen."),
+        ("Lymph node biopsy", "The whole node (excisional) or a core needle sample is removed and examined. A fine needle aspiration (FNAC) alone is usually not enough."),
+        ("Immunohistochemistry", "Special stains on the biopsy identify the exact type of lymphoma."),
+        ("Flow cytometry", "Studies the cells in blood, bone marrow or fluid samples."),
+        ("Cytogenetics, FISH &amp; molecular tests", "Find genetic changes that help classify the lymphoma and guide treatment."),
+        ("Blood tests", "CBC, kidney and liver function, LDH, uric acid and beta-2 microglobulin."),
+        ("Viral tests", "Hepatitis B, hepatitis C and HIV, which matter before treatment."),
         ("PET-CT scan", "Shows where the lymphoma is in the body and is used for staging and checking response."),
-        ("Bone marrow biopsy", "Checks whether lymphoma has reached the bone marrow, when needed."),
-        ("Other tests", "Heart and lung checks before treatment, and a lumbar puncture for some fast-growing types."),
+        ("CT or MRI scan", "Used in some cases, including for the brain and spine."),
+        ("Bone marrow biopsy", "In selected cases, to check if lymphoma has reached the bone marrow."),
+        ("Lumbar puncture", "In some fast-growing lymphomas, to check the fluid around the brain and spine."),
+        ("Heart and lung tests", "An echocardiogram and lung function tests before treatment."),
     ]), label="ly-dx")
-    stage = _sec(f"""<div class="split split--top">
-          {_box('i-award', 'Stages of lymphoma', _p('Lymphoma is staged from I to IV, based on how many lymph node areas are involved and whether it has spread to other organs. The type of lymphoma, its stage and your overall health together decide the treatment plan. Even advanced-stage lymphoma is often very treatable.'), hid='ly-stage')}
-          {_table(["Stage", "What it means"], [("Stage I", "One lymph node area or one organ."), ("Stage II", "Two or more lymph node areas on the same side of the diaphragm."), ("Stage III", "Lymph node areas on both sides of the diaphragm."), ("Stage IV", "Spread to organs such as the liver, lungs or bone marrow.")])}
-        </div>""", tint=True, label="ly-stage")
-    tx = _sec(sec_head('Treatment', 'Lymphoma treatment <span class="grad-text">options</span>', f'Your {T} depends on the type and stage of lymphoma, your age and overall health. Dr. Neema Bhat creates a plan for you that may include:', hid='ly-tx') + _cards([
-        ("i-doc", "Chemotherapy", "Combinations of medicines given in cycles, usually as day-care treatment."),
-        ("i-shield", "Immunotherapy", "Antibody medicines such as rituximab that help the immune system attack B-cell lymphoma; often given with chemotherapy."),
-        ("i-flask", "Targeted therapy", "Tablets and newer medicines that block signals lymphoma cells need to grow, for selected types."),
-        ("i-sun", "Radiation therapy", "For lymphoma in one area, or to treat a bulky node after chemotherapy."),
-        ("i-marrow", "Autologous stem cell transplant", f'High-dose treatment followed by your own stem cells, mainly for lymphoma that has come back. <a href="{BMT_PAGE}">Learn more</a>'),
-        ("i-cells", "CAR-T cell therapy", "For selected relapsed lymphomas, where suitable and available."),
-        ("i-clock", "Watch and wait", "Some slow-growing lymphomas need only regular check-ups until treatment is needed."),
-        ("i-heart", "Supportive care", "Infection prevention, vaccines, nutrition, and help with side effects."),
-        ("i-check", "Follow-up", "Regular visits and scans after treatment to watch for relapse and long-term effects."),
-    ]) + _alert('Do not take steroids or start treatment before a biopsy.', 'They can shrink the lymph node for a while and make the exact type harder to diagnose.', warn=True), tint=True, label="ly-tx")
-    life = _sec(_box('i-sun', 'Life during and after lymphoma treatment', _ul(['<b>Call the team at once if you get a fever (38°C or higher) during chemotherapy.</b> Low white cells make infections serious quickly.', 'Wash hands often, avoid crowds and eat freshly cooked food when counts are low.', 'Hair loss from chemotherapy is temporary; hair grows back after treatment.', 'Stay gently active; most people can return to work or school after treatment.', 'Keep every follow-up appointment, even when you feel well.']), hid='ly-life'), label="ly-life")
+    tx = _sec(sec_head('Treatment', 'Lymphoma treatment <span class="grad-text">options</span>', 'Treatment depends on the type of lymphoma, its stage, how fast it is growing, your age and your overall health. Some slow-growing lymphomas need no treatment at first, while fast-growing types need treatment straight away.', hid='ly-tx') + _cards([
+        ("i-clock", "Watch and wait", "Active monitoring for some slow-growing lymphomas with no symptoms, with regular check-ups and scans."),
+        ("i-doc", "Chemotherapy", "Anti-cancer medicines given in planned cycles, usually as a combination. Most cycles are given as daycare treatment."),
+        ("i-shield", "Chemoimmunotherapy", "Chemotherapy given together with a monoclonal antibody — the standard first treatment for most B-cell lymphomas."),
+        ("i-award", "Monoclonal antibody therapy", "Antibodies that attach to markers on lymphoma cells, such as CD20. Also used as maintenance in some slow-growing lymphomas."),
+        ("i-flask", "Targeted therapy", "Medicines, often tablets, that block signals lymphoma cells need to grow, such as BTK inhibitors."),
+        ("i-link", "Antibody-drug conjugates", "Antibodies that carry an anti-cancer medicine directly to lymphoma cells."),
+        ("i-shield", "Immune checkpoint inhibitors", "Immunotherapy that helps the immune system attack lymphoma cells, mainly for relapsed Hodgkin lymphoma."),
+        ("i-link", "Bispecific antibodies", "Newer immunotherapy that links immune cells to lymphoma cells, for relapsed lymphomas, where suitable and available."),
+        ("i-cells", "CAR-T cell therapy", "The patient’s own immune cells are modified to attack lymphoma, for selected relapsed or refractory lymphomas."),
+        ("i-sun", "Radiation therapy", "Targeted radiation to affected lymph node areas, alone in early-stage disease or after chemotherapy."),
+        ("i-marrow", "Autologous stem cell transplant", f'High-dose chemotherapy followed by return of your own stem cells, for lymphoma that relapses or is high-risk. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-marrow", "Allogeneic (donor) stem cell transplant", "For selected patients with relapsed or aggressive lymphoma."),
+        ("i-check", "Treating the infection behind it", "For example, antibiotics for H. pylori in stomach MALT lymphoma, or antiviral treatment in hepatitis C-related lymphoma."),
+        ("i-doc", "CNS prophylaxis", "Treatment to prevent lymphoma from spreading to the brain in high-risk patients."),
+        ("i-heart", "Supportive care", "Prevention of infections and tumour lysis, hepatitis B protection, count-boosting medicines and transfusions when needed."),
+        ("i-users", "Fertility preservation counselling", "Sperm or egg freezing before treatment for young patients."),
+        ("i-chat", "Counselling &amp; palliative care", "Emotional support and symptom control for patients and families, at any stage of treatment."),
+    ]) + _alert('Lymphoma treatment works best when the full course is completed.', 'Do not stop or delay treatment because the swelling has gone down.', warn=True), tint=True, label="ly-tx")
+    life = _sec(_box('i-sun', 'Living well during and after lymphoma treatment', _p('These steps help you stay strong and lower the risk of problems during treatment:') + _ul(['<b>Check for fever:</b> a temperature of 100.4°F (38°C) or more during chemotherapy needs urgent medical attention.', '<b>Prevent infections:</b> wash hands often, avoid crowds and sick people when counts are low, and take the vaccines your doctor advises. Live vaccines are usually avoided during treatment.', '<b>Eat safe, healthy food:</b> freshly cooked home food, enough protein (dal, eggs, paneer, curd, fish, chicken), fruits and boiled or filtered water.', 'Drink plenty of fluids, especially in the first days of chemotherapy, to protect the kidneys.', '<b>Stay gently active:</b> walking and light exercise reduce tiredness.', '<b>Look after your mouth and skin:</b> use a soft toothbrush, and protect skin treated with radiation from the sun.', 'Avoid smoking and alcohol, and check with your doctor before taking herbal or home remedies.', 'Keep every follow-up appointment. Check-ups catch any relapse early and look for late effects on the heart, lungs, thyroid and fertility.']) + _p('Lymphoma cannot usually be prevented. But a swollen gland, fever or weight loss that does not go away should always be checked early.'), hid='ly-life'), label="ly-life")
     faqs = [
-        ("Is lymphoma curable?", "Many types are. Hodgkin lymphoma and many fast-growing non-Hodgkin lymphomas, such as diffuse large B-cell lymphoma, are often cured. Slow-growing types can usually be controlled for many years."),
-        ("What is the first sign of lymphoma?", "The most common first sign is a painless swelling of a lymph node in the neck, armpit or groin. Fever, night sweats, weight loss and tiredness can also occur."),
-        ("Is every swollen lymph node lymphoma?", "No. Most swollen glands are caused by infections and settle in two to three weeks. A node that keeps growing, stays for weeks, or comes with fever, sweats or weight loss should be checked."),
-        ("How is lymphoma diagnosed?", "A lymph node biopsy is the key test. The tissue is examined to find the exact type, and a PET-CT scan shows the stage."),
-        ("What is the difference between Hodgkin and non-Hodgkin lymphoma?", "They are different families of lymphoma, identified by how the cells look under the microscope. They are treated differently, which is why the exact type matters."),
-        ("Is lymphoma the same as leukemia?", "No. Both are blood cancers, but lymphoma mainly starts in the lymph nodes, while leukemia starts in the bone marrow and blood. Hematologists treat both."),
-        ("How long does lymphoma treatment take?", "Most chemotherapy-based treatment takes about 3 to 6 months, given in cycles. Some slow-growing lymphomas only need regular monitoring."),
-        ("Is a bone marrow transplant needed for lymphoma?", "Not for most people. An autologous stem cell transplant is mainly used when lymphoma comes back after first treatment."),
-        ("Can lymphoma come back after treatment?", "Sometimes. Regular follow-up helps catch it early, and there are effective options for relapsed lymphoma, including transplant and CAR-T therapy for selected patients."),
-        ("Can children get lymphoma?", "Yes. Hodgkin lymphoma and some fast-growing non-Hodgkin lymphomas occur in children and teenagers, and results with child-specific treatment are very good. Dr. Neema Bhat is a pediatric hemato-oncologist."),
+        ("Which doctor should I see for lymphoma in Bangalore?", "A hematologist or hemato-oncologist (blood cancer specialist) treats lymphoma. Dr. Neema Bhat is a US-trained hematologist in Bangalore who treats all types of lymphoma in adults and children."),
+        ("Is lymphoma curable?", "Many lymphomas are curable. Most people with Hodgkin lymphoma and many with aggressive non-Hodgkin lymphoma, such as DLBCL, are cured with treatment. Slow-growing lymphomas are usually not cured but can be controlled for many years."),
+        ("Does every swollen lymph node mean lymphoma?", "No. Most swollen glands are caused by infections and go away in 2 to 3 weeks. A painless lump that stays, grows, or comes with fever, night sweats or weight loss should be checked by a doctor."),
+        ("How is lymphoma different from TB of the lymph nodes?", "Both can cause swollen glands, fever and weight loss, so they are often confused in India. A proper biopsy tells them apart. Never start TB treatment without a confirmed diagnosis."),
+        ("What is the difference between Hodgkin and non-Hodgkin lymphoma?", "Hodgkin lymphoma has a special cell called the Reed-Sternberg cell and usually spreads in an orderly way from one lymph node group to the next. Non-Hodgkin lymphoma is a larger group with many subtypes that behave differently."),
+        ("How long does lymphoma treatment take?", "Most treatment is given in cycles every 2 to 3 weeks, for about 3 to 6 months. Some slow-growing lymphomas need maintenance therapy for longer, while others need only watching."),
+        ("Is chemotherapy the only treatment for lymphoma?", "No. Many patients receive chemotherapy combined with immunotherapy. Radiation, targeted therapy, stem cell transplant and CAR-T cell therapy are also used, depending on the type and stage."),
+        ("Can lymphoma come back after treatment?", "Yes, it can, especially in slow-growing types. Regular follow-up helps find it early. If it returns, many effective treatments, including stem cell transplant, are available."),
+        ("Can children get lymphoma?", "Yes. Hodgkin, Burkitt and lymphoblastic lymphomas are seen in children and teenagers, and most children are cured with treatment. Dr. Neema Bhat is a US board-certified pediatric hematologist-oncologist."),
+        ("How much does lymphoma treatment cost in Bangalore?", "The cost depends on the type of lymphoma, the medicines used, the number of cycles, and whether radiation or a transplant is needed. The clinic can share an estimate after your first consultation."),
     ]
     return cond_page(LYMPH_PAGE, "Lymphoma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
                      "Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — Hodgkin and non-Hodgkin lymphoma care for adults and children.",
-                     "Lymphoma", ["Hodgkin lymphoma", "Non-Hodgkin lymphoma"], hero, [intro, types, signs, causes, dx, stage, tx, life], faqs,
+                     "Lymphoma", ["Hodgkin lymphoma", "Non-Hodgkin lymphoma"], hero, [intro, signs, causes, types, dx, tx, life], faqs,
                      "Quick answers to the questions patients ask most about lymphoma.",
-                     "For lymphoma, she makes sure the exact type is diagnosed and plans treatment matched to it, for children and adults.",
-                     book_section("A lump that won’t go away?", "Swollen glands, fever or night sweats? Get them checked by a specialist. Book a consultation for lymphoma treatment in Bangalore with Dr. Neema Bhat today.", "lymphoma"))
+                     "For lymphoma, she plans treatment around the exact subtype, stage and risk, not a one-size-fits-all approach.",
+                     book_section("A lump that will not go away?", "Fever, night sweats or weight loss without a reason? Get it checked by a blood cancer specialist. Book a consultation for lymphoma treatment in Bangalore with Dr. Neema Bhat today.", "lymphoma"))
+
+
+# ------------------------------------------------------------------ PEDIATRIC ONCOLOGY
+def pediatric_oncology():
+    T = "pediatric oncology treatment in Bangalore"
+    hero = cond_hero("po-title", "Pediatric Oncology", 'Pediatric Oncology Treatment in <span class="grad-text">Bangalore</span>',
+                     "Pediatric oncology is the specialised care of babies, children and teenagers with cancer and serious blood disorders. Childhood cancers are rare, but most of them respond very well to treatment, and many children are cured.",
+                     "pediatric-oncology.svg", "Illustration of a child with a heart and blood cells, representing childhood cancer care", "pediatric-oncology")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="po-what" data-fx="wipe">What is <span class="grad-text">pediatric oncology?</span></h2>
+            <p class="lead" data-fx="fade">Pediatric oncology is the branch of medicine that diagnoses and treats cancer in babies, children and teenagers, usually from birth up to 18 years of age. A pediatric hemato-oncologist treats both childhood blood cancers and blood disorders.</p>
+            <p class="lead" data-fx="fade">With the right {T}, children can finish treatment and go back to school, play and a normal life. Dr. Neema Bhat, a US board-certified pediatrician and pediatric hematologist-oncologist with 10+ years of experience, treats childhood blood cancers, solid tumours and blood disorders, including bone marrow transplant.</p>
+            <p class="lead" data-fx="fade">About 3 out of every 100 cancer patients in India are children under 15, and leukemia makes up about 40% of childhood cancers (Indian Pediatrics study). In high-income countries, more than 80% of children with cancer survive (WHO). Early diagnosis and expert care help Indian children get the same chance.</p>
+          </div>
+          {_box('i-child', 'Childhood cancers are different', _ul(['They usually start in growing cells, such as the blood, brain, kidneys, nerves, bones and muscles.', 'They are rarely linked to lifestyle, such as diet or smoking.', 'They often grow fast, but they also usually respond well to treatment.', 'Treatment doses and medicines are planned for a child’s age, weight and growing body.']) + _p('Children are not small adults. They need a team trained to care for their bodies, their development and their emotions, along with support for the whole family.'))}
+        </div>""", label="po-what")
+    signs = _sec(sec_head('Warning signs', 'Warning signs of cancer <span class="grad-text">in children</span>', 'Most of these signs are caused by common, harmless illnesses. But if a sign lasts more than two weeks, keeps coming back, or gets worse, see a doctor. Watch for:', hid='po-sym') + _sym([
+        ("i-sun", "Paleness &amp; tiredness", "Paleness, tiredness or weakness that does not go away"),
+        ("i-drop", "Easy bruising", "Small red spots on the skin, or unusual bleeding (nose, gums)"),
+        ("i-thermo", "Repeated fever", "Fever or infections that keep coming back without a clear cause"),
+        ("i-cells", "A lump or swelling", "In the tummy, neck, armpit, groin or any part of the body"),
+        ("i-cells", "Swollen glands", "That do not shrink after a few weeks"),
+        ("i-bone", "Bone or joint pain", "Limping, or pain that wakes the child at night"),
+        ("i-doc", "Morning headaches", "Headaches, especially in the morning, with vomiting"),
+        ("i-adult", "Changes in walking", "Balance, vision or behaviour, or new fits (seizures)"),
+        ("i-shield", "Eye changes", "A white glow in the pupil in photos, a new squint, or eye swelling"),
+        ("i-scale", "Weight loss", "Loss of appetite or night sweats"),
+        ("i-heart", "Swollen tummy", "A swollen or hard tummy"),
+        ("i-users", "In teenagers", "A painless lump in the testicle"),
+    ]) + _alert('See a doctor urgently', 'if your child has a high fever with very pale skin or bleeding, breathing difficulty, severe headache with vomiting, a fit, sudden weakness of the legs, or is unusually drowsy.'), tint=True, label="po-sym")
+    causes = _sec(f"""<div class="cols2">
+          {_box('i-flask', 'What causes cancer in children?', _p('In most children, the cause of cancer is not known. Childhood cancer usually starts from random changes (mutations) in the genes of growing cells. It is not caused by anything the parents did or did not do, and it is not contagious. A small number of children have a higher risk because of:') + _ul(['<b>Inherited genetic conditions:</b> such as Down syndrome (higher risk of leukemia), Li-Fraumeni syndrome, neurofibromatosis and hereditary retinoblastoma', 'A family history of retinoblastoma or certain inherited cancer syndromes', 'Some immune system disorders that are present from birth', '<b>Previous cancer treatment:</b> chemotherapy or radiation given for an earlier cancer', '<b>Certain infections:</b> such as Epstein-Barr virus (EBV), linked to some lymphomas, and HIV']) + _p('Because most childhood cancers cannot be prevented, early diagnosis is the most important step for a good outcome.'), hid='po-cause')}
+          {_box('i-clock', 'Why early treatment matters', _p('Childhood cancers often grow quickly, so a delay of even a few weeks can change the outcome. If cancer in a child is not treated early:') + _ul(['The cancer can spread to other organs, making it harder to treat.', 'Serious complications can develop, such as severe infections, bleeding, kidney problems or pressure on the brain or spinal cord.', 'More intensive treatment may be needed, which can increase the risk of long-term side effects.', 'The chance of cure drops, especially for leukemia, retinoblastoma and solid tumours.', 'Vision, limbs or organs may be lost in cancers like retinoblastoma and bone tumours that could otherwise be saved.']) + _p('The good news: when found early and treated at a specialised centre, most childhood cancers can be controlled, and many can be cured.'), 0.08)}
+        </div>""", label="po-cause")
+    types = _sec(sec_head('Conditions', 'Childhood cancers and blood disorders <span class="grad-text">we treat</span>', center=True, hid='po-types') + _table(
+        ["Condition", "What it means in simple words"], [
+            (f'<a href="{LEUK_PAGE}">Acute lymphoblastic leukemia (ALL)</a>', "The most common childhood cancer. Abnormal white cells fill the bone marrow. Most children are cured with treatment."),
+            ("Acute myeloid leukemia (AML) and chronic myeloid leukemia (CML)", "Other blood cancers that start in the bone marrow."),
+            (f'Hodgkin and non-Hodgkin <a href="{LYMPH_PAGE}">lymphoma</a>', "Cancers of the lymph nodes and immune system, often showing as painless swollen glands."),
+            (f'<a href="{BRAIN_PAGE}">Brain and spinal cord tumours</a>', "Growths in the brain or spine that can cause headaches, vomiting, or problems with walking or vision."),
+            ("Neuroblastoma", "A tumour of nerve cells, often in the tummy, mostly in children under 5."),
+            ("Wilms tumour (nephroblastoma)", "A kidney tumour in young children, often found as a swelling in the tummy."),
+            ("Retinoblastoma", "An eye cancer in babies and young children, often seen as a white glow in the pupil."),
+            ("Bone tumours (osteosarcoma, Ewing sarcoma)", "Cancers of the bone, usually in older children and teenagers, causing pain or swelling."),
+            ("Rhabdomyosarcoma and other soft tissue sarcomas", "Cancers of the muscles and soft tissues."),
+            ("Hepatoblastoma", "A liver tumour in young children."),
+            ("Germ cell tumours", "Tumours of the ovaries, testes or other parts of the body."),
+            ("Histiocytic disorders (LCH, HLH)", "Rare conditions where certain immune cells grow or act abnormally."),
+            ("Childhood blood disorders", f'<a href="{THAL_PAGE}">Thalassemia</a>, sickle cell disease, aplastic anemia, ITP, hemophilia and severe <a href="{ANEMIA_PAGE}">anemia</a>.'),
+        ]), tint=True, label="po-types")
+    dx = _sec(sec_head('Diagnosis', 'How is childhood cancer <span class="grad-text">diagnosed?</span>', 'Dr. Neema Bhat chooses tests based on your child’s symptoms and age. Painful tests are done under sedation or anaesthesia so that your child is comfortable. Tests may include:', hid='po-dx') + _olist([
+        ("Physical examination and history", "Including growth, development and family history."),
+        ("CBC and peripheral smear", "Check blood counts and look for abnormal cells."),
+        ("Blood chemistry tests", "Kidney and liver function, LDH, uric acid and electrolytes."),
+        ("Tumour markers", "Such as AFP, beta-hCG and urine catecholamines for certain tumours."),
+        ("Bone marrow aspiration and biopsy", "To diagnose leukemia and check if other cancers have spread to the marrow."),
+        ("Flow cytometry", "Identifies the exact type of leukemia or lymphoma."),
+        ("Cytogenetics, FISH &amp; molecular tests", "Find genetic changes that guide treatment and predict risk."),
+        ("Imaging", "Ultrasound, X-ray, CT, MRI or PET-CT to find the tumour and check its spread."),
+        ("Biopsy", "A small sample of the tumour or lymph node is examined to confirm the diagnosis."),
+        ("Lumbar puncture (spinal tap)", "Checks whether cancer cells are in the fluid around the brain and spine."),
+        ("Eye examination under anaesthesia", "For suspected retinoblastoma."),
+        ("Heart, hearing and kidney tests", "Before treatment, as a baseline."),
+    ]), label="po-dx")
+    tx = _sec(sec_head('Treatment', 'Pediatric oncology treatment <span class="grad-text">options</span>', 'Treatment depends on the type of cancer, its stage and risk group, the child’s age and overall health. Most children receive a combination of treatments, planned by a team of specialists.', hid='po-tx') + _cards([
+        ("i-doc", "Risk-adapted chemotherapy", "Anti-cancer medicines given in planned cycles, with doses based on the child’s risk group, weight and age. Many cycles can be given as daycare treatment."),
+        ("i-flask", "Targeted therapy", "Medicines that attack specific changes in cancer cells, such as in some leukemias."),
+        ("i-shield", "Immunotherapy", "Monoclonal antibodies and other treatments that help the immune system fight cancer cells."),
+        ("i-cells", "CAR-T cell therapy", "For selected children with relapsed leukemia or lymphoma, where suitable and available."),
+        ("i-heart", "Surgery", "To remove solid tumours such as Wilms tumour, neuroblastoma, liver and bone tumours, including limb-sparing surgery for bone cancers."),
+        ("i-sun", "Radiation therapy", "Carefully planned radiation for certain tumours, using techniques that protect healthy growing tissue."),
+        ("i-marrow", "Bone marrow (stem cell) transplant", f'Autologous or donor transplant for high-risk or relapsed leukemia, neuroblastoma and other cancers, and for blood disorders like thalassemia and aplastic anemia. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-link", "Central line or port", "A long-term line to give medicines and take blood without repeated needle pricks."),
+        ("i-drop", "Supportive care", "Transfusions, prevention and treatment of infections, anti-sickness medicines and fertility preservation counselling for teenagers."),
+        ("i-heart", "Pain management &amp; palliative care", "To keep the child comfortable at every stage of treatment."),
+        ("i-sun", "Nutrition support", "A diet plan to maintain weight and strength during treatment."),
+        ("i-chat", "Psychological and child-life support", "Counselling and play therapy for the child, brothers and sisters, and parents."),
+        ("i-clock", "Long-term follow-up", "Survivorship care: regular checks for growth, learning, heart, hormone and fertility effects after treatment ends."),
+    ]) + _alert('Never stop or change treatment on your own, even if your child looks well.', 'Completing the full treatment plan gives the best chance of cure.', warn=True), tint=True, label="po-tx")
+    care = _sec(_box('i-users', 'Caring for your child during and after treatment', _p('Parents play a big part in their child’s recovery. These steps help:') + _ul(['<b>Prevent infections:</b> wash hands often, keep the child away from people with fever, cough or chickenpox, and keep the central line or port clean and dry.', '<b>Check for fever:</b> a temperature of 100.4°F (38°C) or more during treatment is an emergency. Go to the hospital straight away.', '<b>Give safe food:</b> freshly cooked, hot home food and boiled or filtered water. Avoid street food, raw salads and cut fruit kept outside.', '<b>Encourage eating and drinking:</b> small, frequent meals help when appetite is low.', '<b>Look after the mouth:</b> gentle brushing with a soft brush and regular mouthwash as advised.', 'Follow the vaccine schedule your oncologist gives. Live vaccines are usually avoided during treatment.', '<b>Keep life as normal as possible:</b> play, schooling (at home or in school, as allowed) and time with family support your child’s emotional health.', '<b>Look after yourself too:</b> talk to the care team, counsellors and other parents for support.', 'Keep every follow-up visit after treatment ends. Survivorship care checks growth, learning, heart, hormones and fertility for years.']) + _p('Most children who finish treatment return to school and grow up to lead healthy, active lives.'), hid='po-care'), label="po-care")
+    faqs = [
+        ("Who is the right doctor for cancer in children in Bangalore?", "A pediatric oncologist or pediatric hemato-oncologist is the right specialist. Dr. Neema Bhat is a US board-certified pediatric hematologist-oncologist in Bangalore who treats childhood cancers and blood disorders."),
+        ("What is the most common cancer in children?", "Leukemia, especially acute lymphoblastic leukemia (ALL), is the most common childhood cancer. In India, lymphomas and brain tumours are the next most common."),
+        ("Can childhood cancer be cured?", "Yes, many childhood cancers can be cured. In high-income countries, more than 80% of children with cancer survive. Results are best when treatment starts early at a specialised centre and is completed fully."),
+        ("What are the early signs of cancer in children?", "Common signs are paleness, easy bruising, repeated fever, a lump or swelling, bone pain, morning headaches with vomiting, and a white glow in the eye. See a doctor if any sign lasts more than two weeks."),
+        ("Did I cause my child’s cancer?", "No. Most childhood cancers happen because of random gene changes in growing cells. They are not caused by anything parents did or did not do."),
+        ("How long does childhood cancer treatment take?", "It depends on the cancer. Some solid tumours are treated in 6 to 12 months. Treatment for ALL usually takes about 2 to 3 years, though most of it is given as outpatient care."),
+        ("Will my child need to stay in hospital throughout treatment?", "No. Children stay in hospital for some intensive phases, but much of the treatment is given as daycare or outpatient care, and children live at home."),
+        ("Can my child go to school during cancer treatment?", "Many children can go back to school during the less intensive phases of treatment, when blood counts are safe. Your doctor will advise when it is safe."),
+        ("What are the side effects of chemotherapy in children?", "Common side effects are hair loss, nausea, mouth sores, tiredness and a higher risk of infections. Most go away after treatment, and the care team helps manage them."),
+        ("Will treatment affect my child’s growth or future fertility?", "Some treatments can affect growth, hormones or fertility. The team plans treatment to reduce these risks, discusses fertility preservation for teenagers, and checks for late effects during follow-up."),
+    ]
+    return cond_page(PEDONC_PAGE, "Pediatric Oncology Treatment in Bangalore | Dr. Neema Bhat",
+                     "Pediatric oncology treatment in Bangalore with Dr. Neema Bhat, US board-certified pediatric hematologist-oncologist — childhood leukemia, lymphoma, solid tumours and blood disorders, including bone marrow transplant.",
+                     "Childhood cancer", ["Pediatric cancer", "Pediatric oncology"], hero, [intro, signs, causes, types, dx, tx, care], faqs,
+                     "Quick answers to the questions parents ask most about childhood cancer.",
+                     "For children, she cares for the whole child, not only the cancer, with clear explanations for parents and support at every stage.",
+                     book_section("Worried about a sign in your child?", "Or need a second opinion on a diagnosis? Early care makes a difference. Book a consultation for pediatric oncology treatment in Bangalore with Dr. Neema Bhat today.", "pediatric-oncology"))
+
+
+# ------------------------------------------------------------------ BRAIN TUMOR
+def brain_tumor():
+    T = "brain tumor treatment in Bangalore"
+    hero = cond_hero("br-title", "Brain Tumor Treatment", 'Brain Tumor Treatment in <span class="grad-text">Bangalore</span>',
+                     "A brain tumor is an abnormal growth of cells in the brain or in the tissues around it. Some are benign (not cancer) and grow slowly, while others are malignant and grow fast. Many brain tumors can be removed or well controlled when found early, and the right treatment depends on the exact type.",
+                     "brain-tumor.svg", "Illustration of a brain with a highlighted tumor, representing brain tumor treatment", "brain-tumor")
+    intro = _sec(f"""
+        <div class="split split--top">
+          <div>
+            <p class="tag" data-fx="wipe-x">Overview</p>
+            <h2 class="title" id="br-what" data-fx="wipe">What is a <span class="grad-text">brain tumor?</span></h2>
+            <p class="lead" data-fx="fade">Your brain controls everything you do: thinking, speaking, moving, seeing and breathing. A brain tumor forms when cells in or around the brain — such as the nerves, the pituitary gland or the coverings of the brain — grow out of control and form a mass. Both benign and malignant tumors can cause serious problems because the skull has no room to expand.</p>
+            <p class="lead" data-fx="fade">A tumor can cause problems in two ways: by pressing on or damaging nearby brain tissue, and by blocking the flow of fluid around the brain, which raises pressure inside the skull. Even a benign brain tumor can be serious if it grows in an important area — that is why every brain tumor needs expert care.</p>
+            <p class="lead" data-fx="fade">Dr. Neema Bhat, a US-trained pediatric hematologist-oncologist with 10+ years of experience, works with neurosurgeons and radiation oncologists to plan complete {T}, with special expertise in children.</p>
+          </div>
+          {_box('i-doc', 'Two main groups', _ul(['<b>Primary brain tumors</b> start in the brain or its surrounding tissues. They can be benign or malignant.', '<b>Secondary (metastatic) brain tumors</b> start in another part of the body, such as the lungs, breast or kidney, and spread to the brain. In adults, these are more common than primary brain tumors.']) + _p(f'India sees over 28,000 new brain tumor cases every year (IARC data). Brain tumors are also among the most common cancers in children, after leukemia and lymphoma. Early signs like headaches and vomiting are easy to ignore, so timely {T} can protect brain function and quality of life.'))}
+        </div>""", label="br-what")
+    signs = _sec(sec_head('Signs &amp; symptoms', 'Common signs of a <span class="grad-text">brain tumor</span>', 'Symptoms depend on the size and location of the tumor. Watch for:', hid='br-sym') + _sym([
+        ("i-doc", "Headaches", "New, getting worse, or worse in the morning or when lying down"),
+        ("i-flask", "Nausea or vomiting", "Especially in the morning"),
+        ("i-thermo", "Fits (seizures)", "Especially for the first time in an adult"),
+        ("i-sun", "Vision problems", "Blurred or double vision, or loss of side vision"),
+        ("i-adult", "Weakness or numbness", "In an arm, leg or one side of the body"),
+        ("i-bone", "Balance problems", "Trouble with walking or coordination"),
+        ("i-chat", "Speech problems", "Trouble speaking or understanding words"),
+        ("i-users", "Behaviour changes", "Changes in memory, mood or personality"),
+        ("i-moon", "Unusual sleepiness", "Or confusion"),
+        ("i-cells", "Hearing changes", "Hearing loss or ringing in one ear"),
+        ("i-heart", "Hormone problems", "Irregular periods, unusual growth or milk production (pituitary tumors)"),
+    ]) + f"""<div class="cols2 mt">
+          {_box('i-child', 'Brain tumor symptoms in children', _p('Children may have morning headaches with vomiting, unsteady walking, a squint, a head tilt, delayed or lost milestones, early or delayed puberty, poor growth, or a drop in school performance. In babies, the head may grow too fast or the soft spot on the head may bulge. Dr. Neema Bhat is a US board-certified pediatric hematologist-oncologist, so children with brain tumors get specialised care.'))}
+          {_box('i-heart', 'See a doctor urgently', _p('If you or your child has a sudden severe headache, repeated vomiting, a first fit, sudden weakness on one side, sudden loss of vision, or becomes very drowsy or hard to wake.'), 0.08)}
+        </div>""", tint=True, label="br-sym")
+    causes = _sec(f"""<div class="cols2">
+          {_box('i-flask', 'What causes brain tumors and who is at risk?', _p('In most people, the exact cause is not known. It starts with changes (mutations) in the genes of brain cells. Brain tumors are not contagious, and current research has not shown that mobile phones cause them. The risk is higher for:') + _ul(['<b>Age:</b> some types are more common in children, and others in adults over 50', '<b>Radiation exposure:</b> previous radiation to the head, such as for an earlier cancer', '<b>Inherited genetic conditions:</b> neurofibromatosis type 1 and 2, tuberous sclerosis, Li-Fraumeni syndrome, von Hippel-Lindau disease and Gorlin syndrome', 'Family history of brain tumors', '<b>Weak immune system:</b> such as HIV infection or after an organ transplant, which raises the risk of primary CNS lymphoma', '<b>Other cancers:</b> lung, breast, kidney cancer and melanoma can spread to the brain']) + _p('Most people with these risk factors never develop a brain tumor, and most people with a brain tumor have no known risk factor.'), hid='br-cause')}
+          {_box('i-shield', 'What happens if a brain tumor is left untreated?', _p('Because the skull cannot expand, even a small growing tumor can cause serious harm:') + _ul(['<b>Raised pressure in the skull:</b> severe headaches, vomiting, vision loss and drowsiness, which can become life-threatening.', '<b>Hydrocephalus:</b> a blocked flow of brain fluid causes fluid build-up, which may need emergency treatment.', '<b>Permanent nerve damage:</b> loss of vision, hearing, speech, movement or memory.', 'Uncontrolled seizures that affect daily life and safety.', '<b>Hormone problems:</b> pituitary and some childhood tumors can affect growth, puberty, thyroid and other hormones.', '<b>Spread within the brain and spine:</b> some malignant tumors, like medulloblastoma, can spread through the brain fluid.', '<b>Fewer treatment choices:</b> larger tumors are harder to remove safely.']) + _p('The good news: many brain tumors can be removed completely or controlled for years when they are treated early by an experienced team.'), 0.08)}
+        </div>""", label="br-cause")
+    types = _sec(sec_head('Types', 'Types of brain tumors <span class="grad-text">we treat</span>', center=True, hid='br-types') + _table(
+        ["Type of brain tumor", "What it means in simple words"], [
+            ("Glioma (astrocytoma, oligodendroglioma)", "Tumors from the brain’s support cells (glial cells). They can be slow- or fast-growing."),
+            ("Glioblastoma", "The most aggressive type of glioma, mostly in adults. Needs surgery, radiation and chemotherapy."),
+            ("Pilocytic astrocytoma and other low-grade gliomas", "Slow-growing tumors, common in children. Often cured with surgery alone."),
+            ("Medulloblastoma", "The most common malignant brain tumor in children. Starts at the back of the brain (cerebellum). Many children are cured."),
+            ("Ependymoma", "A tumor from the cells lining the fluid spaces of the brain and spinal cord."),
+            ("Diffuse midline glioma (including DIPG)", "A fast-growing tumor in the brainstem or midline of the brain, mostly in children."),
+            ("Craniopharyngioma", "A benign tumor near the pituitary gland that can affect vision, growth and hormones."),
+            ("Germ cell tumors", "Tumors in the middle of the brain, mostly in children and young adults. Many respond very well to treatment."),
+            ("Atypical teratoid/rhabdoid tumor (AT/RT)", "A rare, fast-growing tumor in very young children."),
+            ("Meningioma", "Usually a benign tumor from the brain’s covering (meninges). The most common primary brain tumor in adults."),
+            ("Pituitary tumors", "Mostly benign tumors of the pituitary gland that can affect hormones and vision."),
+            ("Vestibular schwannoma (acoustic neuroma)", "A benign tumor on the hearing and balance nerve."),
+            ("Primary CNS lymphoma", f'<a href="{LYMPH_PAGE}">Lymphoma</a> that starts in the brain, spinal cord or eyes. Treated mainly with chemotherapy.'),
+            ("Brain metastases", "Cancer that has spread to the brain from another organ."),
+            ("Spinal cord tumors", "Tumors in or around the spinal cord that can cause back pain, weakness or numbness."),
+        ]) + f"""<div class="split split--top mt">
+          {_box('i-award', 'Grades of brain tumors', _p('Doctors grade brain tumors from 1 to 4 using the World Health Organization (WHO) classification, based on how the cells look and their genetic changes.') + _p('Today, genetic (molecular) tests on the tumor are as important as the grade, because they help choose the most effective treatment.'))}
+          {_table(["Grade", "What it means"], [("Grade 1", "Slow-growing, least aggressive. Often curable with surgery."), ("Grade 2", "Slow-growing but can come back or become higher grade over time."), ("Grade 3", "Malignant, grows faster and spreads into nearby brain tissue."), ("Grade 4", "The most aggressive, fast-growing tumors, such as glioblastoma and medulloblastoma.")])}
+        </div>""", tint=True, label="br-types")
+    dx = _sec(sec_head('Diagnosis', 'How is a brain tumor <span class="grad-text">diagnosed?</span>', 'Diagnosis needs both imaging and a tissue sample in most cases. Tests may include:', hid='br-dx') + _olist([
+        ("Neurological examination", "Checks vision, hearing, balance, strength, reflexes and thinking."),
+        ("MRI of the brain with contrast", "The main test to see the size, location and features of the tumor."),
+        ("Advanced MRI", "MR spectroscopy, perfusion MRI and functional MRI, to study the tumor and plan safe surgery."),
+        ("CT scan", "Useful in emergencies, and to look for bleeding, swelling or calcium in the tumor."),
+        ("MRI of the whole spine", "For tumors that can spread through the brain fluid, such as medulloblastoma."),
+        ("PET-CT scan", "In selected cases, such as lymphoma or to look for a cancer elsewhere in the body."),
+        ("Biopsy or surgery", "A tissue sample is taken to confirm the diagnosis and grade."),
+        ("Molecular and genetic tests", "Such as IDH, 1p/19q, MGMT, BRAF and H3 K27M, which classify the tumor and guide treatment."),
+        ("Lumbar puncture", "Checks the brain fluid for tumor cells in some tumor types."),
+        ("Tumor markers", "AFP and beta-hCG in blood and brain fluid for germ cell tumors."),
+        ("Eye and visual field tests", "For tumors near the optic nerves or pituitary gland."),
+        ("Hormone tests", "For pituitary tumors and tumors near the hypothalamus."),
+        ("Hearing, heart and kidney tests", "Before chemotherapy or radiation, as a baseline."),
+    ]), label="br-dx")
+    tx = _sec(sec_head('Treatment', 'Brain tumor treatment <span class="grad-text">options</span>', 'Treatment depends on the type, grade, size and location of the tumor, its genetic features, and the patient’s age and overall health. Most patients are treated by a team of neurosurgeons, radiation oncologists and medical or pediatric oncologists.', hid='br-tx') + _cards([
+        ("i-clock", "Active monitoring", "Regular MRI scans for small, slow-growing benign tumors that cause no symptoms."),
+        ("i-heart", "Surgery (craniotomy)", "To remove as much of the tumor as is safely possible, using neuronavigation and intraoperative monitoring to protect healthy brain."),
+        ("i-chat", "Awake brain surgery", "For tumors near areas that control speech or movement, in selected adults."),
+        ("i-link", "Endoscopic surgery", "Minimally invasive surgery, including surgery through the nose for pituitary and skull base tumors."),
+        ("i-flask", "Stereotactic biopsy", "A precise needle biopsy for deep tumors that cannot be removed safely."),
+        ("i-sun", "Radiation therapy", "Precise techniques such as IMRT and image-guided radiation to target the tumor and spare healthy tissue."),
+        ("i-award", "Stereotactic radiosurgery", "A single or few high-dose, highly focused radiation treatments for small tumors and brain metastases."),
+        ("i-bone", "Craniospinal radiation", "Radiation to the whole brain and spine for tumors that spread through the brain fluid, such as medulloblastoma."),
+        ("i-child", "Proton beam therapy", "For selected children and young adults, to reduce long-term side effects, where suitable and available."),
+        ("i-doc", "Chemotherapy", "Anti-cancer medicines given by mouth, into a vein, or into the brain fluid, often with or after surgery and radiation."),
+        ("i-marrow", "High-dose chemotherapy with stem cell rescue", f'For selected high-risk childhood brain tumors, such as some medulloblastomas, AT/RT and germ cell tumors, and to avoid radiation in very young children. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-flask", "Targeted therapy", "Medicines chosen based on genetic changes in the tumor, such as BRAF, IDH or NTRK changes."),
+        ("i-shield", "Immunotherapy &amp; clinical trials", "For selected tumors, where suitable and available."),
+        ("i-drop", "Steroids", "To reduce swelling around the tumor and ease symptoms."),
+        ("i-shield", "Anti-seizure medicines", "To prevent and control fits."),
+        ("i-link", "Shunt or endoscopic surgery for hydrocephalus", "To drain or bypass blocked brain fluid."),
+        ("i-scale", "Hormone replacement", "For patients with pituitary or hypothalamic hormone problems."),
+        ("i-adult", "Rehabilitation", "Physiotherapy, occupational therapy and speech therapy to regain function."),
+        ("i-users", "Neuropsychology and school support", "To help with memory, learning and returning to school or work."),
+        ("i-chat", "Counselling &amp; palliative care", "Emotional support and symptom control for patients and families, at any stage of treatment."),
+        ("i-check", "Long-term follow-up", "Regular MRI scans and checks for late effects on growth, hormones, hearing and learning."),
+    ]) + _alert('Brain tumor care works best when planned together from the start.', 'Surgery, radiation and medical treatment should be coordinated by one team.', warn=True), tint=True, label="br-tx")
+    life = _sec(_box('i-sun', 'Living well and recovery after brain tumor treatment', _p('Recovery is different for every patient. These steps help:') + _ul(['Take medicines exactly as advised, especially steroids and anti-seizure medicines. Never stop them suddenly.', '<b>Know seizure first aid:</b> turn the person on their side, keep them safe, and seek help if a fit lasts more than 5 minutes.', 'Do not drive until your doctor says it is safe, especially after a seizure or brain surgery.', '<b>Keep up with rehabilitation:</b> physiotherapy, speech therapy and occupational therapy work best when done regularly.', '<b>Prevent infections during chemotherapy:</b> wash hands often, avoid crowds when counts are low, and get urgent help for a fever of 100.4°F (38°C) or more.', '<b>Eat well and stay active:</b> freshly cooked food, enough protein and gentle walking help rebuild strength.', '<b>Support children’s learning:</b> tell the school about the child’s treatment, and ask about extra time or learning support if needed.', '<b>Look after emotional health:</b> mood changes are common. Talk to your care team or a counsellor.', 'Keep every follow-up MRI and visit, even when you feel well. Early detection of any regrowth gives more treatment choices.']) + _p('Brain tumors usually cannot be prevented. But new or worsening headaches with vomiting, a first fit or changes in vision or walking should always be checked early.'), hid='br-life'), label="br-life")
+    faqs = [
+        ("Which doctor should I see for a brain tumor in Bangalore?", "Brain tumors are treated by a team. A neurosurgeon performs surgery, a radiation oncologist gives radiation, and a medical or pediatric oncologist gives chemotherapy and other medical treatment. For children, a pediatric oncologist like Dr. Neema Bhat coordinates the overall care."),
+        ("Are all brain tumors cancer?", "No. Many brain tumors, such as most meningiomas and pituitary tumors, are benign. But even benign tumors can cause serious problems because of where they grow, so they still need expert care."),
+        ("Is a brain tumor curable?", "Many are. Benign and low-grade tumors can often be cured with surgery. Some childhood tumors, like medulloblastoma and germ cell tumors, have good cure rates with combined treatment. Aggressive tumors like glioblastoma are harder to cure, but treatment can control them and improve quality of life."),
+        ("What are the early signs of a brain tumor?", "Common early signs are new or worsening headaches (often in the morning), vomiting, a first seizure, vision changes, weakness on one side, and changes in behaviour or balance."),
+        ("Is every headache a sign of a brain tumor?", "No. Most headaches are caused by tension, migraine, sinus problems or eye strain. See a doctor if a headache is new and keeps getting worse, wakes you from sleep, or comes with vomiting, fits, vision problems or weakness."),
+        ("Does every brain tumor need surgery?", "No. Some small benign tumors are only monitored, some are treated with radiosurgery, and some, like germ cell tumors and CNS lymphoma, are treated mainly with chemotherapy and radiation."),
+        ("What is the most common brain tumor in children?", "Low-grade gliomas, such as pilocytic astrocytoma, are the most common. Medulloblastoma is the most common malignant brain tumor in children."),
+        ("Can a brain tumor come back after treatment?", "Yes, some tumors can come back, especially higher-grade tumors. Regular follow-up MRI scans help find any regrowth early, when more treatment choices are available."),
+        ("What are the side effects of brain tumor treatment?", "Side effects depend on the treatment and include tiredness, hair loss, nausea, and a higher infection risk with chemotherapy. In children, treatment can affect growth, hormones, hearing and learning, so long-term follow-up is important."),
+        ("Will my child be able to go back to school?", "Most children return to school after or even during treatment. Some may need extra learning support, physiotherapy or speech therapy, which the care team helps arrange."),
+    ]
+    return cond_page(BRAIN_PAGE, "Brain Tumor Treatment in Bangalore | Dr. Neema Bhat",
+                     "Brain tumor treatment in Bangalore with Dr. Neema Bhat, US-trained pediatric hematologist-oncologist — coordinated care with neurosurgeons and radiation oncologists, with special expertise in children.",
+                     "Brain tumor", ["Brain tumour", "CNS tumor"], hero, [intro, signs, causes, types, dx, tx, life], faqs,
+                     "Quick answers to the questions patients and families ask most about brain tumors.",
+                     "For brain tumors, she works with neurosurgeons, radiation oncologists, radiologists and pathologists so that each step is coordinated, with special focus on children.",
+                     book_section("Headaches with vomiting, or a first fit?", "Or an MRI report showing a brain tumor? Get an expert opinion early. Book a consultation for brain tumor treatment in Bangalore with Dr. Neema Bhat today.", "brain-tumor"))
 
 
 if __name__ == "__main__":
     for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia), (HEMA_PAGE, hematology),
-                     (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma), (LYMPH_PAGE, lymphoma)]:
+                     (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma), (LYMPH_PAGE, lymphoma), (PEDONC_PAGE, pediatric_oncology), (BRAIN_PAGE, brain_tumor)]:
         (ROOT / name).write_text(fn(), encoding="utf-8")
         print("built", name)
