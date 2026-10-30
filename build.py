@@ -16,15 +16,25 @@ def asset_v(rel):
 PHONE_DISPLAY = "+91 78997 56677"
 PHONE_TEL = "+917899756677"
 WA = "https://wa.me/917899756677"
+# Live site address (no "www"): used for canonical links, sitemap and llms.txt.
+SITE_URL = "https://drneemabhat.com"
+
+# Footer social links. Replace each "#" with the profile address; delete a line to hide that icon.
+SOCIAL = [
+    ("Facebook", "i-fb", "#"),
+    ("Instagram", "i-ig", "#"),
+    ("LinkedIn", "i-in", "#"),
+    ("YouTube", "i-yt", "#"),
+]
 
 # name, slug, category, short description
 SERVICES = [
-    ("Hematology Treatment", "hematology", "Hematology", "Anemia, bleeding and clotting problems, abnormal blood counts and blood cancers — finding the exact cause."),
-    ("Anemia Treatment", "anaemia", "Hematology", "Iron-deficiency, nutritional and inherited anemias — finding the cause, not just treating the count."),
+    ("Hematology Treatment", "hematology", "Hematology", "Anemia, bleeding and clotting problems, abnormal blood counts and blood cancers, finding the exact cause."),
+    ("Anemia Treatment", "anaemia", "Hematology", "Iron-deficiency, nutritional and inherited anemias, finding the cause, not just treating the count."),
     ("Thalassemia Treatment", "thalassemia", "Hematology", "Transfusion and chelation care, carrier testing and curative bone marrow transplant."),
     ("Leukemia Treatment", "leukaemia", "Hematology", "Acute and chronic leukemias, with chemotherapy, targeted therapy and transplant planning."),
-    ("Lymphoma Treatment", "lymphoma", "Hematology", "Hodgkin and non-Hodgkin lymphoma — accurate subtyping and treatment matched to each type."),
-    ("Multiple Myeloma Treatment", "multiple-myeloma", "Hematology", "Plasma cell cancer care — staging, drug therapy, transplant and protection for bones and kidneys."),
+    ("Lymphoma Treatment", "lymphoma", "Hematology", "Hodgkin and non-Hodgkin lymphoma, accurate subtyping and treatment matched to each type."),
+    ("Multiple Myeloma Treatment", "multiple-myeloma", "Hematology", "Plasma cell cancer care: staging, drug therapy, transplant and protection for bones and kidneys."),
     ("Pediatric Oncology", "pediatric-oncology", "Pediatric", "Childhood leukemia, lymphoma, solid tumours and blood disorders, with child-friendly care."),
     ("Brain Tumor Treatment", "brain-tumor", "Pediatric & Adult", "Brain and spinal tumours, with surgery, radiation and chemotherapy planned together."),
     ("Bone Marrow Transplant", "bone-marrow-transplant", "Pediatric & Adult", "Autologous and allogeneic transplants for children and adults, from donor matching to follow-up."),
@@ -38,10 +48,8 @@ SVC_MOBILE_DEFAULT = "icons"
 SHOW_SVC_SWITCH = True
 SHORT_NAMES = {
     "hematology": "Hematology", "pediatric-oncology": "Pediatric Oncology", "brain-tumor": "Brain Tumor",
-    "anaemia": "Anemia", "thalassemia": "Thalassemia", "hemophilia": "Hemophilia",
-    "leukaemia": "Leukemia", "lymphoma": "Lymphoma", "multiple-myeloma": "Multiple Myeloma",
-    "childhood-leukaemia": "Child Leukaemia", "pediatric-tumours": "Solid Tumours",
-    "pediatric-blood": "Child Blood Disorders", "bone-marrow-transplant": "Bone Marrow Transplant",
+    "anaemia": "Anemia", "thalassemia": "Thalassemia", "leukaemia": "Leukemia", "lymphoma": "Lymphoma",
+    "multiple-myeloma": "Multiple Myeloma", "bone-marrow-transplant": "Bone Marrow Transplant",
 }
 
 # Patient rating shown in the home hero and reviews section.
@@ -56,15 +64,15 @@ RATING = {
 }
 GOOGLE_REVIEWS_URL = "https://www.google.com/search?q=Dr.+Neema+Bhat+Hematologist+Bangalore+reviews"
 
-# Review cards on the home page. These are SAMPLES (layout only) — replace each
+# Review cards on the home page. These are SAMPLES (layout only), replace each
 # with a real patient review and set sample=False before going live.
 REVIEWS = [
-    ("Parent of a patient", "Thalassemia care", "Sample review — replace with a real patient review. Share what the family valued: clear explanations, careful review of reports, time taken to answer questions.", True),
-    ("Patient", "Hematology consultation", "Sample review — replace with a real patient review from Google or the hospital’s feedback page.", True),
-    ("Family member", "Bone marrow transplant", "Sample review — replace with a real patient review describing their experience of the transplant journey.", True),
-    ("Parent of a patient", "Childhood leukaemia", "Sample review — replace with a real review from a family whose child was treated for leukaemia.", True),
-    ("Patient", "Anaemia treatment", "Sample review — replace with a real review about diagnosis and follow-up for anaemia.", True),
-    ("Patient", "Second opinion", "Sample review — replace with a real review from a patient who came for a second opinion.", True),
+    ("Parent of a patient", "Thalassemia care", "Sample review: replace with a real patient review. Share what the family valued: clear explanations, careful review of reports, time taken to answer questions.", True),
+    ("Patient", "Hematology consultation", "Sample review: replace with a real patient review from Google or the hospital’s feedback page.", True),
+    ("Family member", "Bone marrow transplant", "Sample review: replace with a real patient review describing their experience of the transplant journey.", True),
+    ("Parent of a patient", "Childhood leukaemia", "Sample review: replace with a real review from a family whose child was treated for leukaemia.", True),
+    ("Patient", "Anaemia treatment", "Sample review: replace with a real review about diagnosis and follow-up for anaemia.", True),
+    ("Patient", "Second opinion", "Sample review: replace with a real review from a patient who came for a second opinion.", True),
 ]
 
 
@@ -93,50 +101,64 @@ def svc_link(slug):
 
 ICONS = """
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.3 4.3 5 5l1.2-1.3-1.8-1-1 .8c-1-.4-1.8-1.2-2.2-2.2l.8-1-1-1.8L9 9.5z"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
-  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></symbol>
   <symbol id="i-go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h10"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
-  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c3 4.2 6 7.4 6 11a6 6 0 0 1-12 0c0-3.6 3-6.8 6-11z"/></symbol>
-  <symbol id="i-child" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></symbol>
-  <symbol id="i-adult" viewBox="0 0 24 24"><circle cx="12" cy="6.5" r="3"/><path d="M6 21v-5a6 6 0 0 1 12 0v5"/></symbol>
-  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/></symbol>
-  <symbol id="i-marrow" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></symbol>
-  <symbol id="i-hosp" viewBox="0 0 24 24"><path d="M4 21V7l8-4 8 4v14"/><path d="M9 21v-5h6v5M12 8v5M9.5 10.5h5"/></symbol>
-  <symbol id="i-cells" viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><circle cx="16" cy="15" r="4"/><circle cx="17" cy="6" r="2"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
-  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16l1.5-5h11L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><path d="M6 11l1.5-4h9L18 11"/></symbol>
-  <symbol id="i-doc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
-  <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 10v7"/></symbol>
-  <symbol id="i-bone" viewBox="0 0 24 24"><path d="M7 17l10-10M5.5 14.5a2.5 2.5 0 1 0 4 4M14.5 5.5a2.5 2.5 0 1 1 4 4M9.5 18.5a2.5 2.5 0 0 1-4 0M18.5 9.5a2.5 2.5 0 0 1 0-4"/></symbol>
-  <symbol id="i-scale" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 10a3 3 0 0 1 6 0M12 10l1.5-2"/></symbol>
-  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
-  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5a3 3 0 0 1 0 6M18 14c2 .6 3 2.8 3 6"/></symbol>
-  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></symbol>
-  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
-  <symbol id="i-lungs" viewBox="0 0 24 24"><path d="M12 4v8M12 12c-1 0-2 1-2 2v5c0 1-1 2-3 2s-3-1-3-3v-4c0-3 2-7 4-7s2 2 2 3M12 12c1 0 2 1 2 2v5c0 1 1 2 3 2s3-1 3-3v-4c0-3-2-7-4-7s-2 2-2 3"/></symbol>
-  <symbol id="i-link" viewBox="0 0 24 24"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/><path d="M10.5 12h3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-adult" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="i-child" viewBox="0 0 24 24"><path d="M9 12h.01M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+  <symbol id="i-stetho" viewBox="0 0 24 24"><path d="M11 2v2M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></symbol>
+  <symbol id="i-micro" viewBox="0 0 24 24"><path d="M6 18h8M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></symbol>
+  <symbol id="i-syringe" viewBox="0 0 24 24"><path d="m18 2 4 4M17 7l3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4M5 19l-3 3M14 4l6 6"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M14.5 2v17.5a2.5 2.5 0 0 1-5 0V2"/><path d="M8.5 2h7M14.5 16h-5"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M2 15c6.67-6 13.33 0 20-6"/><path d="M9 22c1.8-2 2.52-4 2.8-6M15 2c-1.8 2-2.52 4-2.8 6"/><path d="m17 6-2.9-2.9M7 18l2.9 2.9M16.5 10.5l1 1M6.5 12.5l1 1M10 16l1.5 1.5M14 8l-1.5-1.5M20 9l.9.9M3.1 14.1 4 15"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-6 .13 4 4 0 0 0-2.52 5.77 4 4 0 0 0 .55 6.59A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 6 .13 4 4 0 0 1 2.52 5.77 4 4 0 0 1-.55 6.59A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></symbol>
+  <symbol id="i-bone" viewBox="0 0 24 24"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+  <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/><path d="M12 9v8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M9 12h6M12 9v6"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h6M12 11v6"/></symbol>
+  <symbol id="i-hosp" viewBox="0 0 24 24"><path d="M12 6v4M14 8h-4M14 14h-4M14 18h-4"/><path d="M18 12h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"/><path d="M18 22V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v18"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.5 8a2 2 0 0 0-1.9 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.93-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"/></symbol>
+  <symbol id="i-cells" viewBox="0 0 24 24"><ellipse cx="8" cy="9" rx="5.5" ry="4.5"/><ellipse cx="8" cy="9" rx="2" ry="1.5"/><ellipse cx="16" cy="15.5" rx="5.5" ry="4.5"/><ellipse cx="16" cy="15.5" rx="2" ry="1.5"/></symbol>
+  <symbol id="i-marrow" viewBox="0 0 24 24"><path d="M7 2h10v9a5 5 0 0 1-10 0z"/><path d="M7 7h10M12 16v3"/><path d="M12 19a3 3 0 0 1-3 3"/><path d="M10.5 10.5h3M12 9v3"/></symbol>
+  <symbol id="i-lungs" viewBox="0 0 24 24"><path d="M12 4v8"/><path d="M12 12c-1 0-2 1-2 2v5c0 1-1 2-3 2s-3-1-3-3v-4c0-3 2-7 4-7s2 2 2 3"/><path d="M12 12c1 0 2 1 2 2v5c0 1 1 2 3 2s3-1 3-3v-4c0-3-2-7-4-7s-2 2-2 3"/></symbol>
+  <symbol id="i-ribbon" viewBox="0 0 24 24"><path d="M12 2.5c-2.2 0-4 1.8-4 4 0 2.4 1.9 4.6 4 7.3 2.1-2.7 4-4.9 4-7.3 0-2.2-1.8-4-4-4Z"/><path d="M10 11.6 5 20.5l3.2.4 1.6 2.6L14 14.6"/><path d="M14 11.6l5 8.9-3.2.4-1.6 2.6-2.4-4.3"/></symbol>
+  <symbol id="i-radiation" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"/><path d="M7.5 4.2C5 5.6 3.3 8.2 3 11h5a4 4 0 0 1 2-3.4z"/><path d="M16.5 4.2C19 5.6 20.7 8.2 21 11h-5a4 4 0 0 0-2-3.4z"/><path d="M7.5 19.8c2.8 1.6 6.2 1.6 9 0L14 15.5a4 4 0 0 1-4 0z"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
 </defs></svg>"""
 
 
 LD_PHYSICIAN = """  <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
    "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD — Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
+   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
    "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
   </script>
 """
 
-SVC_ICON = {"Hematology": "i-drop", "Pediatric": "i-child", "Pediatric & Adult": "i-marrow"}
-SVC_ICON_BY_SLUG = {"leukaemia": "i-cells", "lymphoma": "i-cells", "multiple-myeloma": "i-bone", "hematology": "i-flask", "brain-tumor": "i-doc", "hemophilia": "i-shield", "pediatric-tumours": "i-heart"}
+SVC_ICON = {"Hematology": "i-micro", "Pediatric": "i-child", "Pediatric & Adult": "i-marrow"}
+SVC_ICON_BY_SLUG = {"hematology": "i-micro", "anaemia": "i-drop", "thalassemia": "i-link", "leukaemia": "i-cells", "lymphoma": "i-ribbon", "multiple-myeloma": "i-bone", "pediatric-oncology": "i-child", "brain-tumor": "i-brain", "bone-marrow-transplant": "i-marrow"}
 
 
 def ic(name, cls="ic"):
@@ -154,7 +176,7 @@ def head(title, desc, canonical, extra=""):
   <meta name="theme-color" content="#ffffff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/{canonical}">
+  <link rel="canonical" href="{SITE_URL}/{canonical}">
   <link rel="manifest" href="manifest.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{title}">
@@ -170,7 +192,15 @@ def head(title, desc, canonical, extra=""):
 
 
 def header(active, current=""):
+    if PHP_MODE:  # Hostinger copy: the header lives in includes/header.php
+        return f"<?php $nb_active = '{active}'; $nb_current = '{current}'; include __DIR__ . '/includes/header.php'; ?>\n"
+    return _header_html(active, current)
+
+
+def _header_html(active, current="", php=False):
     def cur(p):
+        if php:
+            return f"@@CUR:{p}@@"
         return ' aria-current="page"' if p == active else ""
     items = "".join(f'<a href="{svc_href(s)}">{n}</a>' for n, s, c, _ in SERVICES)
     html = f"""
@@ -179,13 +209,13 @@ def header(active, current=""):
 
   <header class="bar">
     <div class="wrap bar__in">
-      <a class="brand" href="index.html" aria-label="Dr. Neema Bhat — home"><img src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275"></a>
+      <a class="brand" href="index.html" aria-label="Dr. Neema Bhat, home"><img src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275"></a>
       <nav class="primary" aria-label="Primary">
         <ul class="menu">
           <li><a href="index.html"{cur('home')}>Home</a></li>
           <li><a href="about.html"{cur('about')}>About</a></li>
           <li class="has-drop">
-            <button type="button" aria-expanded="false" aria-controls="drop-services"{' aria-current="page"' if active == 'service' else ''}>Services{ic('i-chev', 'ic chev')}</button>
+            <button type="button" aria-expanded="false" aria-controls="drop-services"{cur('service')}>Services{ic('i-chev', 'ic chev')}</button>
             <div class="drop" id="drop-services">
               <div class="drop__list">{items}</div>
             </div>
@@ -222,12 +252,19 @@ def header(active, current=""):
     </div>
   </div>
 """
-    if current:  # highlight the page you are on inside Services
+    if current and not php:  # highlight the page you are on inside Services
         html = html.replace(f'href="{current}">', f'href="{current}" aria-current="page">')
     return html
 
 def footer(fab=True):
+    if PHP_MODE:  # Hostinger copy: the footer lives in includes/footer.php
+        return f"<?php $nb_fab = {'true' if fab else 'false'}; include __DIR__ . '/includes/footer.php'; ?>\n"
+    return _footer_html(fab)
+
+
+def _footer_html(fab=True):
     links = "".join(f'<li><a href="{svc_href(s)}">{n}</a></li>' for n, s, c, _ in SERVICES)
+    social = "".join(f'<li><a href="{url}" target="_blank" rel="noopener" aria-label="Dr. Neema Bhat on {name}">{ic(icon)}</a></li>' for name, icon, url in SOCIAL)
     return f"""
   <footer class="foot">
     <div class="wrap">
@@ -240,8 +277,9 @@ def footer(fab=True):
             <li><a href="{WA}" target="_blank" rel="noopener">WhatsApp</a></li>
             <li>Apollo Hospitals, Bannerghatta Road, Bengaluru</li>
           </ul>
+          <ul class="social" aria-label="Social media">{social}</ul>
         </div>
-        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
         <div class="foot__wide"><h2>Treatments</h2><ul class="foot__cols">{links}</ul></div>
       </div>
       <div class="foot__base"><p>© <span data-year>2026</span> Dr. Neema Bhat. All rights reserved.</p><p>Information on this website is for general awareness and is not a substitute for medical advice.</p></div>
@@ -251,7 +289,7 @@ def footer(fab=True):
   <nav class="dock" aria-label="Quick actions">
     <a href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}<span>WhatsApp</span></a>
     <a href="tel:{PHONE_TEL}">{ic('i-phone')}<span>Call</span></a>
-    <a class="dock__book" href="{'contact.html' if fab else '#wizard'}">{ic('i-cal')}<span>Book</span></a>
+    <a class="dock__book" href="{fab if fab == '@@FAB@@' else 'contact.html' if fab else '#wizard'}">{ic('i-cal')}<span>Book</span></a>
   </nav>
   <dialog class="lb" id="lb" aria-label="Photo viewer"><button class="lb__x" type="button" aria-label="Close">×</button><button class="lb__nav lb__nav--p" type="button" aria-label="Previous">‹</button><figure><img src="" alt=""><figcaption></figcaption></figure><button class="lb__nav lb__nav--n" type="button" aria-label="Next">›</button></dialog>
   <script src="assets/js/main.js?v={asset_v('assets/js/main.js')}" defer></script>
@@ -308,7 +346,7 @@ def reviews_section():
               <a class="btn btn--line btn--sm" href="{r["url"]}" target="_blank" rel="noopener">View source{ic('i-go', 'ic ic--go')}</a>
             </div>
           </div>
-          <div class="reviews__list" data-marquee="42" tabindex="0" aria-label="Patient reviews — scrolls automatically, swipe or drag to browse"><div class="reviews__track">{cards}<div class="reviews__dup" aria-hidden="true" style="display:contents">{cards.replace(' data-fx="fade"', '')}</div></div></div>
+          <div class="reviews__list" data-marquee="42" tabindex="0" aria-label="Patient reviews, scrolls automatically, swipe or drag to browse"><div class="reviews__track">{cards}<div class="reviews__dup" aria-hidden="true" style="display:contents">{cards.replace(' data-fx="fade"', '')}</div></div></div>
         </div>
       </div>
     </section>"""
@@ -317,17 +355,14 @@ def reviews_section():
 def svc_mobile():
     """Phone-only treatments block: app icon grid and bento tiles, switchable."""
     href = svc_link
-    def cat_key(c):
-        return "hema" if c == "Hematology" else "ped" if c == "Pediatric" else "hema ped"
     def icon(s, c):
         return SVC_ICON_BY_SLUG.get(s, SVC_ICON[c])
     apps = "".join(
-        f'<li data-cat="{cat_key(c)}"><a class="app{" app--feat" if s == "bone-marrow-transplant" else ""}" href="{href(s)}" data-m-svc="{s}">'
+        f'<li><a class="app" href="{href(s)}" data-m-svc="{s}">'
         f'<span class="app__ic">{ic(icon(s, c))}</span><b>{SHORT_NAMES[s]}</b></a></li>' for n, s, c, _ in SERVICES)
-    order = [x for x in SERVICES if x[1] == "bone-marrow-transplant"] + [x for x in SERVICES if x[1] != "bone-marrow-transplant"]
     tiles = "".join(
-        f'<a class="tile{" tile--feat" if s == "bone-marrow-transplant" else ""}" href="{href(s)}" data-m-svc="{s}">{ic(icon(s, c))}'
-        f'<span class="tile__txt"><small>{c.replace("&", "&amp;")}</small><b>{n}</b></span><span class="tile__go">{ic("i-go")}</span></a>' for n, s, c, _ in order)
+        f'<a class="tile" href="{href(s)}" data-m-svc="{s}">{ic(icon(s, c))}'
+        f'<span class="tile__txt"><b>{n}</b></span><span class="tile__go">{ic("i-go")}</span></a>' for n, s, c, _ in SERVICES)
     switch = "" if not SHOW_SVC_SWITCH else f"""
           <div class="vswitch" role="group" aria-label="Choose layout">
             <button type="button" data-view="icons" aria-pressed="false">Option 1</button>
@@ -336,11 +371,6 @@ def svc_mobile():
     return f"""
         <div class="svc-m" data-svc-m data-view="{SVC_MOBILE_DEFAULT}">{switch}
           <div class="svc-m__icons">
-            <div class="tabs" role="tablist" aria-label="Filter treatments">
-              <button type="button" role="tab" aria-selected="true" data-f="all">All</button>
-              <button type="button" role="tab" aria-selected="false" data-f="hema">Hematology</button>
-              <button type="button" role="tab" aria-selected="false" data-f="ped">Pediatric</button>
-            </div>
             <ul class="apps">{apps}</ul>
           </div>
           <div class="svc-m__tiles"><div class="bento">{tiles}</div></div>
@@ -422,7 +452,7 @@ def where_section(title="Where Dr. Neema Bhat <span class=\"grad-text\">consults
         ("Apollo Hospitals, Bannerghatta Road", "OPD · Mon – Sat, 11 AM – 4 PM"),
         ("Therapy Clinic", "Evenings · Mon – Sat, 5 – 7 PM"),
         ("Apollo One &amp; Apollo Cradle, Electronic City", "Hosa Road · Fridays, 2 – 4 PM"),
-        ("Bhagawan Mahaveer Jain Hospital", "Bone Marrow Transplant Unit · Program Director &amp; HOD"),
+        ("Bhagawan Mahaveer Jain Hospital", "Bone Marrow Transplant Unit"),
     ]
     items = "".join(f'<li>{ic("i-pin")}<div><b>{h}</b><span>{t}</span></div></li>' for h, t in hosp)
     return f"""
@@ -462,15 +492,15 @@ def img_small(f):
 # ------------------------------------------------------------------ HOME
 def home():
     cards = "".join(f"""
-          <a class="svc{' svc--feat' if s == 'bone-marrow-transplant' else ''}" id="svc-{s}" href="{svc_link(s)}" data-fx="fade" style="--d:{(i % 3) * 0.08:.2f}s">
-            <div class="svc__top">{ic(SVC_ICON_BY_SLUG.get(s, SVC_ICON[c]), 'ic svc__ic')}<span class="svc__cat">{c}</span></div>
+          <a class="svc" id="svc-{s}" href="{svc_link(s)}" data-fx="fade" style="--d:{(i % 3) * 0.08:.2f}s">
+            <div class="svc__top">{ic(SVC_ICON_BY_SLUG.get(s, SVC_ICON[c]), 'ic svc__ic')}</div>
             <h3>{n}</h3>
             <p>{d}</p>
-            <span class="svc__go">{'Explore the transplant page' if s == 'bone-marrow-transplant' else 'Learn more' if s in SERVICE_PAGES else 'Book a consultation'}{ic('i-go')}</span>
+            <span class="svc__go">{'Learn more' if s in SERVICE_PAGES else 'Book a consultation'}{ic('i-go')}</span>
           </a>""" for i, (n, s, c, d) in enumerate(SERVICES))
 
     symptoms = [
-        ("i-sun", "Constant tiredness", "Fatigue, breathlessness or looking pale for weeks."),
+        ("i-activity", "Constant tiredness", "Fatigue, breathlessness or looking pale for weeks."),
         ("i-drop", "Easy bruising or bleeding", "Nosebleeds, gum bleeding or bruises without injury."),
         ("i-thermo", "Recurring fevers", "Fevers or infections that keep coming back."),
         ("i-cells", "Swollen lymph nodes", "Painless lumps in the neck, armpit or groin."),
@@ -483,21 +513,21 @@ def home():
 
     why = [
         ("i-award", "US-trained specialist", "MD in the USA and a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; BMT at Penn State Health."),
-        ("i-marrow", "Transplant leadership", "Program Director &amp; HOD of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital."),
+        ("i-marrow", "Transplant expertise", "Autologous and donor bone marrow transplants for children and adults, from donor matching to follow-up."),
         ("i-users", "Children and adults", "One specialist for blood disorders and blood cancers across all ages."),
         ("i-chat", "Clear conversations", "Diagnosis, options and next steps explained in plain language for the whole family."),
     ]
     why_html = "".join(f'<li data-fx="fade" style="--d:{k * 0.08:.2f}s">{ic(i)}<div><b>{t}</b><span>{d}</span></div></li>' for k, (i, t, d) in enumerate(why))
 
     visit = [
-        ("Book", "Call, WhatsApp or send a request online — we confirm a slot.",
+        ("Book", "Call, WhatsApp or send a request online and we confirm a slot.",
          f"Call or WhatsApp {PHONE_DISPLAY}, or use the form on the Contact page. Share the patient’s age and main concern so the right slot can be arranged."),
         ("Bring reports", "Carry previous blood tests, scans and prescriptions.",
-         "Bring recent blood counts, smear, bone marrow or biopsy reports, scans, discharge summaries and a list of current medicines — they save time and repeat tests."),
+         "Bring recent blood counts, smear, bone marrow or biopsy reports, scans, discharge summaries and a list of current medicines, they save time and repeat tests."),
         ("Consultation", "A detailed history, examination and discussion of options.",
          "Dr. Neema Bhat takes a detailed history, examines the patient and reviews every report, then explains what the findings mean in plain language."),
-        ("Your plan", "Tests, treatment and follow-up — explained step by step.",
-         "You leave with a clear plan — further tests if needed, treatment options and when to follow up — with the whole family’s questions answered."),
+        ("Your plan", "Tests, treatment and follow-up, explained step by step.",
+         "You leave with a clear plan (further tests if needed, treatment options and when to follow up), with the whole family’s questions answered."),
     ]
 
     def fig(f, cap, alt, tall, hidden=False):
@@ -507,12 +537,12 @@ def home():
     reel_dup = "".join(fig(*g, hidden=True) for g in GALLERY)
 
     faqs = [
-        ("What does a hematologist treat?", "A hematologist diagnoses and treats disorders of the blood, bone marrow and lymph nodes — such as anaemia, bleeding and clotting problems, thalassemia, and blood cancers like leukaemia, lymphoma and myeloma."),
+        ("What does a hematologist treat?", "A hematologist diagnoses and treats disorders of the blood, bone marrow and lymph nodes: such as anaemia, bleeding and clotting problems, thalassemia, and blood cancers like leukaemia, lymphoma and myeloma."),
         ("Does Dr. Neema Bhat treat children as well as adults?", "Yes. Dr. Neema Bhat is trained in pediatric hematology and oncology and also treats adults, so she cares for blood disorders and blood cancers across all ages."),
         ("When should my child see a pediatric hemato-oncologist?", "If your child has unexplained paleness, frequent bruising or bleeding, persistent fevers, swollen glands, bone pain or an abnormal blood test, a specialist opinion helps find the cause early."),
         ("Where does Dr. Neema Bhat consult?", "OPD is at Apollo Hospitals, Bannerghatta Road (Mon – Sat, 11 AM – 4 PM), the Therapy Clinic (Mon – Sat, 5 – 7 PM) and Apollo One &amp; Apollo Cradle, Electronic City (Fridays, 2 – 4 PM)."),
         ("Can I get a second opinion?", "Yes. Bring your reports, biopsy results and current treatment details, and Dr. Neema Bhat will review the diagnosis and options with you."),
-        ("How do I book an appointment?", f"Call or WhatsApp {PHONE_DISPLAY}, or use the booking form on the Contact page — your request opens in WhatsApp so you can review it before sending."),
+        ("How do I book an appointment?", f"Call or WhatsApp {PHONE_DISPLAY}, or use the booking form on the Contact page. Your request opens in WhatsApp so you can review it before sending."),
     ]
     _, ld_faq = faq_block(faqs)
 
@@ -533,7 +563,7 @@ def home():
               <span class="l" data-fx="wipe" style="--d:.15s">in Bangalore</span>
             </span>
           </h1>
-          <p class="hero__sub" data-fx="fade" style="--d:.3s">Dr. Neema Bhat is a US-trained Haemato-Oncologist for children and adults, and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital.</p>
+          <p class="hero__sub" data-fx="fade" style="--d:.3s">Dr. Neema Bhat is a US-trained Haemato-Oncologist and Bone Marrow Transplant specialist, caring for children and adults with blood disorders and blood cancers.</p>
           <div class="hero__acts" data-fx="fade" style="--d:.4s">
             <a class="btn btn--grad" href="contact.html">Book an Appointment{ic('i-go', 'ic ic--go')}</a>
             <a class="btn btn--line" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
@@ -541,7 +571,7 @@ def home():
           <div class="facts facts--hero" data-fx="fade" style="--d:.5s">
             <div class="fact">{ic('i-marrow')}<b>100+ transplants</b><span>Performed and supervised</span></div>
             <div class="fact">{ic('i-users')}<b>Children &amp; adults</b><span>Pediatric and adult BMT</span></div>
-            <div class="fact">{ic('i-hosp')}<b>Dedicated unit</b><span>Bhagawan Mahaveer Jain Hospital</span></div>
+            <div class="fact">{ic('i-hosp')}<b>Apollo Hospitals</b><span>Bannerghatta Road, Bangalore</span></div>
           </div>
         </div>
         <div class="hero__art" data-fx="iris" style="--d:.1s">
@@ -554,7 +584,7 @@ def home():
 
     <section class="sec sec--tint" id="services" aria-labelledby="svc-title">
       <div class="wrap">
-        {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Nine specialist services across adult hematology and pediatric hemato-oncology — tap a service to book or learn more.', hid='svc-title')}
+        {sec_head('Services', 'Best <span class="grad-text">Hematologist</span> in Bangalore', 'Nine specialist services across adult hematology and pediatric hemato-oncology, tap a service to book or learn more.', hid='svc-title')}
         <div class="svc-grid" data-svc>{cards}
         </div>
         <div class="dots" data-dots-for="svc" aria-hidden="true"></div>{svc_mobile()}
@@ -565,7 +595,7 @@ def home():
       <div class="wrap">
         {sec_head('Know the signs', 'When should you see a <span class="grad-text">hematologist?</span>', 'Many blood disorders begin with everyday symptoms. See a specialist if any of these last for more than a few weeks.', center=True, hid='sym-title')}
         <ul class="sym">{sym}</ul>
-        <p class="note-inline" style="text-align:center">These signs have many causes — a consultation and simple blood tests help find the right one.</p>
+        <p class="note-inline" style="text-align:center">These signs have many causes, a consultation and simple blood tests help find the right one.</p>
       </div>
     </section>
 
@@ -597,7 +627,7 @@ def home():
       <div class="wrap">
         {sec_head('Gallery', 'With patients, teams <span class="grad-text">&amp; peers</span>', 'Moments from the ward, the clinic and conferences. Tap a photo to view it larger.', hid='gal-title')}
       </div>
-      <div class="reel" data-marquee="36" tabindex="0" aria-label="Photo gallery — scrolls automatically, swipe to browse"><div class="reel__track">{reel}<div class="reel__dup" aria-hidden="true" style="display:contents">{reel_dup}</div></div></div>
+      <div class="reel" data-marquee="36" tabindex="0" aria-label="Photo gallery, scrolls automatically, swipe to browse"><div class="reel__track">{reel}<div class="reel__dup" aria-hidden="true" style="display:contents">{reel_dup}</div></div></div>
     </section>
 {reviews_section()}
 {where_section()}
@@ -611,20 +641,20 @@ def home():
 def about():
     cards = [
         ("i-award", "US training", "MD in the United States, followed by a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; BMT at Penn State Health."),
-        ("i-marrow", "Transplant leadership", "Program Director and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital."),
+        ("i-marrow", "Transplant expertise", "Autologous and donor bone marrow transplants for children and adults, from donor matching to follow-up."),
         ("i-users", "Children &amp; adults", "Blood disorders and blood cancers across all ages, with plans built around each patient."),
         ("i-drop", "Benign hematology", "Anaemia, thalassemia, hemophilia, low platelets and other non-cancerous blood conditions."),
-        ("i-cells", "Blood cancers", "Leukaemia, lymphoma and myeloma — diagnosis, chemotherapy, targeted therapy and transplant planning."),
+        ("i-cells", "Blood cancers", "Leukaemia, lymphoma and myeloma: diagnosis, chemotherapy, targeted therapy and transplant planning."),
         ("i-heart", "Community care", "Works with Sankalp India Foundation to make curative transplant accessible to children with thalassemia."),
     ]
     cards_html = "".join(f'<div class="card" data-fx="fade" style="--d:{(k % 3) * 0.08:.2f}s">{ic(i)}<h3>{t}</h3><p>{d}</p></div>' for k, (i, t, d) in enumerate(cards))
-    POS = ' style="object-position:50% 25%"'
-    tiles = [GALLERY[0], GALLERY[2], GALLERY[3], GALLERY[5], GALLERY[6], GALLERY[1]]
+    tiles = [("a", GALLERY[0]), ("b", GALLERY[2]), ("c", GALLERY[3]), ("p", GALLERY[1]), ("d", GALLERY[5]), ("e", GALLERY[6])]
     collage = "".join(
-        f'<button type="button" class="{"portrait-tile" if f.startswith("portrait") else ""}" data-full="assets/images/{f}.webp" data-cap="{cap}" data-fx="iris" style="--d:{k * 0.06:.2f}s"><img src="{img_small(f)}" alt="{alt}" loading="lazy"{POS if "with-patients" in f else ""}></button>'
-        for k, (f, cap, alt, _) in enumerate(tiles))
+        f'<button type="button" class="ct ct--{area}{" ct--portrait" if f.startswith("portrait") else ""}" data-full="assets/images/{f}.webp" data-cap="{cap}" data-fx="fade" style="--d:{k * 0.06:.2f}s">'
+        f'<img src="{img_small(f)}" alt="{alt}" loading="lazy"><span class="ct__cap">{cap}</span></button>'
+        for k, (area, (f, cap, alt, _)) in enumerate(tiles))
     return head("About Dr. Neema Bhat | Hematologist &amp; Pediatric Oncologist, Bangalore",
-                "About Dr. Neema Bhat: US-trained Haemato-Oncologist, FAAP fellowship at Penn State Health, Program Director &amp; HOD of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, Bangalore.",
+                "About Dr. Neema Bhat: US-trained Haemato-Oncologist, FAAP fellowship at Penn State Health, Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.",
                 "about.html", LD_PHYSICIAN) + f"""
 <body data-page="about">{ICONS}{header('about')}
   <main id="main">
@@ -633,14 +663,7 @@ def about():
         <div>
           <ol class="crumbs"><li><a href="index.html">Home</a></li><li>About</li></ol>
           <h1 id="ab-title" data-fx="wipe">Meet <span class="grad-text">Dr. Neema Bhat</span></h1>
-          <p class="phero__sub" data-fx="fade" style="--d:.15s">Haemato-Oncologist, Pediatric Oncologist and Bone Marrow Transplant physician in Bangalore — caring for children and adults for more than ten years.</p>
-        </div>
-        <div class="phero__card" data-fx="fade" style="--d:.2s">
-          <dl>
-            <div><dt>Currently</dt><dd>Program Director &amp; HOD, Bone Marrow Transplant Unit</dd></div>
-            <div><dt>Hospital</dt><dd>Bhagawan Mahaveer Jain Hospital, with Sankalp India Foundation</dd></div>
-            <div><dt>Training</dt><dd>MD (USA) · Fellowship (FAAP), Penn State Health</dd></div>
-          </dl>
+          <p class="phero__sub" data-fx="fade" style="--d:.15s">Haemato-Oncologist, Pediatric Oncologist and Bone Marrow Transplant physician in Bangalore, caring for children and adults for more than ten years.</p>
         </div>
       </div>
     </section>
@@ -657,15 +680,15 @@ def about():
           <div class="prose" style="margin-top:20px">
             <p class="big" data-fx="fade">She completed her MD in the United States, followed by a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation at Penn State Health.</p>
             <p data-fx="fade">Dr. Neema Bhat is a Haemato-Oncologist based in Bangalore, with more than ten years of specialised experience treating blood disorders and blood cancers in both children and adults. Her training shapes how she diagnoses, stages and treats every patient who comes to her.</p>
-            <p data-fx="fade">She is currently Program Director and HOD of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, in association with Sankalp India Foundation, and has previously worked at BGS Gleneagles Global Hospitals and Fortis Hospitals.</p>
+            <p data-fx="fade">Over her career she has worked with the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital and Sankalp India Foundation, BGS Gleneagles Global Hospitals and Fortis Hospitals.</p>
           </div>
-          <p class="quote" data-fx="fade">A patient-centric approach — clear communication and treatment plans built around each individual, rather than a one-size-fits-all protocol.</p>
+          <p class="quote" data-fx="fade">A patient-centric approach: clear communication and treatment plans built around each individual, rather than a one-size-fits-all protocol.</p>
           <div class="path" data-path>
             <div class="path__line"><i></i></div>
-            <div class="step"><time>2020 – Present</time><h3>Program Director &amp; HOD, Bone Marrow Transplant Unit</h3><p>Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation</p></div>
+            <div class="step"><time>2020 – Present</time><h3>Bone Marrow Transplant Unit</h3><p>Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation</p></div>
             <div class="step"><time>2020 – 2023</time><h3>Consultant Hematologist, BMT Physician &amp; Pediatric Oncology</h3><p>Fortis Hospitals, Bangalore</p></div>
             <div class="step"><time>2018 – 2020</time><h3>Consultant Hematologist, BMT Physician &amp; Pediatric Oncology</h3><p>BGS Gleneagles Global Hospitals, Bangalore</p></div>
-            <div class="step"><time>2018</time><h3>Clinical Hematologist &amp; BMT Physician</h3><p>Sankalp India Foundation — BMT Unit at Peopletree Hospitals, Yeshwanthpur</p></div>
+            <div class="step"><time>2018</time><h3>Clinical Hematologist &amp; BMT Physician</h3><p>Sankalp India Foundation, BMT Unit at Peopletree Hospitals, Yeshwanthpur</p></div>
             <div class="step"><time>Training</time><h3>Fellowship (FAAP), Pediatric Hematology, Oncology &amp; BMT</h3><p>Penn State Health, USA · MD, United States</p></div>
           </div>
         </div>
@@ -685,7 +708,7 @@ def about():
         <div class="collage">{collage}</div>
       </div>
     </section>
-{cta('Book a consultation with Dr. Neema Bhat.', 'For children and adults — OPD at Apollo Hospitals, Bannerghatta Road.')}
+{cta('Book a consultation with Dr. Neema Bhat.', 'For children and adults, OPD at Apollo Hospitals, Bannerghatta Road.')}
   </main>
 """ + footer()
 
@@ -704,14 +727,7 @@ def contact():
         <div>
           <ol class="crumbs"><li><a href="index.html">Home</a></li><li>Contact</li></ol>
           <h1 id="c-title" data-fx="wipe">Book a <span class="grad-text">consultation</span></h1>
-          <p class="phero__sub" data-fx="fade" style="--d:.15s">Three quick steps — your request opens in WhatsApp so you can review it before sending.</p>
-        </div>
-        <div class="phero__card" data-fx="fade" style="--d:.2s">
-          <dl>
-            <div><dt>Call / WhatsApp</dt><dd><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></dd></div>
-            <div><dt>OPD</dt><dd>Apollo Hospitals, Bannerghatta Road · Mon – Sat, 11 AM – 4 PM</dd></div>
-            <div><dt>Evenings</dt><dd>Therapy Clinic · Mon – Sat, 5 – 7 PM</dd></div>
-          </dl>
+          <p class="phero__sub" data-fx="fade" style="--d:.15s">Three quick steps. Your request opens in WhatsApp so you can review it before sending.</p>
         </div>
       </div>
     </section>
@@ -779,7 +795,7 @@ def bmt():
           {_box('i-marrow', 'Where the stem cells come from', _ul(['<b>Your own body</b> (autologous transplant)', '<b>A donor</b>, such as a brother, sister, parent or an unrelated volunteer (allogeneic transplant)']) + _p('Today, most stem cells are collected from the blood, not directly from the bone marrow. The term “bone marrow transplant” is still used for all types.') + _p(f'The need is large: India has about 1 to 1.5 lakh children with thalassemia major, and 10,000 to 15,000 more are born every year (Ministry of Health). For many of these children, a transplant is the only cure. Timely {T}, done at the right stage of disease, gives the best chance of success.'))}
         </div>""", label="bt-what")
     who = _sec(sec_head('Who needs it', 'Who needs a <span class="grad-text">bone marrow transplant?</span>', 'A bone marrow transplant may be advised for these conditions:', hid='bt-who') + f"""<div class="cols2">
-          {_box('i-cells', 'Blood cancers', _ul([f'Acute myeloid leukemia (AML) and acute lymphoblastic leukemia (ALL) — <a href="{LEUK_PAGE}">leukemia</a>', 'Chronic myeloid leukemia (CML) not controlled by other treatment', f'Hodgkin and non-Hodgkin <a href="{LYMPH_PAGE}">lymphoma</a> that has relapsed or is high-risk', f'<a href="{MYEL_PAGE}">Multiple myeloma</a>', 'Myelodysplastic syndromes (MDS) and myelofibrosis']))}
+          {_box('i-cells', 'Blood cancers', _ul([f'Acute myeloid leukemia (AML) and acute lymphoblastic leukemia (ALL), <a href="{LEUK_PAGE}">leukemia</a>', 'Chronic myeloid leukemia (CML) not controlled by other treatment', f'Hodgkin and non-Hodgkin <a href="{LYMPH_PAGE}">lymphoma</a> that has relapsed or is high-risk', f'<a href="{MYEL_PAGE}">Multiple myeloma</a>', 'Myelodysplastic syndromes (MDS) and myelofibrosis']))}
           {_box('i-drop', 'Non-cancerous blood disorders', _ul([f'<a href="{THAL_PAGE}">Thalassemia major</a>', 'Sickle cell disease', 'Severe aplastic anemia', 'Other bone marrow failure syndromes, such as Fanconi anemia']), 0.08)}
         </div>
         <div class="cols2 mt">
@@ -809,7 +825,7 @@ def bmt():
         ("Conditioning", "About 5 to 10 days of chemotherapy, sometimes with radiation, to clear the diseased marrow and prepare the body."),
         ("Transplant day (Day 0)", "The stem cells are given through the central line, like a blood transfusion. It usually takes less than an hour to a few hours."),
         ("Engraftment", "New stem cells start making blood cells in about 10 to 14 days after an autologous transplant and 2 to 4 weeks after a donor transplant. You stay in a clean, HEPA-filtered BMT room."),
-        ("Discharge", "Once blood counts recover and you can eat and drink well — usually about 2 to 3 weeks for an autologous and 4 to 6 weeks for a donor transplant."),
+        ("Discharge", "Once blood counts recover and you can eat and drink well, usually about 2 to 3 weeks for an autologous and 4 to 6 weeks for a donor transplant."),
         ("Follow-up and recovery", "Frequent visits in the first 100 days, then regular long-term check-ups."),
     ]), label="bt-proc")
     tx = _sec(sec_head('Treatment', 'Bone marrow transplant <span class="grad-text">treatment options</span>', 'Treatment is planned around your disease, its stage, your age, your fitness and the donor available. Options include:', hid='bt-tx') + _cards([
@@ -821,13 +837,13 @@ def bmt():
         ("i-child", "Cord blood transplant", "Stem cells from stored umbilical cord blood, in selected cases."),
         ("i-flask", "Myeloablative conditioning", "Full-intensity chemotherapy, with or without radiation, before transplant."),
         ("i-flask", "Reduced-intensity conditioning", "Lower-dose conditioning for older patients or those with other health problems."),
-        ("i-sun", "Total body irradiation (TBI)", "Radiation to the whole body as part of conditioning, for selected conditions."),
+        ("i-radiation", "Total body irradiation (TBI)", "Radiation to the whole body as part of conditioning, for selected conditions."),
         ("i-shield", "GVHD prevention and treatment", "Immune-suppressing therapy to stop donor cells from attacking the patient’s body."),
-        ("i-cells", "Donor lymphocyte infusion (DLI)", "Extra immune cells from the donor to treat relapse or boost the donor’s cells."),
+        ("i-syringe", "Donor lymphocyte infusion (DLI)", "Extra immune cells from the donor to treat relapse or boost the donor’s cells."),
         ("i-shield", "Infection prevention", "HEPA-filtered rooms, preventive antibiotics, antivirals and antifungals, and regular monitoring."),
-        ("i-drop", "Blood and platelet transfusions", "To support you until the new marrow starts working."),
-        ("i-heart", "Nutrition support", "A dietitian-planned diet, and feeding support if eating is difficult."),
-        ("i-check", "Vaccination after transplant", "Childhood and adult vaccines are repeated, as the transplant resets the immune system."),
+        ("i-syringe", "Blood and platelet transfusions", "To support you until the new marrow starts working."),
+        ("i-apple", "Nutrition support", "A dietitian-planned diet, and feeding support if eating is difficult."),
+        ("i-syringe", "Vaccination after transplant", "Childhood and adult vaccines are repeated, as the transplant resets the immune system."),
         ("i-adult", "Physiotherapy and rehabilitation", "To rebuild strength and stamina."),
         ("i-chat", "Counselling and support", "Psychological support for patients, donors and families through the transplant journey."),
         ("i-clock", "Long-term follow-up care", "Checks for late effects on the heart, lungs, hormones, bones, eyes and fertility."),
@@ -857,7 +873,7 @@ def bmt():
         ("Can a bone marrow transplant cure blood cancer?", "A donor transplant can cure some leukemias and other blood cancers. An autologous transplant helps control myeloma and lymphoma and keeps them in remission longer."),
     ]
     page = cond_page(BMT_PAGE, "Bone Marrow Transplant in Bangalore | Dr. Neema Bhat",
-                     "Bone marrow (stem cell) transplant in Bangalore with Dr. Neema Bhat, US-trained hematologist and BMT specialist with 100+ transplants — autologous, matched donor and half-matched transplants for adults and children.",
+                     "Bone marrow (stem cell) transplant in Bangalore with Dr. Neema Bhat, US-trained hematologist and BMT specialist with 100+ transplants, autologous, matched donor and half-matched transplants for adults and children.",
                      "Bone marrow transplant", ["Stem cell transplant", "BMT"], hero, [intro, who, types, donor, process, tx, risks, life], faqs,
                      "Quick answers to the questions families ask most about bone marrow transplants.",
                      "For transplants, she guides patients and families from evaluation and donor testing to the transplant and long-term follow-up.",
@@ -891,7 +907,7 @@ def anemia():
     who_html = "".join(f"<tr><td>{a}</td><td><b>{b}</b></td></tr>" for a, b in who_rows)
 
     symptoms = [
-        ("i-sun", "Constant tiredness", "Feeling tired or weak all the time"),
+        ("i-activity", "Constant tiredness", "Feeling tired or weak all the time"),
         ("i-drop", "Paleness", "Pale skin, lips or inner eyelids"),
         ("i-lungs", "Breathlessness", "On stairs or while walking"),
         ("i-heart", "Fast heartbeat", "A fast or uneven heartbeat"),
@@ -899,7 +915,7 @@ def anemia():
         ("i-thermo", "Cold hands &amp; feet", "Even in normal weather"),
         ("i-scale", "Brittle nails, hair fall", "Weak nails and thinning hair"),
         ("i-doc", "Poor focus", "Trouble concentrating at work or school"),
-        ("i-flask", "Unusual cravings", "Ice, mud or chalk — a sign of low iron"),
+        ("i-flask", "Unusual cravings", "Ice, mud or chalk, a sign of low iron"),
     ]
     sym_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic(i)}<b>{t}</b><span>{d}</span></li>' for k, (i, t, d) in enumerate(symptoms))
 
@@ -911,7 +927,7 @@ def anemia():
         ("i-users", "Inherited blood conditions", "Thalassemia and sickle cell disease."),
         ("i-cells", "Red cells breaking down early", "Called hemolytic anemia."),
         ("i-marrow", "Bone marrow problems", "Aplastic anemia, or blood cancers like leukemia and myeloma."),
-        ("i-doc", "Certain medicines", "Some long-term medicines or chemotherapy."),
+        ("i-pill", "Certain medicines", "Some long-term medicines or chemotherapy."),
     ]
     causes_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><b>{ic(i)}{t}</b><p>{d}</p></li>' for k, (i, t, d) in enumerate(causes))
 
@@ -952,16 +968,16 @@ def anemia():
              ("Bone marrow test", "Only when needed, for aplastic anemia or blood cancers.")]
     tests_html = "".join(f'<li data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s"><span class="olist__n">{k + 1:02d}</span><div><b>{t}</b><p>{d}</p></div></li>' for k, (t, d) in enumerate(tests))
 
-    treat = [("i-flask", "Iron tablets or syrup", "The usual iron deficiency anemia treatment for mild to moderate cases."),
-             ("i-drop", "IV iron infusion", "A faster option when tablets cause stomach upset, don’t work, or iron is needed quickly — for example in pregnancy or before surgery."),
+    treat = [("i-pill", "Iron tablets or syrup", "The usual iron deficiency anemia treatment for mild to moderate cases."),
+             ("i-syringe", "IV iron infusion", "A faster option when tablets cause stomach upset, don’t work, or iron is needed quickly, for example in pregnancy or before surgery."),
              ("i-check", "Vitamin B12 &amp; folic acid", "B12 injections or tablets and folic acid for B12 and folate deficiency."),
              ("i-users", "Treating the root cause", "Such as heavy periods, gut bleeding, thyroid or kidney problems, with the right specialist."),
-             ("i-shield", "Immune-calming medicines", "For autoimmune hemolytic anemia."),
-             ("i-heart", "Blood transfusion", "Only for severe anemia or emergencies."),
-             ("i-cells", "Transfusion &amp; iron chelation", "Regular transfusions with iron chelation for thalassemia."),
+             ("i-pill", "Immune-calming medicines", "For autoimmune hemolytic anemia."),
+             ("i-syringe", "Blood transfusion", "Only for severe anemia or emergencies."),
+             ("i-syringe", "Transfusion &amp; iron chelation", "Regular transfusions with iron chelation for thalassemia."),
              ("i-award", "Immunosuppressive therapy", "For aplastic anemia."),
              ("i-marrow", "Bone marrow (stem cell) transplant", f'A possible cure for thalassemia, sickle cell disease and severe aplastic anemia. <a href="{BMT_PAGE}">Learn more</a>'),
-             ("i-sun", "Diet &amp; lifestyle advice", "Simple Indian food choices to keep your hemoglobin healthy.")]
+             ("i-apple", "Diet &amp; lifestyle advice", "Simple Indian food choices to keep your hemoglobin healthy.")]
     treat_html = "".join(f'<div class="card" data-fx="fade" style="--d:{(k % 3) * 0.06:.2f}s">{ic(i)}<h3>{t}</h3><p>{d}</p></div>' for k, (i, t, d) in enumerate(treat))
 
     foods = [("Iron-rich foods", "ragi, green leafy vegetables (palak, methi, drumstick leaves), dals, rajma, chana, jaggery, dates, eggs, chicken, fish and meat."),
@@ -972,11 +988,11 @@ def anemia():
 
 
     return head("Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
-                "Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it — for adults and children at Apollo Hospitals, Bannerghatta Road.",
+                "Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it, for adults and children at Apollo Hospitals, Bannerghatta Road.",
                 ANEMIA_PAGE, LD_PHYSICIAN + ld_cond + ld_faq) + f"""
 <body data-page="service">{ICONS}{header('service', ANEMIA_PAGE)}
   <main id="main">
-{cond_hero("an-title", "Anemia Treatment", 'Anemia Treatment in <span class="grad-text">Bangalore</span>', f"Anemia means your blood has fewer healthy red blood cells or less hemoglobin than it needs, so less oxygen reaches your body and you feel tired, weak or breathless. Most anemia is treatable once the cause is found — and that is where the right {T} begins.", "anemia-cells.svg", "Illustration of red blood cells, some pale and fewer in number, representing anemia", "anaemia")}
+{cond_hero("an-title", "Anemia Treatment", 'Anemia Treatment in <span class="grad-text">Bangalore</span>', f"Anemia means your blood has fewer healthy red blood cells or less hemoglobin than it needs, so less oxygen reaches your body and you feel tired, weak or breathless. Most anemia is treatable once the cause is found, and that is where the right {T} begins.", "anemia-cells.svg", "Illustration of red blood cells, some pale and fewer in number, representing anemia", "anaemia")}
 
     <section class="sec" aria-labelledby="what-title">
       <div class="wrap split split--top">
@@ -1220,7 +1236,7 @@ def cond_page(fname, title, desc, ld_name, alt_names, hero, sections, faqs, faq_
 def hematology():
     T = "hematology treatment in Bangalore"
     hero = cond_hero("hm-title", "Hematology Treatment", 'Hematology Treatment in <span class="grad-text">Bangalore</span>',
-                     f"Hematology is the branch of medicine that diagnoses and treats diseases of the blood, bone marrow and lymph nodes — anemia, bleeding and clotting problems, low or high blood counts, inherited conditions like thalassemia, and blood cancers. Many blood disorders can be cured or well controlled when they are found early.",
+                     f"Hematology is the branch of medicine that diagnoses and treats diseases of the blood, bone marrow and lymph nodes: anemia, bleeding and clotting problems, low or high blood counts, inherited conditions like thalassemia, and blood cancers. Many blood disorders can be cured or well controlled when they are found early.",
                      "hematology-cells.svg", "Illustration of red blood cells, a white blood cell and platelets", "hematology")
     intro = _sec(f"""
         <div class="split split--top">
@@ -1238,11 +1254,11 @@ def hematology():
         </div>""", label="hm-what")
     signs = _sec(sec_head('Signs', 'Signs you should see a <span class="grad-text">hematologist</span>', 'Many blood disorders are first found on a routine blood test. See a hematologist if you have:', hid='hm-signs') + _sym([
         ("i-drop", "Low hemoglobin", "Anemia that keeps coming back or does not improve with iron tablets"),
-        ("i-sun", "Constant tiredness", "Weakness, breathlessness or pale skin"),
+        ("i-activity", "Constant tiredness", "Weakness, breathlessness or pale skin"),
         ("i-cells", "Easy bruising", "Small red or purple spots on the skin (petechiae)"),
         ("i-drop", "Frequent bleeding", "Nosebleeds, bleeding gums, or heavy or long periods"),
         ("i-shield", "Bleeding that won’t stop", "After a cut, tooth extraction or surgery"),
-        ("i-heart", "Leg swelling or pain", "Swelling, pain or redness in one leg — possibly a clot (DVT)"),
+        ("i-heart", "Leg swelling or pain", "Swelling, pain or redness in one leg, possibly a clot (DVT)"),
         ("i-users", "Repeated clots", "Blood clots at a young age, or repeated clots or miscarriages"),
         ("i-flask", "Abnormal counts", "Low or high platelet, white cell or red cell counts on your report"),
         ("i-thermo", "Frequent infections", "Infections that are frequent or unusual"),
@@ -1261,7 +1277,7 @@ def hematology():
         ("i-thermo", "Serious infections", "Low white cell counts make infections more likely and harder to treat."),
         ("i-shield", "Organ damage", "Iron overload from repeated transfusions can harm the heart and liver."),
         ("i-child", "Pregnancy problems", "Anemia and clotting disorders raise the risk of miscarriage, preterm birth and heavy bleeding."),
-        ("i-cells", "Late cancer diagnosis", "An abnormal blood count can be the first sign of leukemia, lymphoma or myeloma. Early diagnosis improves treatment results."),
+        ("i-micro", "Late cancer diagnosis", "An abnormal blood count can be the first sign of leukemia, lymphoma or myeloma. Early diagnosis improves treatment results."),
     ], cols4=False), tint=True, label="hm-untr")
     disorders = _sec(sec_head('Conditions', 'Blood disorders <span class="grad-text">we treat</span>', center=True, hid='hm-dis') + _table(
         ["Group", "Conditions", "What it means in simple words"], [
@@ -1292,17 +1308,17 @@ def hematology():
         ("Imaging", "Ultrasound, Doppler, CT or PET-CT find clots, enlarged lymph nodes or spleen, and check the spread of blood cancers."),
     ]), tint=True, label="hm-dx")
     tx = _sec(sec_head('Treatment', 'Hematology treatment <span class="grad-text">options</span>', 'Treatment depends on the type of blood disorder, its cause, your age and your overall health. Some conditions need only a short course of treatment, while others need long-term care.', hid='hm-tx') + _cards([
-        ("i-flask", "Nutritional supplements", "Iron, vitamin B12 and folic acid as tablets, syrups or injections."),
-        ("i-drop", "IV iron infusion", "A faster way to replace iron when tablets do not work or cannot be taken."),
+        ("i-apple", "Nutritional supplements", "Iron, vitamin B12 and folic acid as tablets, syrups or injections."),
+        ("i-syringe", "IV iron infusion", "A faster way to replace iron when tablets do not work or cannot be taken."),
         ("i-users", "Treating the root cause", "Such as heavy periods, gut bleeding, infections, thyroid or kidney problems, with the right specialist."),
-        ("i-heart", "Blood transfusion", "Red cells, platelets or plasma, for severe anemia, bleeding or low counts."),
+        ("i-syringe", "Blood transfusion", "Red cells, platelets or plasma, for severe anemia, bleeding or low counts."),
         ("i-cells", "Iron chelation therapy", "Removes extra iron in patients who need regular transfusions, such as in thalassemia."),
         ("i-shield", "Clotting factor replacement", "Including preventive (prophylaxis) therapy for hemophilia and other bleeding disorders."),
         ("i-lungs", "Anticoagulation therapy", "Blood-thinning treatment that treats and prevents blood clots, with regular monitoring."),
         ("i-shield", "Immune-suppressing therapy", "For ITP, autoimmune hemolytic anemia and aplastic anemia."),
-        ("i-check", "Count-boosting medicines", "To raise platelets, white cells or red cells when needed."),
-        ("i-doc", "Chemotherapy", "Anti-cancer medicines for leukemia, lymphoma and myeloma."),
-        ("i-flask", "Targeted therapy", "Medicines that attack specific changes in cancer cells, often as tablets."),
+        ("i-pill", "Count-boosting medicines", "To raise platelets, white cells or red cells when needed."),
+        ("i-syringe", "Chemotherapy", "Anti-cancer medicines for leukemia, lymphoma and myeloma."),
+        ("i-pill", "Targeted therapy", "Medicines that attack specific changes in cancer cells, often as tablets."),
         ("i-award", "Immunotherapy", "Monoclonal antibodies and other treatments that help the immune system fight blood cancers."),
         ("i-cells", "CAR-T cell therapy", "For selected relapsed blood cancers, where suitable and available."),
         ("i-marrow", "Autologous stem cell transplant", "Your own stem cells are returned after high-dose treatment, mainly for myeloma and lymphoma."),
@@ -1330,7 +1346,7 @@ def hematology():
         ("How much does hematology treatment in Bangalore cost?", "The cost depends on the condition. Blood tests and tablets are usually affordable, while transfusions, chemotherapy and bone marrow transplant cost more. The clinic can share an estimate after your first consultation."),
     ]
     return cond_page(HEMA_PAGE, "Hematology Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
-                     "Hematology treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience — anemia, bleeding and clotting disorders, thalassemia and blood cancers in adults and children.",
+                     "Hematology treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience: anemia, bleeding and clotting disorders, thalassemia and blood cancers in adults and children.",
                      "Blood disorders", ["Hematologic diseases"], hero, [intro, signs, causes, untreated, disorders, dx, tx, living], faqs,
                      "Quick answers to the questions patients ask most about seeing a hematologist.",
                      "She finds out why your blood counts are abnormal and treats that cause, not just the numbers.",
@@ -1363,7 +1379,7 @@ def thalassemia():
             ("HbE beta thalassemia", "A mix of HbE and beta thalassemia, more common in eastern India.", "Ranges from mild to transfusion-dependent."),
         ]), tint=True, label="th-types")
     signs = _sec(sec_head('Signs &amp; symptoms', 'Signs and symptoms of <span class="grad-text">thalassemia</span>', 'Thalassemia minor usually causes no symptoms. Children with thalassemia major usually show signs between 6 months and 2 years of age:', hid='th-sym') + _sym([
-        ("i-sun", "Pale skin &amp; tiredness", "Looking pale and tiring easily"),
+        ("i-activity", "Pale skin &amp; tiredness", "Looking pale and tiring easily"),
         ("i-child", "Poor feeding", "Irritability and slow weight gain"),
         ("i-drop", "Jaundice", "Yellow eyes or skin and dark urine"),
         ("i-heart", "Swollen tummy", "From an enlarged spleen or liver"),
@@ -1406,7 +1422,7 @@ def thalassemia():
         ("i-heart", "Heart problems", "An irregular heartbeat and heart failure, from iron overload."),
         ("i-flask", "Liver damage", "And gallstones."),
         ("i-scale", "Hormone problems", "Diabetes, thyroid problems and delayed puberty."),
-        ("i-bone", "Weak bones", "Osteoporosis and bone changes in the face."),
+        ("i-activity", "Weak bones", "Osteoporosis and bone changes in the face."),
         ("i-shield", "Enlarged spleen", "And a higher risk of infections."),
         ("i-child", "Slow growth", "In children."),
     ], cols4=False) + _p('Good transfusion care, daily chelation and regular check-ups prevent most of these problems.'), tint=True, label="th-comp")
@@ -1427,7 +1443,7 @@ def thalassemia():
         ("Is thalassemia a blood cancer?", "No. Thalassemia is an inherited problem with hemoglobin production. It is not cancer and it is not contagious."),
     ]
     return cond_page(THAL_PAGE, "Thalassemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist",
-                     "Thalassemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — carrier testing, transfusion and chelation care, and curative transplant.",
+                     "Thalassemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: carrier testing, transfusion and chelation care, and curative transplant.",
                      "Thalassemia", ["Thalassaemia", "Cooley's anemia"], hero, [intro, types, signs, dx, tx, bmt_sec, cost, comp, prevent], faqs,
                      "Quick answers to the questions families ask most about thalassemia and its treatment.",
                      "For thalassemia, she guides families from carrier testing and transfusion care to a possible cure with bone marrow transplant.",
@@ -1459,7 +1475,7 @@ def leukemia():
             ("Chronic lymphocytic leukemia (CLL)", "Older adults", "Often only regular monitoring at first; tablets or other medicines when needed"),
         ]), tint=True, label="lk-types")
     signs = _sec(sec_head('Signs &amp; symptoms', 'Signs and symptoms of <span class="grad-text">leukemia</span>', 'Early symptoms can look like a viral fever or simple tiredness, which is why leukemia is sometimes found on a routine blood test. Watch for:', hid='lk-sym') + _sym([
-        ("i-sun", "Tiredness", "Weakness and pale skin"),
+        ("i-activity", "Tiredness", "Weakness and pale skin"),
         ("i-thermo", "Repeated fevers", "Fevers or infections that keep coming back"),
         ("i-drop", "Easy bleeding", "Bruising, bleeding gums or frequent nosebleeds"),
         ("i-cells", "Skin spots", "Tiny red or purple spots (petechiae)"),
@@ -1483,7 +1499,7 @@ def leukemia():
     ]), label="lk-dx")
     tx = _sec(sec_head('Treatment', 'Leukemia treatment <span class="grad-text">options</span>', f'Your {T} depends on the type of leukemia, its gene changes, the patient’s age and overall health. Treatment is planned to destroy the leukemia cells and let the bone marrow make healthy blood again.', hid='lk-tx') + _steps([
         ("Chemotherapy", _p('Chemotherapy is given in planned phases. Induction (about 4 to 6 weeks) aims to clear leukemia from the bone marrow, a state called remission. Consolidation removes any remaining cells. For ALL, a long maintenance phase of mostly oral tablets follows, so total treatment lasts about 2 to 3 years. Medicine is also given into the spinal fluid to protect the brain.')),
-        ("Targeted therapy", _p('Targeted medicines attack a specific change in the leukemia cells — tablets such as imatinib and dasatinib for CML and Philadelphia-positive ALL, and ATRA with arsenic trioxide for APL. Many patients with CML only need daily tablets and regular blood tests.')),
+        ("Targeted therapy", _p('Targeted medicines attack a specific change in the leukemia cells: tablets such as imatinib and dasatinib for CML and Philadelphia-positive ALL, and ATRA with arsenic trioxide for APL. Many patients with CML only need daily tablets and regular blood tests.')),
         ("Immunotherapy and CAR-T cell therapy", _p('Antibody medicines help the immune system find and kill leukemia cells, mainly in ALL that has come back. In CAR-T therapy, the patient’s own immune cells are trained in a lab to attack the cancer. India approved its own CAR-T therapy in 2023 for some relapsed B-cell blood cancers, at a fraction of the cost abroad.')),
         ("Bone marrow (stem cell) transplant", _p(f'A transplant replaces diseased marrow with healthy stem cells from a donor. It is advised for high-risk AML, ALL that has come back, and some other cases. The donor can be a fully matched brother or sister, a matched unrelated donor from a registry, or a half-matched family member. <a href="{BMT_PAGE}">Learn more</a>')),
         ("Supportive care", _ul(['Blood and platelet transfusions during low-count periods', 'Quick treatment of fever and infections with antibiotics', 'Nutrition support and anti-nausea medicines', 'Fertility preservation advice for teenagers and adults before treatment starts'])),
@@ -1512,10 +1528,10 @@ def leukemia():
         ("Is leukemia hereditary?", "Usually not. Most leukemias are caused by gene changes that happen during a person’s life, not ones passed down from parents. Leukemia is also not contagious."),
     ]
     return cond_page(LEUK_PAGE, "Leukemia Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
-                     "Leukemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — diagnosis, chemotherapy, targeted therapy and transplant for children and adults.",
+                     "Leukemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, chemotherapy, targeted therapy and transplant for children and adults.",
                      "Leukemia", ["Leukaemia", "Blood cancer"], hero, [intro, types, signs, causes, dx, tx, cure, cost, life], faqs,
                      "Quick answers to the questions patients and families ask most about leukemia.",
-                     "For leukemia, she plans every step — diagnosis, chemotherapy, targeted medicines and transplant — for children and adults.",
+                     "For leukemia, she plans every step: diagnosis, chemotherapy, targeted medicines and transplant, for children and adults.",
                      book_section("Early expert care matters", "If you or your child has an abnormal blood report or a leukemia diagnosis, book a consultation for leukemia treatment in Bangalore with Dr. Neema Bhat for a clear diagnosis, a personalised plan and a second opinion if you need one.", "leukaemia"))
 
 
@@ -1541,7 +1557,7 @@ def myeloma():
             ("R", "Renal (kidney) damage", "Swelling in the legs, less urine, foamy urine, high creatinine"),
             ("A", "Anemia", "Tiredness, weakness, breathlessness, pale skin"),
             ("B", "Bone damage", "Back, rib or hip pain, bones that break easily"),
-        ]) + f'<div class="mt">{_sym([("i-bone", "Back pain", "That does not go away with rest or painkillers"), ("i-thermo", "Frequent infections", "Like pneumonia or urinary infections"), ("i-scale", "Weight loss", "Without trying"), ("i-adult", "Numbness or tingling", "In the hands and feet"), ("i-drop", "Easy bruising", "Or bleeding"), ("i-sun", "Blurred vision", "Headaches or dizziness (from thick blood)")])}</div>' + _alert('See a doctor urgently', 'if you have sudden severe back pain, weakness or numbness in the legs, trouble passing urine or stools, confusion, or very little urine. These can be signs of spinal cord pressure or kidney failure, which need emergency care.'), tint=True, label="my-sym")
+        ]) + f'<div class="mt">{_sym([("i-bone", "Back pain", "That does not go away with rest or painkillers"), ("i-thermo", "Frequent infections", "Like pneumonia or urinary infections"), ("i-scale", "Weight loss", "Without trying"), ("i-adult", "Numbness or tingling", "In the hands and feet"), ("i-drop", "Easy bruising", "Or bleeding"), ("i-eye", "Blurred vision", "Headaches or dizziness (from thick blood)")])}</div>' + _alert('See a doctor urgently', 'if you have sudden severe back pain, weakness or numbness in the legs, trouble passing urine or stools, confusion, or very little urine. These can be signs of spinal cord pressure or kidney failure, which need emergency care.'), tint=True, label="my-sym")
     causes = _sec(f"""<div class="cols2">
           {_box('i-flask', 'What causes myeloma and who is at risk?', _p('The exact cause is not known. It starts with changes (mutations) in the DNA of a plasma cell. It is not contagious, and it is not caused by anything you ate or did. The risk is higher for:') + _ul(['People over 50, and especially over 60', 'Men, who get myeloma slightly more often than women', 'People with MGUS (monoclonal gammopathy of undetermined significance), a harmless-looking condition that can slowly turn into myeloma', 'People with a parent, brother or sister who had myeloma or MGUS', 'People who are overweight', 'People with long-term exposure to radiation, pesticides, benzene or some industrial chemicals']) + _p('Having a risk factor does not mean you will get myeloma. Most people with MGUS never develop it, but they need a blood test once or twice a year.'), hid='my-cause')}
           {_box('i-shield', 'What happens if myeloma is left untreated?', _p('Active myeloma keeps growing without treatment. Over time it can cause:') + _ul(['<b>Bone fractures:</b> weak spots (lytic lesions) in the spine can collapse, causing severe pain and loss of height.', '<b>Spinal cord pressure:</b> a collapsed bone can press on nerves and cause leg weakness or paralysis.', '<b>Kidney failure:</b> M-protein and high calcium can damage the kidneys, sometimes needing dialysis.', '<b>Serious infections:</b> low healthy antibodies make pneumonia and other infections more likely and more dangerous.', '<b>Severe anemia and bleeding problems</b> that affect energy and daily life.']) + _p('The good news: when myeloma is treated early, much of this damage can be prevented, and kidney function often improves.'), 0.08)}
@@ -1577,13 +1593,13 @@ def myeloma():
         ("Maintenance", "A lighter, long-term medicine to keep the myeloma from coming back."),
         ("Regular follow-up", "Blood tests to catch any return early."),
     ]) + '<p class="lead mt" data-fx="fade" style="max-width:none">Dr. Neema Bhat creates a plan for you that may include:</p>' + _cards([
-        ("i-flask", "Combination drug therapy", "Usually three or four medicines together, such as bortezomib, lenalidomide and dexamethasone. Many are tablets or small injections under the skin, given as outpatient care."),
-        ("i-shield", "Targeted antibody therapy", "Medicines like daratumumab that attach to myeloma cells and help the immune system destroy them."),
+        ("i-pill", "Combination drug therapy", "Usually three or four medicines together, such as bortezomib, lenalidomide and dexamethasone. Many are tablets or small injections under the skin, given as outpatient care."),
+        ("i-pill", "Targeted antibody therapy", "Medicines like daratumumab that attach to myeloma cells and help the immune system destroy them."),
         ("i-marrow", "Autologous stem cell transplant", f'Your own stem cells are collected, you receive high-dose chemotherapy, and the cells are returned to rebuild healthy bone marrow. It helps many patients stay in remission longer. <a href="{BMT_PAGE}">Learn more</a>'),
         ("i-clock", "Maintenance therapy", "Usually a daily tablet such as lenalidomide after transplant or first treatment."),
         ("i-award", "Newer treatments for relapse", "Next-generation drugs, bispecific antibodies and CAR-T cell therapy, where suitable and available."),
-        ("i-sun", "Radiation therapy", "For painful bone lesions, spinal cord pressure or a single plasmacytoma."),
-        ("i-bone", "Bone-strengthening medicines", "Monthly zoledronic acid or denosumab to reduce fractures and bone pain."),
+        ("i-radiation", "Radiation therapy", "For painful bone lesions, spinal cord pressure or a single plasmacytoma."),
+        ("i-pill", "Bone-strengthening medicines", "Monthly zoledronic acid or denosumab to reduce fractures and bone pain."),
         ("i-heart", "Supportive care", "Pain relief, treatment for high calcium, kidney protection, transfusions when needed, infection prevention and vaccines."),
         ("i-check", "Watch and wait", "For MGUS and most smoldering myeloma, with regular blood tests and no treatment until it is needed."),
     ]) + _alert('Myeloma care works best when started early.', 'Do not delay treatment while trying only painkillers, calcium tablets or home remedies for back pain.', warn=True), tint=True, label="my-tx")
@@ -1601,7 +1617,7 @@ def myeloma():
         ("How much does multiple myeloma treatment in Bangalore cost?", "The cost depends on the drugs used, the number of cycles and whether a stem cell transplant is needed. The clinic can share an estimate after your first consultation and help you with insurance paperwork."),
     ]
     return cond_page(MYEL_PAGE, "Multiple Myeloma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
-                     "Multiple myeloma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — diagnosis, staging, drug therapy, autologous transplant and long-term care.",
+                     "Multiple myeloma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, staging, drug therapy, autologous transplant and long-term care.",
                      "Multiple myeloma", ["Myeloma", "Plasma cell myeloma"], hero, [intro, crab, causes, types, dx, tx, living], faqs,
                      "Quick answers to the questions patients ask most about multiple myeloma.",
                      "For multiple myeloma, she builds a treatment plan around your type of myeloma, your health and your goals.",
@@ -1630,7 +1646,7 @@ def lymphoma():
         ("i-thermo", "Recurring fever", "Fever that keeps coming back without an infection"),
         ("i-moon", "Night sweats", "Heavy sweats that soak your clothes or bedsheets"),
         ("i-scale", "Weight loss", "Losing weight without trying"),
-        ("i-sun", "Tiredness", "Constant tiredness or weakness"),
+        ("i-activity", "Tiredness", "Constant tiredness or weakness"),
         ("i-shield", "Itching", "Itching all over the body"),
         ("i-lungs", "Cough or breathlessness", "Cough or chest pain, from swollen glands in the chest"),
         ("i-heart", "Swollen tummy", "Or pain in the upper left side, from an enlarged spleen"),
@@ -1678,15 +1694,15 @@ def lymphoma():
     ]), label="ly-dx")
     tx = _sec(sec_head('Treatment', 'Lymphoma treatment <span class="grad-text">options</span>', 'Treatment depends on the type of lymphoma, its stage, how fast it is growing, your age and your overall health. Some slow-growing lymphomas need no treatment at first, while fast-growing types need treatment straight away.', hid='ly-tx') + _cards([
         ("i-clock", "Watch and wait", "Active monitoring for some slow-growing lymphomas with no symptoms, with regular check-ups and scans."),
-        ("i-doc", "Chemotherapy", "Anti-cancer medicines given in planned cycles, usually as a combination. Most cycles are given as daycare treatment."),
-        ("i-shield", "Chemoimmunotherapy", "Chemotherapy given together with a monoclonal antibody — the standard first treatment for most B-cell lymphomas."),
+        ("i-syringe", "Chemotherapy", "Anti-cancer medicines given in planned cycles, usually as a combination. Most cycles are given as daycare treatment."),
+        ("i-shield", "Chemoimmunotherapy", "Chemotherapy given together with a monoclonal antibody, the standard first treatment for most B-cell lymphomas."),
         ("i-award", "Monoclonal antibody therapy", "Antibodies that attach to markers on lymphoma cells, such as CD20. Also used as maintenance in some slow-growing lymphomas."),
-        ("i-flask", "Targeted therapy", "Medicines, often tablets, that block signals lymphoma cells need to grow, such as BTK inhibitors."),
-        ("i-link", "Antibody-drug conjugates", "Antibodies that carry an anti-cancer medicine directly to lymphoma cells."),
+        ("i-pill", "Targeted therapy", "Medicines, often tablets, that block signals lymphoma cells need to grow, such as BTK inhibitors."),
+        ("i-pill", "Antibody-drug conjugates", "Antibodies that carry an anti-cancer medicine directly to lymphoma cells."),
         ("i-shield", "Immune checkpoint inhibitors", "Immunotherapy that helps the immune system attack lymphoma cells, mainly for relapsed Hodgkin lymphoma."),
         ("i-link", "Bispecific antibodies", "Newer immunotherapy that links immune cells to lymphoma cells, for relapsed lymphomas, where suitable and available."),
         ("i-cells", "CAR-T cell therapy", "The patient’s own immune cells are modified to attack lymphoma, for selected relapsed or refractory lymphomas."),
-        ("i-sun", "Radiation therapy", "Targeted radiation to affected lymph node areas, alone in early-stage disease or after chemotherapy."),
+        ("i-radiation", "Radiation therapy", "Targeted radiation to affected lymph node areas, alone in early-stage disease or after chemotherapy."),
         ("i-marrow", "Autologous stem cell transplant", f'High-dose chemotherapy followed by return of your own stem cells, for lymphoma that relapses or is high-risk. <a href="{BMT_PAGE}">Learn more</a>'),
         ("i-marrow", "Allogeneic (donor) stem cell transplant", "For selected patients with relapsed or aggressive lymphoma."),
         ("i-check", "Treating the infection behind it", "For example, antibiotics for H. pylori in stomach MALT lymphoma, or antiviral treatment in hepatitis C-related lymphoma."),
@@ -1709,7 +1725,7 @@ def lymphoma():
         ("How much does lymphoma treatment cost in Bangalore?", "The cost depends on the type of lymphoma, the medicines used, the number of cycles, and whether radiation or a transplant is needed. The clinic can share an estimate after your first consultation."),
     ]
     return cond_page(LYMPH_PAGE, "Lymphoma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist",
-                     "Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist — Hodgkin and non-Hodgkin lymphoma care for adults and children.",
+                     "Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: Hodgkin and non-Hodgkin lymphoma care for adults and children.",
                      "Lymphoma", ["Hodgkin lymphoma", "Non-Hodgkin lymphoma"], hero, [intro, signs, causes, types, dx, tx, life], faqs,
                      "Quick answers to the questions patients ask most about lymphoma.",
                      "For lymphoma, she plans treatment around the exact subtype, stage and risk, not a one-size-fits-all approach.",
@@ -1734,15 +1750,15 @@ def pediatric_oncology():
           {_box('i-child', 'Childhood cancers are different', _ul(['They usually start in growing cells, such as the blood, brain, kidneys, nerves, bones and muscles.', 'They are rarely linked to lifestyle, such as diet or smoking.', 'They often grow fast, but they also usually respond well to treatment.', 'Treatment doses and medicines are planned for a child’s age, weight and growing body.']) + _p('Children are not small adults. They need a team trained to care for their bodies, their development and their emotions, along with support for the whole family.'))}
         </div>""", label="po-what")
     signs = _sec(sec_head('Warning signs', 'Warning signs of cancer <span class="grad-text">in children</span>', 'Most of these signs are caused by common, harmless illnesses. But if a sign lasts more than two weeks, keeps coming back, or gets worse, see a doctor. Watch for:', hid='po-sym') + _sym([
-        ("i-sun", "Paleness &amp; tiredness", "Paleness, tiredness or weakness that does not go away"),
+        ("i-activity", "Paleness &amp; tiredness", "Paleness, tiredness or weakness that does not go away"),
         ("i-drop", "Easy bruising", "Small red spots on the skin, or unusual bleeding (nose, gums)"),
         ("i-thermo", "Repeated fever", "Fever or infections that keep coming back without a clear cause"),
         ("i-cells", "A lump or swelling", "In the tummy, neck, armpit, groin or any part of the body"),
         ("i-cells", "Swollen glands", "That do not shrink after a few weeks"),
         ("i-bone", "Bone or joint pain", "Limping, or pain that wakes the child at night"),
-        ("i-doc", "Morning headaches", "Headaches, especially in the morning, with vomiting"),
+        ("i-brain", "Morning headaches", "Headaches, especially in the morning, with vomiting"),
         ("i-adult", "Changes in walking", "Balance, vision or behaviour, or new fits (seizures)"),
-        ("i-shield", "Eye changes", "A white glow in the pupil in photos, a new squint, or eye swelling"),
+        ("i-eye", "Eye changes", "A white glow in the pupil in photos, a new squint, or eye swelling"),
         ("i-scale", "Weight loss", "Loss of appetite or night sweats"),
         ("i-heart", "Swollen tummy", "A swollen or hard tummy"),
         ("i-users", "In teenagers", "A painless lump in the testicle"),
@@ -1782,17 +1798,17 @@ def pediatric_oncology():
         ("Heart, hearing and kidney tests", "Before treatment, as a baseline."),
     ]), label="po-dx")
     tx = _sec(sec_head('Treatment', 'Pediatric oncology treatment <span class="grad-text">options</span>', 'Treatment depends on the type of cancer, its stage and risk group, the child’s age and overall health. Most children receive a combination of treatments, planned by a team of specialists.', hid='po-tx') + _cards([
-        ("i-doc", "Risk-adapted chemotherapy", "Anti-cancer medicines given in planned cycles, with doses based on the child’s risk group, weight and age. Many cycles can be given as daycare treatment."),
-        ("i-flask", "Targeted therapy", "Medicines that attack specific changes in cancer cells, such as in some leukemias."),
+        ("i-syringe", "Risk-adapted chemotherapy", "Anti-cancer medicines given in planned cycles, with doses based on the child’s risk group, weight and age. Many cycles can be given as daycare treatment."),
+        ("i-pill", "Targeted therapy", "Medicines that attack specific changes in cancer cells, such as in some leukemias."),
         ("i-shield", "Immunotherapy", "Monoclonal antibodies and other treatments that help the immune system fight cancer cells."),
         ("i-cells", "CAR-T cell therapy", "For selected children with relapsed leukemia or lymphoma, where suitable and available."),
-        ("i-heart", "Surgery", "To remove solid tumours such as Wilms tumour, neuroblastoma, liver and bone tumours, including limb-sparing surgery for bone cancers."),
-        ("i-sun", "Radiation therapy", "Carefully planned radiation for certain tumours, using techniques that protect healthy growing tissue."),
+        ("i-stetho", "Surgery", "To remove solid tumours such as Wilms tumour, neuroblastoma, liver and bone tumours, including limb-sparing surgery for bone cancers."),
+        ("i-radiation", "Radiation therapy", "Carefully planned radiation for certain tumours, using techniques that protect healthy growing tissue."),
         ("i-marrow", "Bone marrow (stem cell) transplant", f'Autologous or donor transplant for high-risk or relapsed leukemia, neuroblastoma and other cancers, and for blood disorders like thalassemia and aplastic anemia. <a href="{BMT_PAGE}">Learn more</a>'),
         ("i-link", "Central line or port", "A long-term line to give medicines and take blood without repeated needle pricks."),
         ("i-drop", "Supportive care", "Transfusions, prevention and treatment of infections, anti-sickness medicines and fertility preservation counselling for teenagers."),
         ("i-heart", "Pain management &amp; palliative care", "To keep the child comfortable at every stage of treatment."),
-        ("i-sun", "Nutrition support", "A diet plan to maintain weight and strength during treatment."),
+        ("i-apple", "Nutrition support", "A diet plan to maintain weight and strength during treatment."),
         ("i-chat", "Psychological and child-life support", "Counselling and play therapy for the child, brothers and sisters, and parents."),
         ("i-clock", "Long-term follow-up", "Survivorship care: regular checks for growth, learning, heart, hormone and fertility effects after treatment ends."),
     ]) + _alert('Never stop or change treatment on your own, even if your child looks well.', 'Completing the full treatment plan gives the best chance of cure.', warn=True), tint=True, label="po-tx")
@@ -1810,7 +1826,7 @@ def pediatric_oncology():
         ("Will treatment affect my child’s growth or future fertility?", "Some treatments can affect growth, hormones or fertility. The team plans treatment to reduce these risks, discusses fertility preservation for teenagers, and checks for late effects during follow-up."),
     ]
     return cond_page(PEDONC_PAGE, "Pediatric Oncology Treatment in Bangalore | Dr. Neema Bhat",
-                     "Pediatric oncology treatment in Bangalore with Dr. Neema Bhat, US board-certified pediatric hematologist-oncologist — childhood leukemia, lymphoma, solid tumours and blood disorders, including bone marrow transplant.",
+                     "Pediatric oncology treatment in Bangalore with Dr. Neema Bhat, US board-certified pediatric hematologist-oncologist: childhood leukemia, lymphoma, solid tumours and blood disorders, including bone marrow transplant.",
                      "Childhood cancer", ["Pediatric cancer", "Pediatric oncology"], hero, [intro, signs, causes, types, dx, tx, care], faqs,
                      "Quick answers to the questions parents ask most about childhood cancer.",
                      "For children, she cares for the whole child, not only the cancer, with clear explanations for parents and support at every stage.",
@@ -1828,18 +1844,18 @@ def brain_tumor():
           <div>
             <p class="tag" data-fx="wipe-x">Overview</p>
             <h2 class="title" id="br-what" data-fx="wipe">What is a <span class="grad-text">brain tumor?</span></h2>
-            <p class="lead" data-fx="fade">Your brain controls everything you do: thinking, speaking, moving, seeing and breathing. A brain tumor forms when cells in or around the brain — such as the nerves, the pituitary gland or the coverings of the brain — grow out of control and form a mass. Both benign and malignant tumors can cause serious problems because the skull has no room to expand.</p>
-            <p class="lead" data-fx="fade">A tumor can cause problems in two ways: by pressing on or damaging nearby brain tissue, and by blocking the flow of fluid around the brain, which raises pressure inside the skull. Even a benign brain tumor can be serious if it grows in an important area — that is why every brain tumor needs expert care.</p>
+            <p class="lead" data-fx="fade">Your brain controls everything you do: thinking, speaking, moving, seeing and breathing. A brain tumor forms when cells in or around the brain (such as the nerves, the pituitary gland or the coverings of the brain) grow out of control and form a mass. Both benign and malignant tumors can cause serious problems because the skull has no room to expand.</p>
+            <p class="lead" data-fx="fade">A tumor can cause problems in two ways: by pressing on or damaging nearby brain tissue, and by blocking the flow of fluid around the brain, which raises pressure inside the skull. Even a benign brain tumor can be serious if it grows in an important area. That is why every brain tumor needs expert care.</p>
             <p class="lead" data-fx="fade">Dr. Neema Bhat, a US-trained pediatric hematologist-oncologist with 10+ years of experience, works with neurosurgeons and radiation oncologists to plan complete {T}, with special expertise in children.</p>
           </div>
           {_box('i-doc', 'Two main groups', _ul(['<b>Primary brain tumors</b> start in the brain or its surrounding tissues. They can be benign or malignant.', '<b>Secondary (metastatic) brain tumors</b> start in another part of the body, such as the lungs, breast or kidney, and spread to the brain. In adults, these are more common than primary brain tumors.']) + _p(f'India sees over 28,000 new brain tumor cases every year (IARC data). Brain tumors are also among the most common cancers in children, after leukemia and lymphoma. Early signs like headaches and vomiting are easy to ignore, so timely {T} can protect brain function and quality of life.'))}
         </div>""", label="br-what")
     signs = _sec(sec_head('Signs &amp; symptoms', 'Common signs of a <span class="grad-text">brain tumor</span>', 'Symptoms depend on the size and location of the tumor. Watch for:', hid='br-sym') + _sym([
-        ("i-doc", "Headaches", "New, getting worse, or worse in the morning or when lying down"),
+        ("i-brain", "Headaches", "New, getting worse, or worse in the morning or when lying down"),
         ("i-flask", "Nausea or vomiting", "Especially in the morning"),
-        ("i-thermo", "Fits (seizures)", "Especially for the first time in an adult"),
-        ("i-sun", "Vision problems", "Blurred or double vision, or loss of side vision"),
-        ("i-adult", "Weakness or numbness", "In an arm, leg or one side of the body"),
+        ("i-brain", "Fits (seizures)", "Especially for the first time in an adult"),
+        ("i-eye", "Vision problems", "Blurred or double vision, or loss of side vision"),
+        ("i-activity", "Weakness or numbness", "In an arm, leg or one side of the body"),
         ("i-bone", "Balance problems", "Trouble with walking or coordination"),
         ("i-chat", "Speech problems", "Trouble speaking or understanding words"),
         ("i-users", "Behaviour changes", "Changes in memory, mood or personality"),
@@ -1892,21 +1908,21 @@ def brain_tumor():
     ]), label="br-dx")
     tx = _sec(sec_head('Treatment', 'Brain tumor treatment <span class="grad-text">options</span>', 'Treatment depends on the type, grade, size and location of the tumor, its genetic features, and the patient’s age and overall health. Most patients are treated by a team of neurosurgeons, radiation oncologists and medical or pediatric oncologists.', hid='br-tx') + _cards([
         ("i-clock", "Active monitoring", "Regular MRI scans for small, slow-growing benign tumors that cause no symptoms."),
-        ("i-heart", "Surgery (craniotomy)", "To remove as much of the tumor as is safely possible, using neuronavigation and intraoperative monitoring to protect healthy brain."),
-        ("i-chat", "Awake brain surgery", "For tumors near areas that control speech or movement, in selected adults."),
-        ("i-link", "Endoscopic surgery", "Minimally invasive surgery, including surgery through the nose for pituitary and skull base tumors."),
-        ("i-flask", "Stereotactic biopsy", "A precise needle biopsy for deep tumors that cannot be removed safely."),
-        ("i-sun", "Radiation therapy", "Precise techniques such as IMRT and image-guided radiation to target the tumor and spare healthy tissue."),
-        ("i-award", "Stereotactic radiosurgery", "A single or few high-dose, highly focused radiation treatments for small tumors and brain metastases."),
-        ("i-bone", "Craniospinal radiation", "Radiation to the whole brain and spine for tumors that spread through the brain fluid, such as medulloblastoma."),
+        ("i-stetho", "Surgery (craniotomy)", "To remove as much of the tumor as is safely possible, using neuronavigation and intraoperative monitoring to protect healthy brain."),
+        ("i-brain", "Awake brain surgery", "For tumors near areas that control speech or movement, in selected adults."),
+        ("i-stetho", "Endoscopic surgery", "Minimally invasive surgery, including surgery through the nose for pituitary and skull base tumors."),
+        ("i-micro", "Stereotactic biopsy", "A precise needle biopsy for deep tumors that cannot be removed safely."),
+        ("i-radiation", "Radiation therapy", "Precise techniques such as IMRT and image-guided radiation to target the tumor and spare healthy tissue."),
+        ("i-radiation", "Stereotactic radiosurgery", "A single or few high-dose, highly focused radiation treatments for small tumors and brain metastases."),
+        ("i-radiation", "Craniospinal radiation", "Radiation to the whole brain and spine for tumors that spread through the brain fluid, such as medulloblastoma."),
         ("i-child", "Proton beam therapy", "For selected children and young adults, to reduce long-term side effects, where suitable and available."),
-        ("i-doc", "Chemotherapy", "Anti-cancer medicines given by mouth, into a vein, or into the brain fluid, often with or after surgery and radiation."),
-        ("i-marrow", "High-dose chemotherapy with stem cell rescue", f'For selected high-risk childhood brain tumors, such as some medulloblastomas, AT/RT and germ cell tumors, and to avoid radiation in very young children. <a href="{BMT_PAGE}">Learn more</a>'),
-        ("i-flask", "Targeted therapy", "Medicines chosen based on genetic changes in the tumor, such as BRAF, IDH or NTRK changes."),
+        ("i-syringe", "Chemotherapy", "Anti-cancer medicines given by mouth, into a vein, or into the brain fluid, often with or after surgery and radiation."),
+        ("i-syringe", "High-dose chemotherapy with stem cell rescue", f'For selected high-risk childhood brain tumors, such as some medulloblastomas, AT/RT and germ cell tumors, and to avoid radiation in very young children. <a href="{BMT_PAGE}">Learn more</a>'),
+        ("i-pill", "Targeted therapy", "Medicines chosen based on genetic changes in the tumor, such as BRAF, IDH or NTRK changes."),
         ("i-shield", "Immunotherapy &amp; clinical trials", "For selected tumors, where suitable and available."),
-        ("i-drop", "Steroids", "To reduce swelling around the tumor and ease symptoms."),
-        ("i-shield", "Anti-seizure medicines", "To prevent and control fits."),
-        ("i-link", "Shunt or endoscopic surgery for hydrocephalus", "To drain or bypass blocked brain fluid."),
+        ("i-pill", "Steroids", "To reduce swelling around the tumor and ease symptoms."),
+        ("i-brain", "Anti-seizure medicines", "To prevent and control fits."),
+        ("i-stetho", "Shunt or endoscopic surgery for hydrocephalus", "To drain or bypass blocked brain fluid."),
         ("i-scale", "Hormone replacement", "For patients with pituitary or hypothalamic hormone problems."),
         ("i-adult", "Rehabilitation", "Physiotherapy, occupational therapy and speech therapy to regain function."),
         ("i-users", "Neuropsychology and school support", "To help with memory, learning and returning to school or work."),
@@ -1927,15 +1943,386 @@ def brain_tumor():
         ("Will my child be able to go back to school?", "Most children return to school after or even during treatment. Some may need extra learning support, physiotherapy or speech therapy, which the care team helps arrange."),
     ]
     return cond_page(BRAIN_PAGE, "Brain Tumor Treatment in Bangalore | Dr. Neema Bhat",
-                     "Brain tumor treatment in Bangalore with Dr. Neema Bhat, US-trained pediatric hematologist-oncologist — coordinated care with neurosurgeons and radiation oncologists, with special expertise in children.",
+                     "Brain tumor treatment in Bangalore with Dr. Neema Bhat, US-trained pediatric hematologist-oncologist: coordinated care with neurosurgeons and radiation oncologists, with special expertise in children.",
                      "Brain tumor", ["Brain tumour", "CNS tumor"], hero, [intro, signs, causes, types, dx, tx, life], faqs,
                      "Quick answers to the questions patients and families ask most about brain tumors.",
                      "For brain tumors, she works with neurosurgeons, radiation oncologists, radiologists and pathologists so that each step is coordinated, with special focus on children.",
                      book_section("Headaches with vomiting, or a first fit?", "Or an MRI report showing a brain tumor? Get an expert opinion early. Book a consultation for brain tumor treatment in Bangalore with Dr. Neema Bhat today.", "brain-tumor"))
 
 
+# ------------------------------------------------------------------ PRIVACY POLICY
+PRIVACY_UPDATED = "30 October 2026"
+
+
+def privacy():
+    def block(hid, title, inner):
+        return f'<section class="legal__block" aria-labelledby="{hid}"><h2 id="{hid}">{title}</h2>{inner}</section>'
+    P = lambda t: f"<p>{t}</p>"
+    UL = lambda items: "<ul>" + "".join(f"<li>{t}</li>" for t in items) + "</ul>"
+    body = "".join([
+        block("pp-who", "Who we are", P(f"This website is run for Dr. Neema Bhat, Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore. In this policy, “we”, “us” and “our” mean Dr. Neema Bhat and her clinic team. You can reach us on <a href=\"tel:{PHONE_TEL}\">{PHONE_DISPLAY}</a> (call or WhatsApp).")),
+        block("pp-collect", "Information we collect", P("We only collect the information we need to answer your questions and arrange appointments.") + UL([
+            "<b>Booking requests.</b> The booking form on the Contact page does not store anything on our website or server. When you press “Send on WhatsApp”, the details you typed (patient’s name, phone number, the reason for the visit and any note) are placed into a WhatsApp message on your own phone or computer. Nothing is sent until you press send inside WhatsApp.",
+            "<b>Calls and WhatsApp messages.</b> When you call or message us, we receive your phone number and whatever you choose to tell us, such as the patient’s name, age and health concern.",
+            "<b>Technical information.</b> Like all websites, our hosting provider automatically records basic technical details when you visit, such as your IP address, browser type, the pages you open and the time of the visit. These server logs are used only to keep the website working and secure.",
+        ])),
+        block("pp-use", "How we use your information", UL([
+            "To reply to you and arrange, confirm or change appointments.",
+            "To prepare for your consultation and provide medical care.",
+            "To keep the website secure and working properly.",
+        ]) + P("We do not sell, rent or trade your personal information, and we do not use it for advertising.")),
+        block("pp-cookies", "Cookies and browser storage", P("This website does not use advertising or tracking cookies, and it does not use analytics tools.") + UL([
+            "Your browser may remember small preferences for this website on your own device, such as which layout you chose for the treatments list on a phone. This stays on your device and is not sent to us.",
+            "The map on the Contact page is provided by Google Maps. Google may set its own cookies when the map loads. Please see Google’s privacy policy for details.",
+        ])),
+        block("pp-third", "Third-party services", P("When you use WhatsApp, Google Maps, or open links to hospital or review websites, those services handle your information under their own privacy policies. We are not responsible for how they use it.")),
+        block("pp-health", "Health information", P("Please do not share detailed medical reports or sensitive health information through social media or public channels. Bring your reports to your consultation, or share them through the channel the clinic team suggests. Any health information you share with us is kept confidential and used only for your care.")),
+        block("pp-keep", "How long we keep information and how we protect it", P("We keep appointment and contact details only as long as needed for your care and for legal and medical record-keeping requirements. We take reasonable steps to protect your information from loss, misuse and unauthorised access.")),
+        block("pp-rights", "Your rights", P("Under India’s Digital Personal Data Protection Act, 2023, you can ask us to:") + UL([
+            "tell you what personal information we hold about you,",
+            "correct or update it,",
+            "delete it, where we are not required to keep it by law,",
+            "withdraw your consent to us using it.",
+        ]) + P(f"To make a request or raise a concern, call or WhatsApp us on <a href=\"tel:{PHONE_TEL}\">{PHONE_DISPLAY}</a>.")),
+        block("pp-children", "Children", P("Many of our patients are children. Information about a child should be shared by a parent or guardian.")),
+        block("pp-changes", "Changes to this policy", P(f"We may update this policy from time to time. The latest version will always be on this page. Last updated: {PRIVACY_UPDATED}.")),
+        block("pp-medical", "Medical disclaimer", P("The information on this website is for general awareness only and is not a substitute for medical advice. Please consult a doctor for diagnosis and treatment.")),
+    ])
+    return head("Privacy Policy | Dr. Neema Bhat",
+                "Privacy policy for the Dr. Neema Bhat website: what information is collected, how it is used and your rights.",
+                "privacy-policy.html") + f"""
+<body data-page="legal">{ICONS}{header('legal', 'privacy-policy.html')}
+  <main id="main">
+    <section class="phero" aria-labelledby="pp-title">
+      <div class="wrap phero__in">
+        <div>
+          <ol class="crumbs"><li><a href="index.html">Home</a></li><li>Privacy Policy</li></ol>
+          <h1 id="pp-title" data-fx="wipe">Privacy <span class="grad-text">Policy</span></h1>
+          <p class="phero__sub" data-fx="fade" style="--d:.15s">How we collect, use and protect your information when you use this website. Last updated: {PRIVACY_UPDATED}.</p>
+        </div>
+      </div>
+    </section>
+    <section class="sec">
+      <div class="wrap legal">{body}</div>
+    </section>
+  </main>
+""" + footer()
+
+
+# ------------------------------------------------------------------ 404
+def not_found():
+    links = "".join(f'<li><a href="{svc_href(s)}">{ic(SVC_ICON_BY_SLUG.get(s, "i-micro"))}{n}</a></li>' for n, s, c, _ in SERVICES)
+    return head("Page not found | Dr. Neema Bhat",
+                "The page you are looking for could not be found.",
+                "404.html", '  <meta name="robots" content="noindex, follow">\n') + f"""
+<body data-page="error">{ICONS}{header('error')}
+  <main id="main">
+    <section class="nf">
+      <div class="wrap nf__in">
+        <p class="nf__code" aria-hidden="true">404</p>
+        <h1>Sorry, this page could not be found</h1>
+        <p class="lead">The page may have moved, or the address may have a typing mistake. These links will help you find what you need.</p>
+        <div class="hero__acts" style="justify-content:center">
+          <a class="btn btn--grad" href="index.html">Go to the home page{ic('i-go', 'ic ic--go')}</a>
+          <a class="btn btn--line" href="contact.html">{ic('i-cal')}Book an appointment</a>
+        </div>
+        <ul class="nf__links">{links}</ul>
+      </div>
+    </section>
+  </main>
+""" + footer()
+
+
+# ------------------------------------------------------------------ COMING SOON (stand-alone, no header/footer)
+def coming_soon():
+    return f"""<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coming Soon | Dr. Neema Bhat</title>
+  <meta name="description" content="The new website of Dr. Neema Bhat, Hematologist and Pediatric Oncologist in Bangalore, is coming soon.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/images/logo-mark.png">
+  <link rel="stylesheet" href="assets/css/styles.css?v={asset_v('assets/css/styles.css')}">
+</head>
+<body class="soon">{ICONS}
+  <main class="soon__in">
+    <img class="soon__logo" src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275">
+    <p class="tag">{ic('i-clock')}Coming soon</p>
+    <h1>Our new website is <span class="grad-text">almost ready</span></h1>
+    <p class="lead">Dr. Neema Bhat, Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore. To book an appointment now, please call or WhatsApp.</p>
+    <div class="hero__acts" style="justify-content:center">
+      <a class="btn btn--grad" href="tel:{PHONE_TEL}">{ic('i-phone')}{PHONE_DISPLAY}</a>
+      <a class="btn btn--line" href="{WA}" target="_blank" rel="noopener">{ic('i-wa')}WhatsApp</a>
+    </div>
+    <p class="soon__note">OPD at Apollo Hospitals, Bannerghatta Road, Bangalore</p>
+  </main>
+</body>
+</html>
+"""
+
+
+# ================================================================== HOSTINGER (PHP) EXPORT
+# `python3 build.py` also writes a ready-to-upload copy of the site to ./hostinger/
+# (and hostinger.zip). It uses PHP includes so the header and footer live in one file each:
+#   includes/header.php, includes/footer.php, includes/config.php (Coming Soon on/off switch)
+import re as _re
+import shutil as _shutil
+import zipfile as _zipfile
+from datetime import date as _date
+
+PHP_MODE = False
+HOST_DIR = ROOT / "hostinger"
+
+
+def _clean_links(text):
+    """Rewrite page links to clean addresses (/about) and asset paths to root-relative (/assets/...)."""
+    text = _re.sub(r'(?<=["\'])index\.html(?=[#"\'])', "/", text)
+    text = _re.sub(r'(?<=["\'])([a-z0-9-]+)\.html(?=[?#"\'])', r"/\1", text)
+    text = _re.sub(_re.escape(SITE_URL) + r'/([a-z0-9-]+)\.html', SITE_URL + r'/\1', text)
+    text = _re.sub(r'(?<=["\'\s,(])assets/', "/assets/", text)
+    text = text.replace('href="manifest.webmanifest"', 'href="/manifest.webmanifest"')
+    return text
+
+
+def _php_header_template():
+    """Header include: the menu marks the current page with PHP instead of being copied into every page."""
+    html = _header_html("", "", php=True)
+    # active top-level item
+    html = html.replace('@@CUR:home@@', "<?= $nb_active === 'home' ? ' aria-current=\"page\"' : '' ?>")
+    html = html.replace('@@CUR:about@@', "<?= $nb_active === 'about' ? ' aria-current=\"page\"' : '' ?>")
+    html = html.replace('@@CUR:contact@@', "<?= $nb_active === 'contact' ? ' aria-current=\"page\"' : '' ?>")
+    html = html.replace('@@CUR:service@@', "<?= $nb_active === 'service' ? ' aria-current=\"page\"' : '' ?>")
+    # current page inside Services
+    for n, s, c, _ in SERVICES:
+        h = svc_href(s)
+        html = html.replace(f'href="{h}">', f'href="{h}"<?= $nb_current === \'{h}\' ? \' aria-current="page"\' : \'\' ?>>')
+    return "<?php /* Shared site header: edit the menu here once and every page updates. */ ?>\n" + ICONS + html
+
+
+def _php_footer_template():
+    html = _footer_html("@@FAB@@")
+    html = html.replace('href="@@FAB@@"', "href=\"<?= !isset($nb_fab) || $nb_fab ? 'contact.html' : '#wizard' ?>\"")
+    return "<?php /* Shared site footer: edit once and every page updates. */ ?>" + html
+
+
+CONFIG_PHP = """<?php
+/* ------------------------------------------------------------------
+   Site settings
+   ------------------------------------------------------------------ */
+
+// COMING SOON PAGE ON / OFF
+//   true  = visitors see the Coming Soon page (the site is hidden)
+//   false = the website is live
+define('COMING_SOON', false);
+
+// While Coming Soon is ON, you can still view the real site by opening
+//   https://drneemabhat.com/?preview=neema2026
+// once in your browser (it remembers you for 7 days). Change this word to keep it private.
+define('PREVIEW_KEY', 'neema2026');
+
+define('SITE_URL', '@@SITE@@');
+
+/* ------------------------------------------------------------------ */
+if (COMING_SOON && empty($nb_is_coming_soon)) {
+    if (isset($_GET['preview']) && hash_equals(PREVIEW_KEY, (string) $_GET['preview'])) {
+        setcookie('nb_preview', '1', ['expires' => time() + 7 * 86400, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
+        $_COOKIE['nb_preview'] = '1';
+    }
+    if (empty($_COOKIE['nb_preview'])) {
+        http_response_code(503);           // tells Google "temporarily unavailable", so nothing is de-indexed
+        header('Retry-After: 86400');
+        header('X-Robots-Tag: noindex');
+        $nb_is_coming_soon = true;
+        include __DIR__ . '/../coming-soon.php';
+        exit;
+    }
+}
+"""
+
+HTACCESS = """# ==================================================================
+#  Dr. Neema Bhat website: server rules for Hostinger (Apache)
+# ==================================================================
+
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+ErrorDocument 404 /404.php
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 1. Use one address only: https and WITHOUT "www" (www addresses are never indexed)
+RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Block private folders and hidden files
+RewriteRule ^includes/ - [F,L]
+RewriteRule (^|/)\\.(?!well-known/) - [F,L]
+
+# 3. Old or long addresses -> clean addresses (301 = permanent redirect)
+#    /index.php, /index.html -> /      /about.php, /about.html -> /about
+RewriteCond %{THE_REQUEST} \\s/+index(?:\\.php|\\.html)?[\\s?] [NC]
+RewriteRule ^ / [L,R=301]
+RewriteCond %{THE_REQUEST} \\s/+([a-z0-9/-]+?)\\.(?:php|html)[\\s?] [NC]
+RewriteRule ^ /%1 [L,R=301]
+#    remove a trailing slash: /about/ -> /about
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+# 4. YOUR OWN REDIRECTS: add one line per old page, for example:
+# Redirect 301 /old-page /new-page
+# Redirect 301 /services/anemia /anemia-treatment
+
+# 5. Clean address -> PHP file (/about serves about.php)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^([a-z0-9-]+)$ /$1.php [L]
+</IfModule>
+
+# Never serve config, source or backup files
+<FilesMatch "\\.(ini|log|sh|sql|bak|py|md|zip|env|lock|json)$">
+  Require all denied
+</FilesMatch>
+<Files "manifest.webmanifest">
+  Require all granted
+</Files>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header unset X-Powered-By
+  # Safety net: never index anything served on a www address
+  <If "%{HTTP_HOST} =~ /^www\\./i">
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </If>
+  # Caching: CSS/JS are versioned (?v=), so they can be cached for a year
+  <FilesMatch "\\.(css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\\.(webp|png|jpg|jpeg|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml application/manifest+json
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
+"""
+
+
+def _sitemap():
+    today = _date.today().isoformat()
+    pages = [("", "1.0", "weekly"), ("about", "0.8", "monthly"), ("contact", "0.8", "monthly")]
+    pages += [(svc_href(s)[:-5], "0.9", "monthly") for n, s, c, _ in SERVICES]
+    pages += [("privacy-policy", "0.3", "yearly")]
+    urls = "".join(f"  <url><loc>{SITE_URL}/{p}</loc><lastmod>{today}</lastmod><changefreq>{f}</changefreq><priority>{pr}</priority></url>\n" for p, pr, f in pages)
+    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n'
+
+
+def _robots():
+    return f"""User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /coming-soon
+Disallow: /404
+
+Sitemap: {SITE_URL}/sitemap.xml
+"""
+
+
+def _llms():
+    svc = "\n".join(f"- [{n}]({SITE_URL}/{svc_href(s)[:-5]}): {d}" for n, s, c, d in SERVICES)
+    return f"""# Dr. Neema Bhat: Hematologist, Pediatric Oncologist and Bone Marrow Transplant Specialist in Bangalore
+
+> Dr. Neema Bhat is a US-trained Haemato-Oncologist in Bangalore, India, with more than ten years of experience treating blood disorders and blood cancers in children and adults, including bone marrow (stem cell) transplantation. MD (USA) and Fellowship (FAAP) in Pediatric Hematology, Oncology and Bone Marrow Transplantation, Penn State Health, USA.
+
+- OPD: Apollo Hospitals, Bannerghatta Road, Bangalore (Monday to Saturday, 11 AM to 4 PM)
+- Evenings: Therapy Clinic (Monday to Saturday, 5 to 7 PM)
+- Fridays: Apollo One and Apollo Cradle, Hosa Road, Electronic City (2 to 4 PM)
+- Appointments: call or WhatsApp {PHONE_DISPLAY}
+
+## Main pages
+
+- [Home]({SITE_URL}/): Overview of services, first visit, OPD timings and FAQs
+- [About Dr. Neema Bhat]({SITE_URL}/about): Training, career and approach to care
+- [Contact and booking]({SITE_URL}/contact): Booking request, phone, WhatsApp and directions
+
+## Treatments
+
+{svc}
+
+## Optional
+
+- [Privacy Policy]({SITE_URL}/privacy-policy)
+
+Information on this website is for general awareness and is not a substitute for medical advice.
+"""
+
+
+def export_hostinger(pages):
+    """pages: list of (filename.html, function). Writes ./hostinger and ./hostinger.zip."""
+    global PHP_MODE
+    if HOST_DIR.exists():
+        _shutil.rmtree(HOST_DIR)
+    (HOST_DIR / "includes").mkdir(parents=True)
+    _shutil.copytree(ROOT / "assets", HOST_DIR / "assets")
+    PHP_MODE = True
+    try:
+        for name, fn in pages:
+            html = fn()
+            stem = name[:-5]
+            top = "<?php require_once __DIR__ . '/includes/config.php'; ?>"
+            if stem == "404":
+                top = "<?php http_response_code(404); require_once __DIR__ . '/includes/config.php'; ?>"
+            if stem == "coming-soon":
+                top = ("<?php\n$nb_is_coming_soon = true;\nrequire_once __DIR__ . '/includes/config.php';\n"
+                       "// Opened directly while the site is live: send visitors to the home page.\n"
+                       "if (!COMING_SOON && basename($_SERVER['SCRIPT_FILENAME']) === 'coming-soon.php' && !headers_sent()) { header('Location: /', true, 302); exit; }\n?>")
+            if "includes/header.php" in html:
+                html = html.replace(ICONS, "", 1)
+            (HOST_DIR / f"{stem}.php").write_text(_clean_links(top + html), encoding="utf-8")
+        (HOST_DIR / "includes" / "header.php").write_text(_clean_links(_php_header_template()), encoding="utf-8")
+        (HOST_DIR / "includes" / "footer.php").write_text(_clean_links(_php_footer_template()), encoding="utf-8")
+    finally:
+        PHP_MODE = False
+    (HOST_DIR / "includes" / "config.php").write_text(CONFIG_PHP.replace("@@SITE@@", SITE_URL), encoding="utf-8")
+    (HOST_DIR / "includes" / ".htaccess").write_text("Require all denied\n", encoding="utf-8")
+    (HOST_DIR / ".htaccess").write_text(HTACCESS, encoding="utf-8")
+    (HOST_DIR / "robots.txt").write_text(_robots(), encoding="utf-8")
+    (HOST_DIR / "sitemap.xml").write_text(_sitemap(), encoding="utf-8")
+    (HOST_DIR / "llms.txt").write_text(_llms(), encoding="utf-8")
+    (HOST_DIR / "manifest.webmanifest").write_text(_clean_links((ROOT / "manifest.webmanifest").read_text()).replace('"index.html"', '"/"'), encoding="utf-8")
+    with _zipfile.ZipFile(ROOT / "hostinger.zip", "w", _zipfile.ZIP_DEFLATED) as z:
+        for f in sorted(HOST_DIR.rglob("*")):
+            if f.is_file():
+                z.write(f, f.relative_to(HOST_DIR))
+    print("built hostinger/ and hostinger.zip")
+
+
+PAGES = [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia),
+         (HEMA_PAGE, hematology), (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma), (LYMPH_PAGE, lymphoma),
+         (PEDONC_PAGE, pediatric_oncology), (BRAIN_PAGE, brain_tumor), ("privacy-policy.html", privacy), ("404.html", not_found),
+         ("coming-soon.html", coming_soon)]
+
 if __name__ == "__main__":
-    for name, fn in [("index.html", home), ("about.html", about), ("contact.html", contact), (BMT_PAGE, bmt), (ANEMIA_PAGE, anemia), (HEMA_PAGE, hematology),
-                     (THAL_PAGE, thalassemia), (LEUK_PAGE, leukemia), (MYEL_PAGE, myeloma), (LYMPH_PAGE, lymphoma), (PEDONC_PAGE, pediatric_oncology), (BRAIN_PAGE, brain_tumor)]:
+    for name, fn in PAGES:
         (ROOT / name).write_text(fn(), encoding="utf-8")
         print("built", name)
+    export_hostinger(PAGES)

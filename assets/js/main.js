@@ -1,13 +1,13 @@
 /* ==========================================================================
-   Dr. Neema Bhat — interactions
+   Dr. Neema Bhat, interactions
    ========================================================================== */
 
-/* Contact details — update here and on the pages (build.py). */
+/* Contact details, update here and on the pages (build.py). */
 const CONFIG = { whatsapp: '917899756677' };
 
 /* OPD schedule: day index (0 = Sunday) → slots [time, place, kind] */
 const SCHEDULE = (() => {
-  const opd = ['11 AM – 4 PM', 'Apollo Bannerghatta Road — OPD', 'o'];
+  const opd = ['11 AM – 4 PM', 'Apollo Bannerghatta Road, OPD', 'o'];
   const eve = ['5 – 7 PM', 'Therapy Clinic', 't'];
   const ecity = ['2 – 4 PM', 'Apollo One & Apollo Cradle, Hosa Road, Electronic City', 'e'];
   return { 0: [], 1: [opd, eve], 2: [opd, eve], 3: [opd, eve], 4: [opd, eve], 5: [opd, ecity, eve], 6: [opd, eve] };
@@ -42,7 +42,8 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     const a = e.target.closest('a[href]');
     if (!a || reduce || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
     const url = new URL(a.href, location.href);
-    if (url.origin !== location.origin || !/\.html$|\/$/.test(url.pathname)) return;
+    // pages only (index.html, /about or /): skip downloads and other files
+    if (url.origin !== location.origin || (/\.[a-z0-9]+$/i.test(url.pathname) && !/\.(html|php)$/i.test(url.pathname))) return;
     if (url.pathname === location.pathname) return; // same-page anchors scroll normally
     e.preventDefault();
     curtain.style.setProperty('--cx', `${e.clientX || innerWidth / 2}px`);
@@ -132,7 +133,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
   /* ---------- Tap ripple (touch devices) ---------- */
   if (!fine) {
     document.addEventListener('pointerdown', (e) => {
-      const t = e.target.closest('.btn, .stp, .svc, .tile, .tabs button, .vswitch button, .ccard, .choice span, .seg button, .bar__icon, .dock a, .sheet__nav a, .sheet__nav button');
+      const t = e.target.closest('.btn, .stp, .svc, .tile, .vswitch button, .ccard, .choice span, .seg button, .bar__icon, .dock a, .sheet__nav a, .sheet__nav button');
       if (!t || reduce) return;
       const r = t.getBoundingClientRect(); const s = Math.max(r.width, r.height) * 2.2;
       const dot = document.createElement('span'); dot.className = 'ripple';
@@ -195,7 +196,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     }
   }
 
-  /* ---------- Treatments on phones: Icons / Tiles switch + category filter ---------- */
+  /* ---------- Treatments on phones: Option 1 / Option 2 switch ---------- */
   const svm = $('[data-svc-m]');
   if (svm) {
     const KEY = 'nb-svc-view';
@@ -207,16 +208,6 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     let saved = null; try { saved = localStorage.getItem(KEY); } catch (e) { /* storage unavailable */ }
     if ($('.vswitch', svm)) setView(saved === 'tiles' || saved === 'icons' ? saved : svm.dataset.view);
     $$('.vswitch button', svm).forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
-    const tabs = $$('.tabs button', svm), apps = $$('.apps li', svm);
-    tabs.forEach((t) => t.addEventListener('click', () => {
-      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
-      let k = 0;
-      apps.forEach((li) => {
-        const show = t.dataset.f === 'all' || li.dataset.cat.split(' ').includes(t.dataset.f);
-        li.classList.toggle('is-hidden', !show); li.classList.remove('is-pop');
-        if (show && !reduce) { void li.offsetWidth; li.style.setProperty('--k', k++); li.classList.add('is-pop'); }
-      });
-    }));
   }
 
   /* ---------- Count-up numbers ---------- */
@@ -358,7 +349,7 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
       const s = SCHEDULE[d];
       slots.innerHTML = s.length
         ? s.map(([t, p, k], n) => `<div class="slot slot--${k} is-new" style="--k:${n}"><span class="slot__ic"><svg class="ic"><use href="#${ICON[k]}"/></svg></span><div><time>${t}</time><span>${p}</span></div></div>`).join('')
-        : '<div class="slot slot--off is-new" style="--k:0">No regular OPD on Sunday — call or WhatsApp for urgent needs.</div>';
+        : '<div class="slot slot--off is-new" style="--k:0">No regular OPD on Sunday. Please call or WhatsApp for urgent needs.</div>';
     };
     btns.forEach((b, k) => {
       b.addEventListener('click', () => pick(+b.dataset.day));
@@ -382,20 +373,6 @@ const DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
     if (reduce) { line.style.setProperty('--p', 1); steps.forEach((s) => s.classList.add('is-on')); }
     else { addEventListener('scroll', upd, { passive: true }); upd(); }
   }
-
-  /* ---------- Service page: type switch, cell diagram ---------- */
-  const sw = $('[data-switch]');
-  if (sw) {
-    const tabs = $$('[role="tab"]', sw);
-    const set = (t, focus) => {
-      tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; const p = $('#' + x.getAttribute('aria-controls')); p.hidden = !on; if (on) { p.classList.remove('is-new'); void p.offsetWidth; p.classList.add('is-new'); } });
-      sw.dataset.v = t.id === 'tab-allo' ? 'allo' : 'auto'; if (focus) t.focus();
-    };
-    tabs.forEach((t, k) => { t.addEventListener('click', () => set(t)); t.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); set(tabs[1 - k], true); } }); });
-  }
-  const cv = $('[data-cellviz]');
-  if (cv && 'IntersectionObserver' in window) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { cv.classList.add('is-in'); o.disconnect(); } }, { threshold: 0.3 }).observe(cv);
-  else cv?.classList.add('is-in');
 
   /* ---------- Contact: 3-step request → WhatsApp ---------- */
   const wz = $('#wizard');

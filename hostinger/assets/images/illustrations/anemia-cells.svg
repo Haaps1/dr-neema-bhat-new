@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="t">
+  <title id="t">Illustration of red blood cells, some pale and fewer in number, representing anemia</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4fb6bb"/><stop offset=".5" stop-color="#2f84a0"/><stop offset="1" stop-color="#0f265d"/></linearGradient>
+    <radialGradient id="rim" cx=".45" cy=".4" r=".62"><stop offset="0" stop-color="#ff8f99"/><stop offset=".7" stop-color="#e03a50"/><stop offset="1" stop-color="#9e1a31"/></radialGradient>
+    <radialGradient id="pit" cx=".55" cy=".6" r=".6"><stop offset="0" stop-color="#b3243b"/><stop offset=".75" stop-color="#d4334a"/><stop offset="1" stop-color="#e03a50" stop-opacity="0"/></radialGradient>
+    <radialGradient id="rimP" cx=".45" cy=".4" r=".62"><stop offset="0" stop-color="#ffe6e8"/><stop offset=".7" stop-color="#f2a9b1"/><stop offset="1" stop-color="#cf7482"/></radialGradient>
+    <radialGradient id="pitP" cx=".55" cy=".6" r=".6"><stop offset="0" stop-color="#d98793"/><stop offset=".75" stop-color="#e99aa4"/><stop offset="1" stop-color="#f2a9b1" stop-opacity="0"/></radialGradient>
+    <clipPath id="sq"><rect width="400" height="400" rx="28"/></clipPath>
+    <!-- biconcave disc: light rim, sunken centre, soft highlight on the rim -->
+    <symbol id="cell" viewBox="-60 -50 120 100"><ellipse rx="56" ry="44" fill="url(#rim)"/><ellipse cx="3" cy="3" rx="31" ry="23" fill="url(#pit)"/><path d="M-40-18a46 34 0 0 1 40-20" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="5" stroke-linecap="round"/></symbol>
+    <symbol id="paleCell" viewBox="-60 -50 120 100"><ellipse rx="56" ry="44" fill="url(#rimP)"/><ellipse cx="3" cy="3" rx="33" ry="25" fill="url(#pitP)"/><path d="M-40-18a46 34 0 0 1 40-20" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/></symbol>
+  </defs>
+  <style>
+    .f1{animation:f 7s ease-in-out infinite}.f2{animation:f 9s ease-in-out -3s infinite}.f3{animation:f 8s ease-in-out -5s infinite}
+    @keyframes f{50%{transform:translateY(-8px)}}
+    @media (prefers-reduced-motion:reduce){.f1,.f2,.f3{animation:none}}
+  </style>
+  <g clip-path="url(#sq)">
+    <rect width="400" height="400" fill="url(#bg)"/>
+    <circle cx="200" cy="200" r="160" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+    <circle cx="200" cy="200" r="110" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="2"/>
+    <circle cx="200" cy="200" r="62" fill="#fff" fill-opacity=".06"/>
+    <g class="f1"><use href="#cell" x="105" y="95" width="170" height="142" transform="rotate(-16 190 166)"/></g>
+    <g class="f2"><use href="#paleCell" x="35" y="225" width="120" height="100" transform="rotate(22 95 275)"/></g>
+    <g class="f3"><use href="#cell" x="225" y="230" width="135" height="112" transform="rotate(30 292 286)"/></g>
+    <g class="f1"><use href="#paleCell" x="270" y="50" width="85" height="70" transform="rotate(-12 312 85)"/></g>
+    <g class="f2"><use href="#paleCell" x="45" y="85" width="70" height="58" transform="rotate(18 80 114)"/></g>
+    <g class="f3"><use href="#cell" x="160" y="320" width="74" height="62" transform="rotate(-20 197 351)"/></g>
+  </g>
+</svg>

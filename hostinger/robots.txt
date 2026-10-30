@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /coming-soon
+Disallow: /404
+
+Sitemap: https://drneemabhat.com/sitemap.xml
