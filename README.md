@@ -40,7 +40,8 @@ status so Google does not drop the site.
 
 | File | Purpose |
 |---|---|
-| `includes/header.php` | Header and menu, shared by every page |
+| `includes/head.php` | Shared `<head>`: paste global tags (Google Analytics, GTM, Search Console, Meta Pixel) in the GLOBAL TAGS box and site-wide schema in the GLOBAL SCHEMA box |
+| `includes/header.php` | Header and menu, shared by every page (BODY TAGS box at the top for GTM `<noscript>`) |
 | `includes/footer.php` | Footer, shared by every page |
 | `includes/config.php` | Coming Soon switch and site address |
 | `.htaccess` | https + no-www redirects, clean addresses (`/about`), old `.html` → new address redirects, your own redirects (section 4), security headers, caching, compression, custom 404 |

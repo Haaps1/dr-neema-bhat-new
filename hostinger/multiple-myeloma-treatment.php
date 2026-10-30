@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Multiple Myeloma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist</title>
-  <meta name="description" content="Multiple myeloma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, staging, drug therapy, autologous transplant and long-term care.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/multiple-myeloma-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Multiple Myeloma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist">
-  <meta property="og:description" content="Multiple myeloma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, staging, drug therapy, autologous transplant and long-term care.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Multiple Myeloma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist';
+$nb_desc = 'Multiple myeloma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, staging, drug therapy, autologous transplant and long-term care.';
+$nb_canonical = '/multiple-myeloma-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Multiple Myeloma Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Multiple myeloma","alternateName":["Myeloma","Plasma cell myeloma"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which doctor should I see for multiple myeloma in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"A hematologist or hemato-oncologist (blood cancer specialist) treats multiple myeloma. Dr. Neema Bhat is a US-trained hematologist in Bangalore and bone marrow transplant specialist who treats myeloma and related plasma cell disorders."}},{"@type":"Question","name":"Is multiple myeloma curable?","acceptedAnswer":{"@type":"Answer","text":"Multiple myeloma is usually not curable, but it is very treatable. Many patients go into remission and stay well for years with modern medicines, stem cell transplant and maintenance therapy."}},{"@type":"Question","name":"What is the life expectancy with multiple myeloma?","acceptedAnswer":{"@type":"Answer","text":"It depends on the stage, genetic risk, age and response to treatment. With today’s treatments, many people live 7 to 10 years or longer, and some live much longer."}},{"@type":"Question","name":"What is the first sign of multiple myeloma?","acceptedAnswer":{"@type":"Answer","text":"The most common early sign is bone pain, especially in the back or ribs. Tiredness from anemia, frequent infections and kidney problems are also common early clues."}},{"@type":"Question","name":"Is a bone marrow transplant needed for myeloma?","acceptedAnswer":{"@type":"Answer","text":"Not for everyone. An autologous stem cell transplant (using your own cells) is advised for patients who are fit enough, because it helps keep myeloma in remission longer. Your doctor will tell you if it suits you."}},{"@type":"Question","name":"How long does myeloma treatment take?","acceptedAnswer":{"@type":"Answer","text":"First treatment usually takes 3 to 6 months. If a transplant is planned, it follows soon after. Maintenance therapy then continues, often for 2 years or more."}},{"@type":"Question","name":"Can myeloma come back after treatment?","acceptedAnswer":{"@type":"Answer","text":"Yes, myeloma often returns after some time. That is why regular follow-up tests matter. If it comes back, there are many effective treatment options."}},{"@type":"Question","name":"What is the difference between MGUS and myeloma?","acceptedAnswer":{"@type":"Answer","text":"MGUS is a harmless-looking condition with a small amount of M-protein and no symptoms. Myeloma has more abnormal cells and causes damage to bones, kidneys or blood. About 1 in 100 people with MGUS develop myeloma or a related disease each year."}},{"@type":"Question","name":"Is multiple myeloma hereditary?","acceptedAnswer":{"@type":"Answer","text":"Myeloma is not directly inherited. Having a close family member with myeloma or MGUS slightly raises your risk, but most patients have no family history."}},{"@type":"Question","name":"How much does multiple myeloma treatment in Bangalore cost?","acceptedAnswer":{"@type":"Answer","text":"The cost depends on the drugs used, the number of cycles and whether a stem cell transplant is needed. The clinic can share an estimate after your first consultation and help you with insurance paperwork."}}]}</script>
 </head>

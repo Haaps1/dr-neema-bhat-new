@@ -165,7 +165,23 @@ def ic(name, cls="ic"):
     return f'<svg class="{cls}"><use href="#{name}"/></svg>'
 
 
+def _php_str(v):
+    return "'" + v.replace("\\", "\\\\").replace("'", "\\'") + "'"
+
+
 def head(title, desc, canonical, extra=""):
+    if PHP_MODE:  # Hostinger copy: shared <head> lives in includes/head.php (global tags + global schema)
+        extra = extra.replace(LD_PHYSICIAN, "")
+        return f"""<!doctype html>
+<html lang="en-IN">
+<head>
+<?php
+$nb_title = {_php_str(title)};
+$nb_desc = {_php_str(desc)};
+$nb_canonical = {_php_str(canonical)};
+include __DIR__ . '/includes/head.php';
+?>
+{extra}</head>"""
     return f"""<!doctype html>
 <html lang="en-IN">
 <head>
@@ -2098,7 +2114,70 @@ def _php_header_template():
     for n, s, c, _ in SERVICES:
         h = svc_href(s)
         html = html.replace(f'href="{h}">', f'href="{h}"<?= $nb_current === \'{h}\' ? \' aria-current="page"\' : \'\' ?>>')
-    return "<?php /* Shared site header: edit the menu here once and every page updates. */ ?>\n" + ICONS + html
+    body_tags = ("<?php /* ===================== BODY TAGS =====================\n"
+                 "   Paste code that must come right after <body> on every page here,\n"
+                 "   for example Google Tag Manager's <noscript> part.\n"
+                 "   ===================================================== */ ?>\n\n"
+                 "<?php /* =================== END BODY TAGS =================== */ ?>\n")
+    return "<?php /* Shared site header: edit the menu here once and every page updates. */ ?>\n" + body_tags + ICONS + html
+
+
+LD_WEBSITE = """  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Dr. Neema Bhat","url":"@@SITE@@/","inLanguage":"en-IN"}
+  </script>
+"""
+
+
+def _php_head_template():
+    return f"""<?php
+/* ==================================================================
+   SHARED <head> FOR EVERY PAGE
+   Each page sets $nb_title, $nb_desc and $nb_canonical, then includes this file.
+   Add tags for ALL pages in the GLOBAL TAGS box below.
+   ================================================================== */
+$nb_url = SITE_URL . ($nb_canonical === '' ? '/' : $nb_canonical);
+?>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title><?= $nb_title ?></title>
+  <meta name="description" content="<?= $nb_desc ?>">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="canonical" href="<?= $nb_url ?>">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<?= $nb_url ?>">
+  <meta property="og:title" content="<?= $nb_title ?>">
+  <meta property="og:description" content="<?= $nb_desc ?>">
+  <meta property="og:image" content="<?= SITE_URL ?>/assets/images/portrait-scrubs-720.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/png" href="assets/images/logo-mark.png">
+  <link rel="apple-touch-icon" href="assets/images/logo-mark.png">
+  <link rel="preload" href="assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css?v={asset_v('assets/css/styles.css')}">
+
+<?php /* ======================= GLOBAL TAGS =======================
+   Paste here anything that must be on EVERY page, for example:
+     - Google Tag Manager (head part) or Google Analytics (gtag.js)
+     - Google Search Console / Bing verification <meta> tag
+     - Meta (Facebook) Pixel
+   For Google Tag Manager's <noscript> (body) part, use the BODY TAGS box
+   at the top of includes/header.php.
+   ============================================================ */ ?>
+
+
+<?php /* ===================== END GLOBAL TAGS ===================== */ ?>
+
+<?php /* ================= GLOBAL SCHEMA (JSON-LD) =================
+   Structured data added to EVERY page. Edit the details below or paste
+   more <script type="application/ld+json"> blocks.
+   Page-only schema (FAQs, medical condition) is inside each page file.
+   ============================================================ */ ?>
+{LD_PHYSICIAN}{LD_WEBSITE.replace("@@SITE@@", SITE_URL)}<?php /* =============== END GLOBAL SCHEMA =============== */ ?>
+"""
 
 
 def _php_footer_template():
@@ -2154,6 +2233,9 @@ AddDefaultCharset UTF-8
 RewriteEngine On
 
 # 1. Use one address only: https and WITHOUT "www" (www addresses are never indexed)
+#    mark www requests so they also get a "noindex" header (see headers section)
+RewriteCond %{HTTP_HOST} ^www\\. [NC]
+RewriteRule ^ - [E=NB_WWW:1]
 RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTPS} off
@@ -2167,12 +2249,12 @@ RewriteRule (^|/)\\.(?!well-known/) - [F,L]
 # 3. Old or long addresses -> clean addresses (301 = permanent redirect)
 #    /index.php, /index.html -> /      /about.php, /about.html -> /about
 RewriteCond %{THE_REQUEST} \\s/+index(?:\\.php|\\.html)?[\\s?] [NC]
-RewriteRule ^ / [L,R=301]
+RewriteRule ^ https://%{HTTP_HOST}/ [L,R=301]
 RewriteCond %{THE_REQUEST} \\s/+([a-z0-9/-]+?)\\.(?:php|html)[\\s?] [NC]
-RewriteRule ^ /%1 [L,R=301]
+RewriteRule ^ https://%{HTTP_HOST}/%1 [L,R=301]
 #    remove a trailing slash: /about/ -> /about
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)/$ /$1 [L,R=301]
+RewriteRule ^(.+)/$ https://%{HTTP_HOST}/$1 [L,R=301]
 
 # 4. YOUR OWN REDIRECTS: add one line per old page, for example:
 # Redirect 301 /old-page /new-page
@@ -2200,12 +2282,12 @@ RewriteRule ^([a-z0-9-]+)$ /$1.php [L]
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header always set Cross-Origin-Opener-Policy "same-origin"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests"
+  # Content-Security-Policy: allows Google Tag Manager, Google Analytics and Meta Pixel.
+  # If you add another tool and it does not load, add its domain here.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.facebook.com; frame-src https://www.google.com https://maps.google.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests"
   Header unset X-Powered-By
   # Safety net: never index anything served on a www address
-  <If "%{HTTP_HOST} =~ /^www\\./i">
-    Header always set X-Robots-Tag "noindex, nofollow"
-  </If>
+  Header always set X-Robots-Tag "noindex, nofollow" env=NB_WWW
   # Caching: CSS/JS are versioned (?v=), so they can be cached for a year
   <FilesMatch "\\.(css|js|woff2)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
@@ -2298,6 +2380,7 @@ def export_hostinger(pages):
             if "includes/header.php" in html:
                 html = html.replace(ICONS, "", 1)
             (HOST_DIR / f"{stem}.php").write_text(_clean_links(top + html), encoding="utf-8")
+        (HOST_DIR / "includes" / "head.php").write_text(_clean_links(_php_head_template()), encoding="utf-8")
         (HOST_DIR / "includes" / "header.php").write_text(_clean_links(_php_header_template()), encoding="utf-8")
         (HOST_DIR / "includes" / "footer.php").write_text(_clean_links(_php_footer_template()), encoding="utf-8")
     finally:

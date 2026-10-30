@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Brain Tumor Treatment in Bangalore | Dr. Neema Bhat</title>
-  <meta name="description" content="Brain tumor treatment in Bangalore with Dr. Neema Bhat, US-trained pediatric hematologist-oncologist: coordinated care with neurosurgeons and radiation oncologists, with special expertise in children.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/brain-tumor-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Brain Tumor Treatment in Bangalore | Dr. Neema Bhat">
-  <meta property="og:description" content="Brain tumor treatment in Bangalore with Dr. Neema Bhat, US-trained pediatric hematologist-oncologist: coordinated care with neurosurgeons and radiation oncologists, with special expertise in children.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Brain Tumor Treatment in Bangalore | Dr. Neema Bhat';
+$nb_desc = 'Brain tumor treatment in Bangalore with Dr. Neema Bhat, US-trained pediatric hematologist-oncologist: coordinated care with neurosurgeons and radiation oncologists, with special expertise in children.';
+$nb_canonical = '/brain-tumor-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Brain Tumor Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Brain tumor","alternateName":["Brain tumour","CNS tumor"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which doctor should I see for a brain tumor in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"Brain tumors are treated by a team. A neurosurgeon performs surgery, a radiation oncologist gives radiation, and a medical or pediatric oncologist gives chemotherapy and other medical treatment. For children, a pediatric oncologist like Dr. Neema Bhat coordinates the overall care."}},{"@type":"Question","name":"Are all brain tumors cancer?","acceptedAnswer":{"@type":"Answer","text":"No. Many brain tumors, such as most meningiomas and pituitary tumors, are benign. But even benign tumors can cause serious problems because of where they grow, so they still need expert care."}},{"@type":"Question","name":"Is a brain tumor curable?","acceptedAnswer":{"@type":"Answer","text":"Many are. Benign and low-grade tumors can often be cured with surgery. Some childhood tumors, like medulloblastoma and germ cell tumors, have good cure rates with combined treatment. Aggressive tumors like glioblastoma are harder to cure, but treatment can control them and improve quality of life."}},{"@type":"Question","name":"What are the early signs of a brain tumor?","acceptedAnswer":{"@type":"Answer","text":"Common early signs are new or worsening headaches (often in the morning), vomiting, a first seizure, vision changes, weakness on one side, and changes in behaviour or balance."}},{"@type":"Question","name":"Is every headache a sign of a brain tumor?","acceptedAnswer":{"@type":"Answer","text":"No. Most headaches are caused by tension, migraine, sinus problems or eye strain. See a doctor if a headache is new and keeps getting worse, wakes you from sleep, or comes with vomiting, fits, vision problems or weakness."}},{"@type":"Question","name":"Does every brain tumor need surgery?","acceptedAnswer":{"@type":"Answer","text":"No. Some small benign tumors are only monitored, some are treated with radiosurgery, and some, like germ cell tumors and CNS lymphoma, are treated mainly with chemotherapy and radiation."}},{"@type":"Question","name":"What is the most common brain tumor in children?","acceptedAnswer":{"@type":"Answer","text":"Low-grade gliomas, such as pilocytic astrocytoma, are the most common. Medulloblastoma is the most common malignant brain tumor in children."}},{"@type":"Question","name":"Can a brain tumor come back after treatment?","acceptedAnswer":{"@type":"Answer","text":"Yes, some tumors can come back, especially higher-grade tumors. Regular follow-up MRI scans help find any regrowth early, when more treatment choices are available."}},{"@type":"Question","name":"What are the side effects of brain tumor treatment?","acceptedAnswer":{"@type":"Answer","text":"Side effects depend on the treatment and include tiredness, hair loss, nausea, and a higher infection risk with chemotherapy. In children, treatment can affect growth, hormones, hearing and learning, so long-term follow-up is important."}},{"@type":"Question","name":"Will my child be able to go back to school?","acceptedAnswer":{"@type":"Answer","text":"Most children return to school after or even during treatment. Some may need extra learning support, physiotherapy or speech therapy, which the care team helps arrange."}}]}</script>
 </head>

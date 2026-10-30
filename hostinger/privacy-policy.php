@@ -1,25 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Privacy Policy | Dr. Neema Bhat</title>
-  <meta name="description" content="Privacy policy for the Dr. Neema Bhat website: what information is collected, how it is used and your rights.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/privacy-policy">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Privacy Policy | Dr. Neema Bhat">
-  <meta property="og:description" content="Privacy policy for the Dr. Neema Bhat website: what information is collected, how it is used and your rights.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
+<?php
+$nb_title = 'Privacy Policy | Dr. Neema Bhat';
+$nb_desc = 'Privacy policy for the Dr. Neema Bhat website: what information is collected, how it is used and your rights.';
+$nb_canonical = '/privacy-policy';
+include __DIR__ . '/includes/head.php';
+?>
 </head>
 <body data-page="legal"><?php $nb_active = 'legal'; $nb_current = '/privacy-policy'; include __DIR__ . '/includes/header.php'; ?>
 

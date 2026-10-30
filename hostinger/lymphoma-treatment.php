@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Lymphoma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist</title>
-  <meta name="description" content="Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: Hodgkin and non-Hodgkin lymphoma care for adults and children.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/lymphoma-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Lymphoma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist">
-  <meta property="og:description" content="Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: Hodgkin and non-Hodgkin lymphoma care for adults and children.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Lymphoma Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist';
+$nb_desc = 'Lymphoma treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: Hodgkin and non-Hodgkin lymphoma care for adults and children.';
+$nb_canonical = '/lymphoma-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Lymphoma Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Lymphoma","alternateName":["Hodgkin lymphoma","Non-Hodgkin lymphoma"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which doctor should I see for lymphoma in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"A hematologist or hemato-oncologist (blood cancer specialist) treats lymphoma. Dr. Neema Bhat is a US-trained hematologist in Bangalore who treats all types of lymphoma in adults and children."}},{"@type":"Question","name":"Is lymphoma curable?","acceptedAnswer":{"@type":"Answer","text":"Many lymphomas are curable. Most people with Hodgkin lymphoma and many with aggressive non-Hodgkin lymphoma, such as DLBCL, are cured with treatment. Slow-growing lymphomas are usually not cured but can be controlled for many years."}},{"@type":"Question","name":"Does every swollen lymph node mean lymphoma?","acceptedAnswer":{"@type":"Answer","text":"No. Most swollen glands are caused by infections and go away in 2 to 3 weeks. A painless lump that stays, grows, or comes with fever, night sweats or weight loss should be checked by a doctor."}},{"@type":"Question","name":"How is lymphoma different from TB of the lymph nodes?","acceptedAnswer":{"@type":"Answer","text":"Both can cause swollen glands, fever and weight loss, so they are often confused in India. A proper biopsy tells them apart. Never start TB treatment without a confirmed diagnosis."}},{"@type":"Question","name":"What is the difference between Hodgkin and non-Hodgkin lymphoma?","acceptedAnswer":{"@type":"Answer","text":"Hodgkin lymphoma has a special cell called the Reed-Sternberg cell and usually spreads in an orderly way from one lymph node group to the next. Non-Hodgkin lymphoma is a larger group with many subtypes that behave differently."}},{"@type":"Question","name":"How long does lymphoma treatment take?","acceptedAnswer":{"@type":"Answer","text":"Most treatment is given in cycles every 2 to 3 weeks, for about 3 to 6 months. Some slow-growing lymphomas need maintenance therapy for longer, while others need only watching."}},{"@type":"Question","name":"Is chemotherapy the only treatment for lymphoma?","acceptedAnswer":{"@type":"Answer","text":"No. Many patients receive chemotherapy combined with immunotherapy. Radiation, targeted therapy, stem cell transplant and CAR-T cell therapy are also used, depending on the type and stage."}},{"@type":"Question","name":"Can lymphoma come back after treatment?","acceptedAnswer":{"@type":"Answer","text":"Yes, it can, especially in slow-growing types. Regular follow-up helps find it early. If it returns, many effective treatments, including stem cell transplant, are available."}},{"@type":"Question","name":"Can children get lymphoma?","acceptedAnswer":{"@type":"Answer","text":"Yes. Hodgkin, Burkitt and lymphoblastic lymphomas are seen in children and teenagers, and most children are cured with treatment. Dr. Neema Bhat is a US board-certified pediatric hematologist-oncologist."}},{"@type":"Question","name":"How much does lymphoma treatment cost in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"The cost depends on the type of lymphoma, the medicines used, the number of cycles, and whether radiation or a transplant is needed. The clinic can share an estimate after your first consultation."}}]}</script>
 </head>

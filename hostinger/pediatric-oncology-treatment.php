@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Pediatric Oncology Treatment in Bangalore | Dr. Neema Bhat</title>
-  <meta name="description" content="Pediatric oncology treatment in Bangalore with Dr. Neema Bhat, US board-certified pediatric hematologist-oncologist: childhood leukemia, lymphoma, solid tumours and blood disorders, including bone marrow transplant.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/pediatric-oncology-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Pediatric Oncology Treatment in Bangalore | Dr. Neema Bhat">
-  <meta property="og:description" content="Pediatric oncology treatment in Bangalore with Dr. Neema Bhat, US board-certified pediatric hematologist-oncologist: childhood leukemia, lymphoma, solid tumours and blood disorders, including bone marrow transplant.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Pediatric Oncology Treatment in Bangalore | Dr. Neema Bhat';
+$nb_desc = 'Pediatric oncology treatment in Bangalore with Dr. Neema Bhat, US board-certified pediatric hematologist-oncologist: childhood leukemia, lymphoma, solid tumours and blood disorders, including bone marrow transplant.';
+$nb_canonical = '/pediatric-oncology-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Pediatric Oncology Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Childhood cancer","alternateName":["Pediatric cancer","Pediatric oncology"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Who is the right doctor for cancer in children in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"A pediatric oncologist or pediatric hemato-oncologist is the right specialist. Dr. Neema Bhat is a US board-certified pediatric hematologist-oncologist in Bangalore who treats childhood cancers and blood disorders."}},{"@type":"Question","name":"What is the most common cancer in children?","acceptedAnswer":{"@type":"Answer","text":"Leukemia, especially acute lymphoblastic leukemia (ALL), is the most common childhood cancer. In India, lymphomas and brain tumours are the next most common."}},{"@type":"Question","name":"Can childhood cancer be cured?","acceptedAnswer":{"@type":"Answer","text":"Yes, many childhood cancers can be cured. In high-income countries, more than 80% of children with cancer survive. Results are best when treatment starts early at a specialised centre and is completed fully."}},{"@type":"Question","name":"What are the early signs of cancer in children?","acceptedAnswer":{"@type":"Answer","text":"Common signs are paleness, easy bruising, repeated fever, a lump or swelling, bone pain, morning headaches with vomiting, and a white glow in the eye. See a doctor if any sign lasts more than two weeks."}},{"@type":"Question","name":"Did I cause my child’s cancer?","acceptedAnswer":{"@type":"Answer","text":"No. Most childhood cancers happen because of random gene changes in growing cells. They are not caused by anything parents did or did not do."}},{"@type":"Question","name":"How long does childhood cancer treatment take?","acceptedAnswer":{"@type":"Answer","text":"It depends on the cancer. Some solid tumours are treated in 6 to 12 months. Treatment for ALL usually takes about 2 to 3 years, though most of it is given as outpatient care."}},{"@type":"Question","name":"Will my child need to stay in hospital throughout treatment?","acceptedAnswer":{"@type":"Answer","text":"No. Children stay in hospital for some intensive phases, but much of the treatment is given as daycare or outpatient care, and children live at home."}},{"@type":"Question","name":"Can my child go to school during cancer treatment?","acceptedAnswer":{"@type":"Answer","text":"Many children can go back to school during the less intensive phases of treatment, when blood counts are safe. Your doctor will advise when it is safe."}},{"@type":"Question","name":"What are the side effects of chemotherapy in children?","acceptedAnswer":{"@type":"Answer","text":"Common side effects are hair loss, nausea, mouth sores, tiredness and a higher risk of infections. Most go away after treatment, and the care team helps manage them."}},{"@type":"Question","name":"Will treatment affect my child’s growth or future fertility?","acceptedAnswer":{"@type":"Answer","text":"Some treatments can affect growth, hormones or fertility. The team plans treatment to reduce these risks, discusses fertility preservation for teenagers, and checks for late effects during follow-up."}}]}</script>
 </head>

@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Dr. Neema Bhat | Best Hematologist &amp; Pediatric Oncologist in Bangalore</title>
-  <meta name="description" content="Dr. Neema Bhat is a Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore, caring for children and adults with blood disorders and blood cancers.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Dr. Neema Bhat | Best Hematologist &amp; Pediatric Oncologist in Bangalore">
-  <meta property="og:description" content="Dr. Neema Bhat is a Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore, caring for children and adults with blood disorders and blood cancers.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Dr. Neema Bhat | Best Hematologist &amp; Pediatric Oncologist in Bangalore';
+$nb_desc = 'Dr. Neema Bhat is a Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore, caring for children and adults with blood disorders and blood cancers.';
+$nb_canonical = '';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does a hematologist treat?","acceptedAnswer":{"@type":"Answer","text":"A hematologist diagnoses and treats disorders of the blood, bone marrow and lymph nodes: such as anaemia, bleeding and clotting problems, thalassemia, and blood cancers like leukaemia, lymphoma and myeloma."}},{"@type":"Question","name":"Does Dr. Neema Bhat treat children as well as adults?","acceptedAnswer":{"@type":"Answer","text":"Yes. Dr. Neema Bhat is trained in pediatric hematology and oncology and also treats adults, so she cares for blood disorders and blood cancers across all ages."}},{"@type":"Question","name":"When should my child see a pediatric hemato-oncologist?","acceptedAnswer":{"@type":"Answer","text":"If your child has unexplained paleness, frequent bruising or bleeding, persistent fevers, swollen glands, bone pain or an abnormal blood test, a specialist opinion helps find the cause early."}},{"@type":"Question","name":"Where does Dr. Neema Bhat consult?","acceptedAnswer":{"@type":"Answer","text":"OPD is at Apollo Hospitals, Bannerghatta Road (Mon – Sat, 11 AM – 4 PM), the Therapy Clinic (Mon – Sat, 5 – 7 PM) and Apollo One &amp; Apollo Cradle, Electronic City (Fridays, 2 – 4 PM)."}},{"@type":"Question","name":"Can I get a second opinion?","acceptedAnswer":{"@type":"Answer","text":"Yes. Bring your reports, biopsy results and current treatment details, and Dr. Neema Bhat will review the diagnosis and options with you."}},{"@type":"Question","name":"How do I book an appointment?","acceptedAnswer":{"@type":"Answer","text":"Call or WhatsApp +91 78997 56677, or use the booking form on the Contact page. Your request opens in WhatsApp so you can review it before sending."}}]}</script>
 </head>
 <body data-page="home"><?php $nb_active = 'home'; $nb_current = ''; include __DIR__ . '/includes/header.php'; ?>

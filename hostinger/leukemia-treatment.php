@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Leukemia Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist</title>
-  <meta name="description" content="Leukemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, chemotherapy, targeted therapy and transplant for children and adults.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/leukemia-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Leukemia Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist">
-  <meta property="og:description" content="Leukemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, chemotherapy, targeted therapy and transplant for children and adults.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Leukemia Treatment in Bangalore | Dr. Neema Bhat, Hemato-Oncologist';
+$nb_desc = 'Leukemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: diagnosis, chemotherapy, targeted therapy and transplant for children and adults.';
+$nb_canonical = '/leukemia-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Leukemia Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Leukemia","alternateName":["Leukaemia","Blood cancer"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is leukemia curable?","acceptedAnswer":{"@type":"Answer","text":"Many types are. Most children with ALL and most people with APL can be cured, and CML can be controlled for many years with daily tablets. AML is harder to treat, but a transplant improves the chances of cure."}},{"@type":"Question","name":"Can leukemia in children be cured?","acceptedAnswer":{"@type":"Answer","text":"Yes. Childhood ALL is one of the most treatable childhood cancers. In a large Indian study, 73 to 88 out of 100 children were alive four years after treatment, depending on their risk group."}},{"@type":"Question","name":"What is the most effective treatment for leukemia?","acceptedAnswer":{"@type":"Answer","text":"It depends on the type. Chemotherapy is the main treatment for ALL and AML, targeted tablets for CML, ATRA with arsenic for APL, and a bone marrow transplant for high-risk or relapsed leukemia."}},{"@type":"Question","name":"How long does leukemia treatment take?","acceptedAnswer":{"@type":"Answer","text":"ALL treatment takes about 2 to 3 years, though most of it is oral tablets at home after the first months. AML treatment usually takes about 6 months. CML tablets are taken long term."}},{"@type":"Question","name":"Can leukemia be treated without chemotherapy?","acceptedAnswer":{"@type":"Answer","text":"Some types can. CML is treated with targeted tablets, APL mainly with ATRA and arsenic, and early CLL may only need monitoring. ALL and AML usually need chemotherapy."}},{"@type":"Question","name":"Will chemotherapy cause hair loss?","acceptedAnswer":{"@type":"Answer","text":"Many chemotherapy medicines cause hair loss, but it is temporary. Hair usually grows back within a few months after treatment."}},{"@type":"Question","name":"Can leukemia come back after treatment?","acceptedAnswer":{"@type":"Answer","text":"Sometimes. That is why regular follow-up and blood tests continue after treatment. If it comes back, options include more chemotherapy, immunotherapy, CAR-T or a transplant."}},{"@type":"Question","name":"Which doctor treats leukemia?","acceptedAnswer":{"@type":"Answer","text":"A hematologist or hemato-oncologist, a blood cancer specialist, treats leukemia. Dr. Neema Bhat is a US-trained hematologist in Bangalore who treats leukemia in children and adults."}},{"@type":"Question","name":"What is the leukemia treatment cost in India?","acceptedAnswer":{"@type":"Answer","text":"It varies with the type and plan. CML needs ongoing tablet costs, ALL treatment is spread over 2 to 3 years, and transplants and CAR-T cost more. PM-JAY and health insurance cover many of these treatments."}},{"@type":"Question","name":"Is leukemia hereditary?","acceptedAnswer":{"@type":"Answer","text":"Usually not. Most leukemias are caused by gene changes that happen during a person’s life, not ones passed down from parents. Leukemia is also not contagious."}}]}</script>
 </head>

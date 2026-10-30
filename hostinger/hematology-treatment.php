@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Hematology Treatment in Bangalore | Dr. Neema Bhat, Hematologist</title>
-  <meta name="description" content="Hematology treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience: anemia, bleeding and clotting disorders, thalassemia and blood cancers in adults and children.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/hematology-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Hematology Treatment in Bangalore | Dr. Neema Bhat, Hematologist">
-  <meta property="og:description" content="Hematology treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience: anemia, bleeding and clotting disorders, thalassemia and blood cancers in adults and children.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Hematology Treatment in Bangalore | Dr. Neema Bhat, Hematologist';
+$nb_desc = 'Hematology treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience: anemia, bleeding and clotting disorders, thalassemia and blood cancers in adults and children.';
+$nb_canonical = '/hematology-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Hematology Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Blood disorders","alternateName":["Hematologic diseases"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does a hematologist treat?","acceptedAnswer":{"@type":"Answer","text":"A hematologist treats diseases of the blood, bone marrow and lymph nodes. This includes anemia, bleeding and clotting disorders, low or high blood counts, thalassemia, sickle cell disease and blood cancers like leukemia, lymphoma and myeloma."}},{"@type":"Question","name":"When should I see a hematologist?","acceptedAnswer":{"@type":"Answer","text":"See a hematologist if your blood report shows abnormal counts, if anemia does not improve with treatment, or if you have easy bruising, unusual bleeding, repeated blood clots, swollen glands or a family history of a blood disorder."}},{"@type":"Question","name":"Is a hematologist the same as an oncologist?","acceptedAnswer":{"@type":"Answer","text":"Not exactly. A hematologist treats all blood disorders, both non-cancerous and cancerous. A hemato-oncologist specialises in blood cancers. An oncologist treats cancers of other organs. Dr. Neema Bhat treats both blood disorders and blood cancers."}},{"@type":"Question","name":"Does being referred to a hematologist mean I have cancer?","acceptedAnswer":{"@type":"Answer","text":"No. Most people seen by a hematologist have non-cancerous problems like anemia, low platelets or clotting issues. A referral simply means a blood specialist will find the cause faster."}},{"@type":"Question","name":"What happens at the first hematology appointment?","acceptedAnswer":{"@type":"Answer","text":"The doctor will ask about your symptoms, medical and family history, and medicines. She will examine you and review your reports. You may need more blood tests, and rarely a bone marrow test."}},{"@type":"Question","name":"What should I bring to my first visit?","acceptedAnswer":{"@type":"Answer","text":"Bring all recent blood reports, scans, discharge summaries and a list of your current medicines. Older reports help show how your counts have changed over time."}},{"@type":"Question","name":"Are blood disorders curable?","acceptedAnswer":{"@type":"Answer","text":"Many are. Nutritional anemias are usually cured once the cause is fixed. Some conditions like hemophilia need lifelong care, while thalassemia, sickle cell disease, aplastic anemia and some blood cancers can be cured with a bone marrow transplant."}},{"@type":"Question","name":"Is a bone marrow test painful?","acceptedAnswer":{"@type":"Answer","text":"The area is numbed with local anaesthesia, so most people feel only pressure and brief discomfort. The test usually takes 15 to 30 minutes, and you can go home the same day."}},{"@type":"Question","name":"Can children see a hematologist?","acceptedAnswer":{"@type":"Answer","text":"Yes. Dr. Neema Bhat is a US board-certified pediatrician and pediatric hematologist. She treats babies, children and teenagers with anemia, thalassemia, ITP, hemophilia and childhood leukemia."}},{"@type":"Question","name":"How much does hematology treatment in Bangalore cost?","acceptedAnswer":{"@type":"Answer","text":"The cost depends on the condition. Blood tests and tablets are usually affordable, while transfusions, chemotherapy and bone marrow transplant cost more. The clinic can share an estimate after your first consultation."}}]}</script>
 </head>

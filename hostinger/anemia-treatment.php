@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist</title>
-  <meta name="description" content="Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it, for adults and children at Apollo Hospitals, Bannerghatta Road.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/anemia-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist">
-  <meta property="og:description" content="Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it, for adults and children at Apollo Hospitals, Bannerghatta Road.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Anemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist';
+$nb_desc = 'Anemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist with 10+ years of experience. Finds the cause of low hemoglobin and treats it, for adults and children at Apollo Hospitals, Bannerghatta Road.';
+$nb_canonical = '/anemia-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Anemia Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Anemia","alternateName":["Anaemia","Low hemoglobin"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which doctor should I see for anemia in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"A hematologist (blood specialist) is the right doctor for anemia that is moderate, severe, keeps coming back, or does not improve with iron tablets. Dr. Neema Bhat is a US-trained hematologist in Bangalore who treats all types of anemia in adults and children."}},{"@type":"Question","name":"What hemoglobin level is considered anemia?","acceptedAnswer":{"@type":"Answer","text":"The WHO defines anemia as hemoglobin below 13 g/dL in men, below 12 g/dL in non-pregnant women, and below 11 g/dL in pregnant women and young children."}},{"@type":"Question","name":"Can anemia be cured permanently?","acceptedAnswer":{"@type":"Answer","text":"Yes, most anemias caused by low iron, B12 or folate can be cured once the cause is corrected. Inherited types like thalassemia need long-term care, and some can be cured with a bone marrow transplant."}},{"@type":"Question","name":"How long does anemia treatment take?","acceptedAnswer":{"@type":"Answer","text":"Most people with iron deficiency feel better in 2 to 3 weeks, and hemoglobin returns to normal in about 2 months. Treatment usually continues for a few more months to rebuild iron stores."}},{"@type":"Question","name":"What is the fastest way to treat anemia?","acceptedAnswer":{"@type":"Answer","text":"The fastest safe treatment depends on the cause. For iron deficiency, an IV iron infusion can raise iron levels much faster than tablets. Blood transfusion is used only for severe anemia or emergencies."}},{"@type":"Question","name":"Can anemia be treated without a blood transfusion?","acceptedAnswer":{"@type":"Answer","text":"Yes. Most patients are treated with iron tablets, IV iron, vitamin B12 or folic acid, and by fixing the root cause. Transfusions are needed only in severe or special cases."}},{"@type":"Question","name":"Does seeing a hemato-oncologist for anemia mean I have cancer?","acceptedAnswer":{"@type":"Answer","text":"No. A hemato-oncologist treats all blood problems: common ones like anemia as well as blood cancers. Most anemia is caused by low iron or vitamins. Seeing a blood specialist simply means the cause is found faster and treated correctly."}},{"@type":"Question","name":"Can anemia come back after treatment?","acceptedAnswer":{"@type":"Answer","text":"It can, if the underlying cause, such as heavy periods, a poor diet or slow bleeding in the gut, is not fixed. Regular follow-up blood tests help prevent this."}},{"@type":"Question","name":"How much does anemia treatment in Bangalore cost?","acceptedAnswer":{"@type":"Answer","text":"Most anemia treatment, such as blood tests and iron or vitamin supplements, is affordable. Costs rise only for IV infusions, transfusions or specialised treatments. The clinic can share an estimate after your first consultation."}},{"@type":"Question","name":"Can children and pregnant women get anemia treatment?","acceptedAnswer":{"@type":"Answer","text":"Yes. Dr. Neema Bhat is a US board-certified pediatrician and hematologist, and she treats anemia in babies, children, teenagers and pregnant women with safe, age-appropriate care."}}]}</script>
 </head>

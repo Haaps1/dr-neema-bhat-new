@@ -1,31 +1,12 @@
 <?php require_once __DIR__ . '/includes/config.php'; ?><!doctype html>
 <html lang="en-IN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Thalassemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist</title>
-  <meta name="description" content="Thalassemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: carrier testing, transfusion and chelation care, and curative transplant.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="canonical" href="https://drneemabhat.com/thalassemia-treatment">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Thalassemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist">
-  <meta property="og:description" content="Thalassemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: carrier testing, transfusion and chelation care, and curative transplant.">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/portrait-scrubs-720.webp">
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="icon" type="image/png" href="/assets/images/logo-mark.png">
-  <link rel="apple-touch-icon" href="/assets/images/logo-mark.png">
-  <link rel="preload" href="/assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=c33e8bef">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
-   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
-   "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
-  </script>
+<?php
+$nb_title = 'Thalassemia Treatment in Bangalore | Dr. Neema Bhat, Hematologist';
+$nb_desc = 'Thalassemia treatment in Bangalore with Dr. Neema Bhat, US-trained hematologist and bone marrow transplant specialist: carrier testing, transfusion and chelation care, and curative transplant.';
+$nb_canonical = '/thalassemia-treatment';
+include __DIR__ . '/includes/head.php';
+?>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MedicalWebPage","name":"Thalassemia Treatment in Bangalore","about":{"@type":"MedicalCondition","name":"Thalassemia","alternateName":["Thalassaemia","Cooley's anemia"]},"author":{"@type":"Physician","name":"Dr. Neema Bhat"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can thalassemia be cured permanently?","acceptedAnswer":{"@type":"Answer","text":"Yes. A bone marrow transplant can cure thalassemia major permanently, especially when it is done early with a matched sibling donor. Without a transplant, thalassemia is managed lifelong with transfusions and iron chelation."}},{"@type":"Question","name":"What is the best treatment for thalassemia major?","acceptedAnswer":{"@type":"Answer","text":"For children with a matched donor, a bone marrow transplant is the best treatment because it is curative. For others, regular transfusions with good iron chelation give a long and active life."}},{"@type":"Question","name":"How often do thalassemia patients need blood?","acceptedAnswer":{"@type":"Answer","text":"Most people with thalassemia major need a transfusion every 2 to 4 weeks. The exact gap depends on their hemoglobin level, age and weight."}},{"@type":"Question","name":"Is thalassemia minor dangerous?","acceptedAnswer":{"@type":"Answer","text":"No. Thalassemia minor usually causes no symptoms or only mild anemia and needs no treatment. It matters mainly for family planning, because two carriers can have a child with thalassemia major."}},{"@type":"Question","name":"Can a thalassemia minor person get married?","acceptedAnswer":{"@type":"Answer","text":"Yes. A carrier can marry anyone. If both partners are carriers, they should have genetic counselling and prenatal testing in each pregnancy."}},{"@type":"Question","name":"How long do thalassemia major patients live?","acceptedAnswer":{"@type":"Answer","text":"With regular transfusions, daily chelation and good follow-up, many people with thalassemia major now live well into adulthood, study, work and have families. A successful transplant offers a normal life expectancy."}},{"@type":"Question","name":"What kind of doctor treats thalassemia?","acceptedAnswer":{"@type":"Answer","text":"A hematologist, especially a pediatric hematologist with bone marrow transplant experience, treats thalassemia. Dr. Neema Bhat is a US-trained hematologist in Bangalore who manages both transfusion care and transplant."}},{"@type":"Question","name":"What is the thalassemia treatment cost in India?","acceptedAnswer":{"@type":"Answer","text":"Lifelong transfusion care is an ongoing monthly cost. A bone marrow transplant usually costs ₹15 to ₹25 lakh, and schemes such as Thalassemia Bal Sewa Yojana can cover up to ₹10 lakh for eligible children."}},{"@type":"Question","name":"Can I get free or low-cost treatment for thalassemia in Bangalore?","acceptedAnswer":{"@type":"Answer","text":"Yes. Government schemes, CSR funds and NGO-run day care centres in Bangalore help with transfusions, medicines and transplant costs. The team can help you check which ones you qualify for."}},{"@type":"Question","name":"Is thalassemia a blood cancer?","acceptedAnswer":{"@type":"Answer","text":"No. Thalassemia is an inherited problem with hemoglobin production. It is not cancer and it is not contagious."}}]}</script>
 </head>
