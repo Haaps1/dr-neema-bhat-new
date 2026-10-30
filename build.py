@@ -151,7 +151,7 @@ ICONS = """
 
 LD_PHYSICIAN = """  <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
+   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"}],
    "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
    "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
   </script>
@@ -468,7 +468,6 @@ def where_section(title="Where Dr. Neema Bhat <span class=\"grad-text\">consults
         ("Apollo Hospitals, Bannerghatta Road", "OPD · Mon – Sat, 11 AM – 4 PM"),
         ("Therapy Clinic", "Evenings · Mon – Sat, 5 – 7 PM"),
         ("Apollo One &amp; Apollo Cradle, Electronic City", "Hosa Road · Fridays, 2 – 4 PM"),
-        ("Bhagawan Mahaveer Jain Hospital", "Bone Marrow Transplant Unit"),
     ]
     items = "".join(f'<li>{ic("i-pin")}<div><b>{h}</b><span>{t}</span></div></li>' for h, t in hosp)
     return f"""
@@ -2135,7 +2134,9 @@ def _php_head_template():
    Each page sets $nb_title, $nb_desc and $nb_canonical, then includes this file.
    Add tags for ALL pages in the GLOBAL TAGS box below.
    ================================================================== */
-$nb_url = SITE_URL . ($nb_canonical === '' ? '/' : $nb_canonical);
+$nb_url = htmlspecialchars(SITE_URL . ($nb_canonical === '' ? '/' : $nb_canonical), ENT_QUOTES, 'UTF-8', false);
+$nb_title = htmlspecialchars($nb_title, ENT_QUOTES, 'UTF-8', false);
+$nb_desc = htmlspecialchars($nb_desc, ENT_QUOTES, 'UTF-8', false);
 ?>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -2186,6 +2187,14 @@ def _php_footer_template():
     return "<?php /* Shared site footer: edit once and every page updates. */ ?>" + html
 
 
+ASSETS_HTACCESS = """# Images, fonts, CSS and JS only: never run scripts from this folder
+<FilesMatch "\\.(php\\d?|phtml|phar|phps|pl|py|cgi|sh|asp|aspx|jsp)$">
+  Require all denied
+</FilesMatch>
+Options -ExecCGI -Indexes
+"""
+
+
 CONFIG_PHP = """<?php
 /* ------------------------------------------------------------------
    Site settings
@@ -2205,11 +2214,12 @@ define('SITE_URL', '@@SITE@@');
 
 /* ------------------------------------------------------------------ */
 if (COMING_SOON && empty($nb_is_coming_soon)) {
+    $nb_pass = hash_hmac('sha256', 'nb-preview', PREVIEW_KEY);   // signed, so the cookie cannot be faked
     if (isset($_GET['preview']) && hash_equals(PREVIEW_KEY, (string) $_GET['preview'])) {
-        setcookie('nb_preview', '1', ['expires' => time() + 7 * 86400, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
-        $_COOKIE['nb_preview'] = '1';
+        setcookie('nb_preview', $nb_pass, ['expires' => time() + 7 * 86400, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
+        $_COOKIE['nb_preview'] = $nb_pass;
     }
-    if (empty($_COOKIE['nb_preview'])) {
+    if (!hash_equals($nb_pass, (string) ($_COOKIE['nb_preview'] ?? ''))) {
         http_response_code(503);           // tells Google "temporarily unavailable", so nothing is de-indexed
         header('Retry-After: 86400');
         header('X-Robots-Tag: noindex');
@@ -2268,7 +2278,7 @@ RewriteRule ^([a-z0-9-]+)$ /$1.php [L]
 </IfModule>
 
 # Never serve config, source or backup files
-<FilesMatch "\\.(ini|log|sh|sql|bak|py|md|zip|env|lock|json)$">
+<FilesMatch "(\\.(ini|log|sh|sql|bak|old|orig|swp|dist|py|md|zip|tar|gz|rar|env|lock|json|ya?ml|phps|phtml|phar|inc)|~)$">
   Require all denied
 </FilesMatch>
 <Files "manifest.webmanifest">
@@ -2380,13 +2390,15 @@ def export_hostinger(pages):
             if "includes/header.php" in html:
                 html = html.replace(ICONS, "", 1)
             (HOST_DIR / f"{stem}.php").write_text(_clean_links(top + html), encoding="utf-8")
-        (HOST_DIR / "includes" / "head.php").write_text(_clean_links(_php_head_template()), encoding="utf-8")
-        (HOST_DIR / "includes" / "header.php").write_text(_clean_links(_php_header_template()), encoding="utf-8")
-        (HOST_DIR / "includes" / "footer.php").write_text(_clean_links(_php_footer_template()), encoding="utf-8")
+        guard = "<?php defined('SITE_URL') || exit; /* only works when included by a page */ ?>"
+        (HOST_DIR / "includes" / "head.php").write_text(guard + _clean_links(_php_head_template()), encoding="utf-8")
+        (HOST_DIR / "includes" / "header.php").write_text(guard + _clean_links(_php_header_template()), encoding="utf-8")
+        (HOST_DIR / "includes" / "footer.php").write_text(guard + _clean_links(_php_footer_template()), encoding="utf-8")
     finally:
         PHP_MODE = False
     (HOST_DIR / "includes" / "config.php").write_text(CONFIG_PHP.replace("@@SITE@@", SITE_URL), encoding="utf-8")
     (HOST_DIR / "includes" / ".htaccess").write_text("Require all denied\n", encoding="utf-8")
+    (HOST_DIR / "assets" / ".htaccess").write_text(ASSETS_HTACCESS, encoding="utf-8")
     (HOST_DIR / ".htaccess").write_text(HTACCESS, encoding="utf-8")
     (HOST_DIR / "robots.txt").write_text(_robots(), encoding="utf-8")
     (HOST_DIR / "sitemap.xml").write_text(_sitemap(), encoding="utf-8")

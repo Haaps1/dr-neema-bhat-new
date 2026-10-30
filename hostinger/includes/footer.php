@@ -1,4 +1,4 @@
-<?php /* Shared site footer: edit once and every page updates. */ ?>
+<?php defined('SITE_URL') || exit; /* only works when included by a page */ ?><?php /* Shared site footer: edit once and every page updates. */ ?>
   <footer class="foot">
     <div class="wrap">
       <div class="foot__grid">

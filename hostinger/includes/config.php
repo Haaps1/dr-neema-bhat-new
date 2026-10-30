@@ -17,11 +17,12 @@ define('SITE_URL', 'https://drneemabhat.com');
 
 /* ------------------------------------------------------------------ */
 if (COMING_SOON && empty($nb_is_coming_soon)) {
+    $nb_pass = hash_hmac('sha256', 'nb-preview', PREVIEW_KEY);   // signed, so the cookie cannot be faked
     if (isset($_GET['preview']) && hash_equals(PREVIEW_KEY, (string) $_GET['preview'])) {
-        setcookie('nb_preview', '1', ['expires' => time() + 7 * 86400, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
-        $_COOKIE['nb_preview'] = '1';
+        setcookie('nb_preview', $nb_pass, ['expires' => time() + 7 * 86400, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
+        $_COOKIE['nb_preview'] = $nb_pass;
     }
-    if (empty($_COOKIE['nb_preview'])) {
+    if (!hash_equals($nb_pass, (string) ($_COOKIE['nb_preview'] ?? ''))) {
         http_response_code(503);           // tells Google "temporarily unavailable", so nothing is de-indexed
         header('Retry-After: 86400');
         header('X-Robots-Tag: noindex');

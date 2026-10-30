@@ -1,10 +1,12 @@
-<?php
+<?php defined('SITE_URL') || exit; /* only works when included by a page */ ?><?php
 /* ==================================================================
    SHARED <head> FOR EVERY PAGE
    Each page sets $nb_title, $nb_desc and $nb_canonical, then includes this file.
    Add tags for ALL pages in the GLOBAL TAGS box below.
    ================================================================== */
-$nb_url = SITE_URL . ($nb_canonical === '' ? '/' : $nb_canonical);
+$nb_url = htmlspecialchars(SITE_URL . ($nb_canonical === '' ? '/' : $nb_canonical), ENT_QUOTES, 'UTF-8', false);
+$nb_title = htmlspecialchars($nb_title, ENT_QUOTES, 'UTF-8', false);
+$nb_desc = htmlspecialchars($nb_desc, ENT_QUOTES, 'UTF-8', false);
 ?>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -47,7 +49,7 @@ $nb_url = SITE_URL . ($nb_canonical === '' ? '/' : $nb_canonical);
    ============================================================ */ ?>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Physician","name":"Dr. Neema Bhat","description":"Hematologist, Pediatric Oncologist and Bone Marrow Transplant specialist in Bangalore.","url":"https://drneemabhat.com/","image":"https://drneemabhat.com/assets/images/portrait-scrubs.webp","telephone":"+91-78997-56677","medicalSpecialty":["Hematologic","Oncologic","Pediatric"],"alumniOf":{"@type":"Hospital","name":"Penn State Health"},
-   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"},{"@type":"Hospital","name":"Bhagawan Mahaveer Jain Hospital"}],
+   "hospitalAffiliation":[{"@type":"Hospital","name":"Apollo Hospitals, Bannerghatta Road"},{"@type":"Hospital","name":"Apollo One & Apollo Cradle, Electronic City"}],
    "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:00","closes":"16:00","description":"OPD, Apollo Hospitals, Bannerghatta Road"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00","description":"Apollo One & Apollo Cradle, Hosa Road, Electronic City"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"19:00","description":"Therapy Clinic"}],
    "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"areaServed":"Bangalore"}
   </script>

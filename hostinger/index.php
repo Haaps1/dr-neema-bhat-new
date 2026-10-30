@@ -199,7 +199,7 @@ include __DIR__ . '/includes/head.php';
           <p class="tag" data-fx="wipe-x">OPD timings</p>
           <h2 class="title" id="t-title" data-fx="wipe">Where Dr. Neema Bhat <span class="grad-text">consults</span></h2>
           <p class="lead" data-fx="fade">Please call or WhatsApp +91 78997 56677 to confirm before visiting.</p>
-          <ul class="hosp"><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Apollo Hospitals, Bannerghatta Road</b><span>OPD · Mon – Sat, 11 AM – 4 PM</span></div></li><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Therapy Clinic</b><span>Evenings · Mon – Sat, 5 – 7 PM</span></div></li><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Apollo One &amp; Apollo Cradle, Electronic City</b><span>Hosa Road · Fridays, 2 – 4 PM</span></div></li><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Bhagawan Mahaveer Jain Hospital</b><span>Bone Marrow Transplant Unit</span></div></li></ul>
+          <ul class="hosp"><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Apollo Hospitals, Bannerghatta Road</b><span>OPD · Mon – Sat, 11 AM – 4 PM</span></div></li><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Therapy Clinic</b><span>Evenings · Mon – Sat, 5 – 7 PM</span></div></li><li><svg class="ic"><use href="#i-pin"/></svg><div><b>Apollo One &amp; Apollo Cradle, Electronic City</b><span>Hosa Road · Fridays, 2 – 4 PM</span></div></li></ul>
         </div>
         <div>
           <p class="lead" style="margin:0 0 12px;color:var(--navy);font-weight:500">Pick a day to see her schedule</p>

@@ -1,4 +1,4 @@
-<?php /* Shared site header: edit the menu here once and every page updates. */ ?>
+<?php defined('SITE_URL') || exit; /* only works when included by a page */ ?><?php /* Shared site header: edit the menu here once and every page updates. */ ?>
 <?php /* ===================== BODY TAGS =====================
    Paste code that must come right after <body> on every page here,
    for example Google Tag Manager's <noscript> part.

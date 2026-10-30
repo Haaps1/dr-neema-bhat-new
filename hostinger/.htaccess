@@ -46,7 +46,7 @@ RewriteRule ^([a-z0-9-]+)$ /$1.php [L]
 </IfModule>
 
 # Never serve config, source or backup files
-<FilesMatch "\.(ini|log|sh|sql|bak|py|md|zip|env|lock|json)$">
+<FilesMatch "(\.(ini|log|sh|sql|bak|old|orig|swp|dist|py|md|zip|tar|gz|rar|env|lock|json|ya?ml|phps|phtml|phar|inc)|~)$">
   Require all denied
 </FilesMatch>
 <Files "manifest.webmanifest">

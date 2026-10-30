@@ -1,0 +1,5 @@
+# Images, fonts, CSS and JS only: never run scripts from this folder
+<FilesMatch "\.(php\d?|phtml|phar|phps|pl|py|cgi|sh|asp|aspx|jsp)$">
+  Require all denied
+</FilesMatch>
+Options -ExecCGI -Indexes
